@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Nodes : MonoBehaviour {
-	[SerializeField]
-	private string name; 
-	private Vector2 position; 
-	List<Edge> listOfEdges; 
+	public string Name { get; set; } 
+	public Vector2 Position { get; set; } 
+	private List<Edge> ListOfEdges;
 }
