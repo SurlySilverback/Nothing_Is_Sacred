@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[Tiled2Unity.CustomTiledImporter]
 public class CustomImporter_StrategyTiles : Tiled2Unity.ICustomTiledImporter
 {
  
