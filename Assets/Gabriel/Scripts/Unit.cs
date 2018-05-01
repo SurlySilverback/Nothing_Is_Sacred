@@ -11,5 +11,5 @@ public class Unit : ScriptableObject
 	public int Subtlety {get; set;}				// Determines how effective the unit is at avoiding detection.
 	public Vector2 Coordinates {get; set;}			// The unit's x-y coordinates on the map. 
 	public Vector2Int inventorySize;		// Determines the max capacity carryable by the unit.
-	public List<Goods> Inventory;			// The Goods currently carried by the inventory.
+	// public List<Goods> Inventory;			// The Goods currently carried by the inventory.
 }
