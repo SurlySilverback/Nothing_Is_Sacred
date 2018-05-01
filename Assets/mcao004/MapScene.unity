@@ -158,7 +158,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1193616367434670, guid: dcab9b2ae14b5f5498c17cccfa334fea, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4687081129647560, guid: dcab9b2ae14b5f5498c17cccfa334fea, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114878977723563884, guid: dcab9b2ae14b5f5498c17cccfa334fea, type: 2}
@@ -183,6 +187,23 @@ MonoBehaviour:
   state: 0
   controlPoints: []
   lr: {fileID: 0}
+  m:
+    e00: 0
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 0
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 0
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 0
 --- !u!1 &343518653
 GameObject:
   m_ObjectHideFlags: 0
