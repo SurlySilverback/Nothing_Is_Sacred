@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Nodes : MonoBehaviour {
+public class Node : MonoBehaviour {
 	public string Name { get; set; } 
 	public Vector2 Position { get; set; } 
 	private List<Edge> ListOfEdges;

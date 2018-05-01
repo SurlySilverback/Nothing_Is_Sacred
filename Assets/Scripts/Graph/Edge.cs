@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Edges : MonoBehaviour {
+public class Edge : MonoBehaviour {
 	[SerializeField]
 	private string name;
 	private Node start; 
