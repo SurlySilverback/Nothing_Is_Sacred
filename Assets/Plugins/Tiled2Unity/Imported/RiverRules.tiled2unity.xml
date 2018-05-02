@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--Tiled2Unity generated xml data-->
+<!--Do not modify by hand-->
+<!--Last exported: 5/1/2018 7:39:20 PM-->
+<Tiled2Unity version="1.0.13.2">
+  <AssignMaterial mesh="RiverRules_mesh_0001" material="cornertop" />
+  <AssignMaterial mesh="RiverRules_mesh_0002" material="cornerBotton" />
+  <AssignMaterial mesh="RiverRules_mesh_0003" material="cornerright" />
+  <AssignMaterial mesh="RiverRules_mesh_0004" material="cornerleft" />
+  <AssignMaterial mesh="RiverRules_mesh_0005" material="rivermid" />
+  <Prefab name="RiverRules" orientation="Isometric" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="1" numTilesWide="5" numTilesHigh="5" tileWidth="342" tileHeight="250" exportScale="1" mapWidthInPixels="1710" mapHeightInPixels="1250" backgroundColor="#808080">
+    <GameObject name="output_River" x="0" y="0" z="0">
+      <TileLayer offsetX="0" offsetY="0" />
+      <GameObject name="cornertop" x="0" y="0" mesh="RiverRules_mesh_0001" sortingLayerName="" sortingOrder="0" opacity="1" />
+      <GameObject name="cornerBotton" x="0" y="0" mesh="RiverRules_mesh_0002" sortingLayerName="" sortingOrder="0" opacity="1" />
+      <GameObject name="cornerright" x="0" y="0" mesh="RiverRules_mesh_0003" sortingLayerName="" sortingOrder="0" opacity="1" />
+      <GameObject name="cornerleft" x="0" y="0" mesh="RiverRules_mesh_0004" sortingLayerName="" sortingOrder="0" opacity="1" />
+      <GameObject name="rivermid" x="0" y="0" mesh="RiverRules_mesh_0005" sortingLayerName="" sortingOrder="0" opacity="1" />
+      <GameObject name="Collision_Water" layer="Water">
+        <PolygonCollider2D>
+          <Path>1026,-96 1026,27 684,27 684,-90 513,-90 513,-348 171,-348 171,-467 0,-467 0,-750 171,-750 171,-875 513,-875 513,-1125 684,-1125 684,-1250 1026,-1250 1026,-1125 1197,-1125 1197,-875 1539,-875 1539,-750 1710,-750 1710,-473 1539,-473 1539,-342 1197,-342 1197,-96</Path>
+          <Path>342,-625 342,-590 513,-590 513,-375 1197,-375 1197,-848 855,-848 855,-840 513,-840 513,-625</Path>
+          <Path>171,-750 171,-625 342,-625 342,-750</Path>
+          <Path>684,-1125 684,-971 855,-971 855,-1125</Path>
+        </PolygonCollider2D>
+      </GameObject>
+    </GameObject>
+  </Prefab>
+  <ImportMesh filename="RiverRules_mesh_0001.obj">IyBUaWxlZDJVbml0eSBnZW5lcmF0ZWQgZmlsZS4gRG8gbm90IG1vZGlmeSBieSBoYW5kLg0KIyBXYXZlZnJvbnQgZmlsZSBmb3IgJ1JpdmVyUnVsZXNfbWVzaF8wMDAxLm9iaicNCg0KIyBWZXJ0aWNlcyAoQ291bnQgPSA4KQ0KdiAtNjg0IC0yNTAgMA0KdiAtMTAyNiAtMjUwIDANCnYgLTEwMjYgMjcgMA0KdiAtNjg0IDI3IDANCnYgLTg1NSAtMTEyNSAwDQp2IC0xMTk3IC0xMTI1IDANCnYgLTExOTcgLTg0OCAwDQp2IC04NTUgLTg0OCAwDQoNCiMgVGV4dHVyZSBjb29yaWRpbmF0ZXMgKENvdW50ID0gNCkNCnZ0IDAgMA0KdnQgMSAwDQp2dCAxIDENCnZ0IDAgMQ0KDQojIE5vcm1hbA0Kdm4gMCAwIC0xDQoNCiMgTWVzaCBkZXNjcmlwdGlvbg0KZyBSaXZlclJ1bGVzX21lc2hfMDAwMQ0KDQojIEZhY2VzDQpmIDEvMS8xIDIvMi8xIDMvMy8xIDQvNC8xCmYgNS8xLzEgNi8yLzEgNy8zLzEgOC80LzEKDQo=</ImportMesh>
+  <ImportMesh filename="RiverRules_mesh_0002.obj">IyBUaWxlZDJVbml0eSBnZW5lcmF0ZWQgZmlsZS4gRG8gbm90IG1vZGlmeSBieSBoYW5kLg0KIyBXYXZlZnJvbnQgZmlsZSBmb3IgJ1JpdmVyUnVsZXNfbWVzaF8wMDAyLm9iaicNCg0KIyBWZXJ0aWNlcyAoQ291bnQgPSA4KQ0KdiAtODU1IC0zNzUgMA0KdiAtMTE5NyAtMzc1IDANCnYgLTExOTcgLTk2IDANCnYgLTg1NSAtOTYgMA0KdiAtNjg0IC0xMjUwIDANCnYgLTEwMjYgLTEyNTAgMA0KdiAtMTAyNiAtOTcxIDANCnYgLTY4NCAtOTcxIDANCg0KIyBUZXh0dXJlIGNvb3JpZGluYXRlcyAoQ291bnQgPSA0KQ0KdnQgMCAwDQp2dCAxIDANCnZ0IDEgMQ0KdnQgMCAxDQoNCiMgTm9ybWFsDQp2biAwIDAgLTENCg0KIyBNZXNoIGRlc2NyaXB0aW9uDQpnIFJpdmVyUnVsZXNfbWVzaF8wMDAyDQoNCiMgRmFjZXMNCmYgMS8xLzEgMi8yLzEgMy8zLzEgNC80LzEKZiA1LzEvMSA2LzIvMSA3LzMvMSA4LzQvMQoNCg==</ImportMesh>
+  <ImportMesh filename="RiverRules_mesh_0003.obj">IyBUaWxlZDJVbml0eSBnZW5lcmF0ZWQgZmlsZS4gRG8gbm90IG1vZGlmeSBieSBoYW5kLg0KIyBXYXZlZnJvbnQgZmlsZSBmb3IgJ1JpdmVyUnVsZXNfbWVzaF8wMDAzLm9iaicNCg0KIyBWZXJ0aWNlcyAoQ291bnQgPSA4KQ0KdiAtMTE5NyAtNjI1IDANCnYgLTE1MzkgLTYyNSAwDQp2IC0xNTM5IC0zNDIgMA0KdiAtMTE5NyAtMzQyIDANCnYgMCAtNzUwIDANCnYgLTM0MiAtNzUwIDANCnYgLTM0MiAtNDY3IDANCnYgMCAtNDY3IDANCg0KIyBUZXh0dXJlIGNvb3JpZGluYXRlcyAoQ291bnQgPSA0KQ0KdnQgMCAwDQp2dCAxIDANCnZ0IDEgMQ0KdnQgMCAxDQoNCiMgTm9ybWFsDQp2biAwIDAgLTENCg0KIyBNZXNoIGRlc2NyaXB0aW9uDQpnIFJpdmVyUnVsZXNfbWVzaF8wMDAzDQoNCiMgRmFjZXMNCmYgMS8xLzEgMi8yLzEgMy8zLzEgNC80LzEKZiA1LzEvMSA2LzIvMSA3LzMvMSA4LzQvMQoNCg==</ImportMesh>
+  <ImportMesh filename="RiverRules_mesh_0004.obj">IyBUaWxlZDJVbml0eSBnZW5lcmF0ZWQgZmlsZS4gRG8gbm90IG1vZGlmeSBieSBoYW5kLg0KIyBXYXZlZnJvbnQgZmlsZSBmb3IgJ1JpdmVyUnVsZXNfbWVzaF8wMDA0Lm9iaicNCg0KIyBWZXJ0aWNlcyAoQ291bnQgPSA4KQ0KdiAtMTM2OCAtNzUwIDANCnYgLTE3MTAgLTc1MCAwDQp2IC0xNzEwIC00NzMgMA0KdiAtMTM2OCAtNDczIDANCnYgLTE3MSAtNjI1IDANCnYgLTUxMyAtNjI1IDANCnYgLTUxMyAtMzQ4IDANCnYgLTE3MSAtMzQ4IDANCg0KIyBUZXh0dXJlIGNvb3JpZGluYXRlcyAoQ291bnQgPSA0KQ0KdnQgMCAwDQp2dCAxIDANCnZ0IDEgMQ0KdnQgMCAxDQoNCiMgTm9ybWFsDQp2biAwIDAgLTENCg0KIyBNZXNoIGRlc2NyaXB0aW9uDQpnIFJpdmVyUnVsZXNfbWVzaF8wMDA0DQoNCiMgRmFjZXMNCmYgMS8xLzEgMi8yLzEgMy8zLzEgNC80LzEKZiA1LzEvMSA2LzIvMSA3LzMvMSA4LzQvMQoNCg==</ImportMesh>
+  <ImportMesh filename="RiverRules_mesh_0005.obj">IyBUaWxlZDJVbml0eSBnZW5lcmF0ZWQgZmlsZS4gRG8gbm90IG1vZGlmeSBieSBoYW5kLg0KIyBXYXZlZnJvbnQgZmlsZSBmb3IgJ1JpdmVyUnVsZXNfbWVzaF8wMDA1Lm9iaicNCg0KIyBWZXJ0aWNlcyAoQ291bnQgPSAxNikNCnYgLTUxMyAtMzc1IDANCnYgLTg1NSAtMzc1IDANCnYgLTg1NSAtOTAgMA0KdiAtNTEzIC05MCAwDQp2IC0xMTk3IC04NzUgMA0KdiAtMTUzOSAtODc1IDANCnYgLTE1MzkgLTU5MCAwDQp2IC0xMTk3IC01OTAgMA0KdiAtMTcxIC04NzUgMA0KdiAtNTEzIC04NzUgMA0KdiAtNTEzIC01OTAgMA0KdiAtMTcxIC01OTAgMA0KdiAtNTEzIC0xMTI1IDANCnYgLTg1NSAtMTEyNSAwDQp2IC04NTUgLTg0MCAwDQp2IC01MTMgLTg0MCAwDQoNCiMgVGV4dHVyZSBjb29yaWRpbmF0ZXMgKENvdW50ID0gNCkNCnZ0IDAgMA0KdnQgMSAwDQp2dCAxIDENCnZ0IDAgMQ0KDQojIE5vcm1hbA0Kdm4gMCAwIC0xDQoNCiMgTWVzaCBkZXNjcmlwdGlvbg0KZyBSaXZlclJ1bGVzX21lc2hfMDAwNQ0KDQojIEZhY2VzDQpmIDEvMS8xIDIvMi8xIDMvMy8xIDQvNC8xCmYgNS8xLzEgNi8yLzEgNy8zLzEgOC80LzEKZiA5LzIvMSAxMC8xLzEgMTEvNC8xIDEyLzMvMQpmIDEzLzIvMSAxNC8xLzEgMTUvNC8xIDE2LzMvMQoNCg==</ImportMesh>
+  <InternalTexture assetPath="Assets/Art/RiverCorners/cornertop.png" materialName="cornertop" />
+  <InternalTexture assetPath="Assets/Art/RiverCorners/cornerBotton.png" materialName="cornerBotton" />
+  <InternalTexture assetPath="Assets/Art/RiverCorners/cornerright.png" materialName="cornerright" />
+  <InternalTexture assetPath="Assets/Art/RiverCorners/cornerleft.png" materialName="cornerleft" />
+  <InternalTexture assetPath="Assets/Art/River/rivermid.png" materialName="rivermid" />
+</Tiled2Unity>

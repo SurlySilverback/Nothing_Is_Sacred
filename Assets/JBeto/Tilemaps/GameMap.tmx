@@ -398,23 +398,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Paths" visible="0">
-  <object id="16" x="18750" y="19500">
-   <polyline points="0,0 -3250,-2000"/>
-  </object>
-  <object id="17" x="15500" y="17500">
-   <polyline points="0,0 1000,-2500"/>
-  </object>
-  <object id="18" x="15500" y="17500">
-   <polyline points="0,0 -3000,1500"/>
-  </object>
-  <object id="19" x="16000" y="14750"/>
-  <object id="20" x="16000" y="11750" width="500" height="3250"/>
-  <object id="21" x="16250" y="15000"/>
-  <object id="22" x="16250" y="11750"/>
-  <object id="23" x="16250" y="11500" width="4864.28" height="500" rotation="7.01202"/>
-  <object id="25" template="Path.tx" x="21500" y="11500"/>
- </objectgroup>
  <objectgroup name="Cities">
   <object id="3" type="City" gid="31" x="21614.4" y="12885.6" width="713" height="625"/>
   <object id="4" type="City" gid="31" x="16614.4" y="12135.6" width="713" height="625"/>
