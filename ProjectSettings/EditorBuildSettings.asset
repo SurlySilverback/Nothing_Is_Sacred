@@ -4,4 +4,10 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/wli025/mainMenu.unity
+    guid: 6f705a1ad52bb4ba0800c8e55030eff6
+  - enabled: 1
+    path: Assets/wli025/InterfaceDraft.unity
+    guid: 6fe07da89600444b78c26f42862dd3cb
