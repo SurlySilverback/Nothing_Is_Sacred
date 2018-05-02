@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="City" color="#b9b9bd">
+  <property name="Type" type="string" default="City"/>
+ </objecttype>
+ <objecttype name="Deep Forest" color="#006400">
+  <property name="Type" type="string" default="Land"/>
+ </objecttype>
+ <objecttype name="Forest" color="#55aa00">
+  <property name="Type" type="string" default="Land"/>
+ </objecttype>
+ <objecttype name="Water" color="#0055ff">
+  <property name="Type" type="string" default="Water"/>
+ </objecttype>
+</objecttypes>

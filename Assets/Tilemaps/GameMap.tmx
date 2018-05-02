@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="isometric" renderorder="right-down" width="100" height="100" tilewidth="100" tileheight="64" infinite="0" nextobjectid="66">
- <tileset firstgid="1" source="Blah.tsx"/>
- <layer name="Land" width="100" height="100">
-  <data encoding="base64" compression="zlib">
-   eJzt2D1ywjAABWGqDBfi/ldLkyJ4/CPZkt7K3uJVBGPtB2SS9+v1eruvfYJLn504PVjTg7OkhR4sCz14JunzU6cHb3qwpgdverCmB3N6sKYHb3rwpgdvevCmB2969GlJMkl3IXhc6aBHxmPr5/XoY1Jj0XPpJhQPikm6CcVir4efj5zHWhc9GC6jLfQY31uPuWzSDUhLW+ihB3lpCz14Lumzk6cHc3owpwdverCmB2t6MObvc9b0YE0P3vTgTQ/W9Mh1T5ikz03dXiM9sh7LTnrkPT4Hj+kx3mPE0ucmLmWhhx6ktjSLp3sQl+6lyfM8ZjJJd9Ll2R50n3SPUZ1ncUl3G/2ep5uk2yVt1s6vR9aGZPE0D9pnQQ++SbrH2XZ3NUk3JniQTNKNrzS7o0m6catWdzFJd+7VaVaXdOeeDYj3lPSofQ3i+ZbXuoNH2qTHWWe5zxEmVxrN4LF2n7X3vnWNsz3OPHf0+6+3yf/7PXP+lh69G83kcXTPpc/p/f682mg2j9L3PMlkpAfhM1L73FSPn7/dzePT+bV7tujtkbCY3WPPZIb2SW+KyfLxdJ+ZTEquvWfy9M9CqUetVYnHmokeZSYl3c64lF433YK0rR4tv780qfOoNam5folHugFltT1aeKy5pDtQZovn7ujvd6fHk1fyP0fNczYtbJfX0aNtz7PXaHE9yrbONeK7RQ+myZnXubNH61ZXmo54ruvTVovxLkdOWjBdXN4lfX+u7X4BJDBaHQ==
-  </data>
- </layer>
-</map>
