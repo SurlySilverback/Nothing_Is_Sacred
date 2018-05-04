@@ -39,7 +39,7 @@ public class CatmullRom : MonoBehaviour {
 		controlPoints = new List<Vector3>();
 		lr = GetComponent<LineRenderer>();
 		lr.useWorldSpace = true;
-		lr.widthMultiplier = 30.0f;
+		lr.widthMultiplier = 1.0f;
 		lr.SetPosition (0, selectedUnit.position);
 		lr.SetPosition (1, selectedUnit.position);
 
@@ -149,7 +149,8 @@ public class CatmullRom : MonoBehaviour {
 			// Temporary for mult characters
 			if (Input.GetMouseButtonDown (0)) {
 				Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				if (Vector3.Distance (mouse, selectedUnit.position) > 200) {
+				mouse.z = const_z;
+				if (Vector3.Distance (mouse, selectedUnit.position) > 20) {
 					// if mouse too far away from character
 					break;
 				}
@@ -194,20 +195,23 @@ public class CatmullRom : MonoBehaviour {
 		float terrainCoef = 1.0f;
 		RaycastHit2D hit = Physics2D.Raycast(position, -Vector2.up);
 		if (hit) {
-			switch (hit.collider.name) {
-			case "Collision_Forest":
+			switch (LayerMask.LayerToName(hit.transform.gameObject.layer)) {
+			case "Land":
 				terrainCoef = 1.0f;
 				break;
-			case "Collision_Water":
+			case "Forest":
+				terrainCoef = 1.5f;
+				break;
+			case "Water":
 				terrainCoef = 6.0f;
 				break;
-			case "Collision_Deep Forest":
+			case "Deep Forest":
 				terrainCoef = 3.0f;
 				break;
-			case "Collision_City":
+			case "City":
 				terrainCoef = 0.5f;
 				break;
-			case "Collision_Path":
+			case "Path":
 				terrainCoef = 0.5f;
 				break;
 			}
@@ -222,7 +226,7 @@ public class CatmullRom : MonoBehaviour {
 		float dist = 0.0f;
 		float terrainCoef = 1.0f;
 
-		unitSpeed *= Time.deltaTime*100;
+		unitSpeed *= Time.deltaTime;
 		Vector3 currPos = selectedUnit.position;
 		Vector3 finalmov = Vector3.zero;
 

@@ -5,9 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(Camera))]
 public class CameraControls : MonoBehaviour
 {
-    [SerializeField, Range(100, 10000)]
+    [SerializeField, Range(1, 10000)]
     private float minViewSize;
-    [SerializeField, Range(100, 10000)]
+    [SerializeField, Range(1, 10000)]
     private float maxViewSize;
     [SerializeField, Range(1, 1000)]
     private float zoomSpeed;
