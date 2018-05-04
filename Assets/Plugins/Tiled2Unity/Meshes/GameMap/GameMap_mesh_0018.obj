@@ -2,10 +2,10 @@
 # Wavefront file for 'GameMap_mesh_0018.obj'
 
 # Vertices (Count = 4)
-v -18981 -11250 0
-v -19323 -11250 0
-v -19323 -10956 0
-v -18981 -10956 0
+v -189.81 -112.5 0
+v -193.23 -112.5 0
+v -193.23 -109.56 0
+v -189.81 -109.56 0
 
 # Texture cooridinates (Count = 4)
 vt 0 0

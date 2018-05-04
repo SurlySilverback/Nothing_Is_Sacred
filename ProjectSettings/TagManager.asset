@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - asteroid
+  - ship
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - City
   - Forest
   - Deep Forest
-  - Units
+  - Path
   - 
   - 
   - 
@@ -40,4 +42,19 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Base
+    uniqueID: 2632607931
+    locked: 0
+  - name: River
+    uniqueID: 950215857
+    locked: 0
+  - name: Forest
+    uniqueID: 256140145
+    locked: 0
+  - name: Path
+    uniqueID: 3461081907
+    locked: 0
+  - name: City
+    uniqueID: 1095933603
     locked: 0
