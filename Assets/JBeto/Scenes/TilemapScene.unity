@@ -316,6 +316,48 @@ MonoBehaviour:
   - Forest
   - Deep Forest
   layerText: {fileID: 298272236}
+--- !u!1001 &574078134
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4015609788658912, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015609788658912, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015609788658912, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015609788658912, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015609788658912, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015609788658912, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015609788658912, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4015609788658912, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: b5b178af4476c8743ace9cc3e29c57d7, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &793306466
 GameObject:
   m_ObjectHideFlags: 0
