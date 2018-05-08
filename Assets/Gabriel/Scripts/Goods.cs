@@ -13,12 +13,12 @@ public class Goods : ScriptableObject
 												// level of the urgency hierarchy the good satisfies, thereby determining its
 												// selling price under certain circumstances. THIS VALUE DOES NOT CHANGE.
 												// THIS VALUE IS NOT DISPLAYED TO THE PLAYER.
-	[SerializedField]
+	[SerializeField]
 	protected int scarcity;						// Measures the "base rarity" of the Good. Scarce goods have a higher base price,
 												// and their price increases in greater increments as their local supply diminishes.
 												// THIS VALUE DOES NOT CHANGE. THIS VALUE IS NOT DISPLAYED TO THE PLAYER.
 
-	[SerializedField]
+	[SerializeField]
 	protected int basePrice;					// basePrice is the lowest price that a Good can be traded for. It is a reflection of 
 												// of the Good's scarcity on the global scale (i.e. outside of the game world).
 
@@ -28,7 +28,7 @@ public class Goods : ScriptableObject
 												// to determine the prices, then basePrice variable will be discarded. THIS VALUE DOES NOT CHANGE.
 												// THIS VALUE IS NOT DISPLAYED TO THE PLAYER.
 
-	[SerializedField]
+	[SerializeField]
 	protected int baseHeat;						// The heat value of goods may increase or decrease over time, but certain goods will
 												// always have a minimum heat value. baseHeat represents the minimum heat value a good 
 												// will ever have. For example, Weapons will always have a higher baseHeat value 
