@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--Tiled2Unity generated xml data-->
+<!--Do not modify by hand-->
+<!--Last exported: 5/6/2018 6:45:59 AM-->
+<Tiled2Unity version="1.0.13.2">
+  <AssignMaterial mesh="TestRenderOrder_mesh_0001" material="forest4" />
+  <AssignMaterial mesh="TestRenderOrder_mesh_0002" material="forest5" />
+  <AssignMaterial mesh="TestRenderOrder_mesh_0003" material="forest1" />
+  <Prefab name="TestRenderOrder" orientation="Isometric" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="1" numTilesWide="5" numTilesHigh="5" tileWidth="342" tileHeight="250" exportScale="0.01" mapWidthInPixels="1710" mapHeightInPixels="1250" backgroundColor="#808080">
+    <GameObject name="Tile Layer 1" x="0" y="0" z="0">
+      <TileLayer offsetX="0" offsetY="0" />
+      <GameObject name="forest4" x="0" y="0" mesh="TestRenderOrder_mesh_0001" sortingLayerName="" sortingOrder="0" opacity="1" />
+      <GameObject name="forest5" x="0" y="0" mesh="TestRenderOrder_mesh_0002" sortingLayerName="" sortingOrder="0" opacity="1" />
+      <GameObject name="forest1" x="0" y="0" mesh="TestRenderOrder_mesh_0003" sortingLayerName="" sortingOrder="0" opacity="1" />
+      <GameObject name="Collision_Deep_Forest" layer="Deep_Forest">
+        <PolygonCollider2D>
+          <Path>10.26,-10 13.68,-10 13.68,-7.5 17.1,-7.5 17.1,-4.19 15.39,-4.19 15.39,-2.94 13.68,-2.94 13.68,-1.69 11.97,-1.69 11.97,-0.44 10.26,-0.44 10.26,0.81 6.84,0.81 6.84,-1.69 3.42,-1.69 3.42,-4.19 0,-4.19 0,-7.5 1.71,-7.5 1.71,-8.75 3.42,-8.75 3.42,-10 5.13,-10 5.13,-11.25 6.84,-11.25 6.84,-12.5 10.26,-12.5</Path>
+          <Path>6.84,-2.94 6.84,-2.5 8.55,-2.5 8.55,-2.94</Path>
+          <Path>8.55,-4.19 8.55,-3.75 10.26,-3.75 10.26,-4.19</Path>
+          <Path>10.26,-5.44 10.26,-5 11.97,-5 11.97,-5.44</Path>
+          <Path>3.42,-5.44 3.42,-5 5.13,-5 5.13,-5.44</Path>
+          <Path>11.97,-6.69 11.97,-6.25 13.68,-6.25 13.68,-6.69</Path>
+          <Path>5.13,-6.69 5.13,-6.25 6.84,-6.25 6.84,-6.69</Path>
+          <Path>6.84,-7.94 6.84,-7.5 8.55,-7.5 8.55,-7.94</Path>
+          <Path>8.55,-9.19 8.55,-8.75 10.26,-8.75 10.26,-9.19</Path>
+        </PolygonCollider2D>
+      </GameObject>
+      <GameObject name="Collision_Forest" layer="Forest">
+        <PolygonCollider2D>
+          <Path>11.97,-8.75 15.39,-8.75 15.39,-6.25 13.68,-6.25 13.68,-5 11.97,-5 11.97,-3.75 10.26,-3.75 10.26,-2.5 8.55,-2.5 8.55,-1.25 5.13,-1.25 5.13,-3.17 1.71,-3.17 1.71,-6.25 3.42,-6.25 3.42,-7.5 5.13,-7.5 5.13,-8.75 6.84,-8.75 6.84,-10 8.55,-10 8.55,-11.25 11.97,-11.25</Path>
+          <Path>5.13,-4.42 5.13,-3.75 6.84,-3.75 6.84,-4.42</Path>
+          <Path>6.84,-5.67 6.84,-5 8.55,-5 8.55,-5.67</Path>
+          <Path>8.55,-6.92 8.55,-6.25 10.26,-6.25 10.26,-6.92</Path>
+          <Path>10.26,-8.17 10.26,-7.5 11.97,-7.5 11.97,-8.17</Path>
+        </PolygonCollider2D>
+      </GameObject>
+    </GameObject>
+  </Prefab>
+  <ImportMesh filename="TestRenderOrder_mesh_0001.obj">IyBUaWxlZDJVbml0eSBnZW5lcmF0ZWQgZmlsZS4gRG8gbm90IG1vZGlmeSBieSBoYW5kLg0KIyBXYXZlZnJvbnQgZmlsZSBmb3IgJ1Rlc3RSZW5kZXJPcmRlcl9tZXNoXzAwMDEub2JqJw0KDQojIFZlcnRpY2VzIChDb3VudCA9IDYwKQ0KdiAtNi44NCAtMi41IDANCnYgLTEwLjI2IC0yLjUgMA0KdiAtMTAuMjYgMC44MSAwDQp2IC02Ljg0IDAuODEgMA0KdiAtOC41NSAtMy43NSAwDQp2IC0xMS45NyAtMy43NSAwDQp2IC0xMS45NyAtMC40NCAwDQp2IC04LjU1IC0wLjQ0IDANCnYgLTEwLjI2IC01IDANCnYgLTEzLjY4IC01IDANCnYgLTEzLjY4IC0xLjY5IDANCnYgLTEwLjI2IC0xLjY5IDANCnYgLTExLjk3IC02LjI1IDANCnYgLTE1LjM5IC02LjI1IDANCnYgLTE1LjM5IC0yLjk0IDANCnYgLTExLjk3IC0yLjk0IDANCnYgLTEzLjY4IC03LjUgMA0KdiAtMTcuMSAtNy41IDANCnYgLTE3LjEgLTQuMTkgMA0KdiAtMTMuNjggLTQuMTkgMA0KdiAtMy40MiAtNSAwDQp2IC02Ljg0IC01IDANCnYgLTYuODQgLTEuNjkgMA0KdiAtMy40MiAtMS42OSAwDQp2IC01LjEzIC02LjI1IDANCnYgLTguNTUgLTYuMjUgMA0KdiAtOC41NSAtMi45NCAwDQp2IC01LjEzIC0yLjk0IDANCnYgLTYuODQgLTcuNSAwDQp2IC0xMC4yNiAtNy41IDANCnYgLTEwLjI2IC00LjE5IDANCnYgLTYuODQgLTQuMTkgMA0KdiAtOC41NSAtOC43NSAwDQp2IC0xMS45NyAtOC43NSAwDQp2IC0xMS45NyAtNS40NCAwDQp2IC04LjU1IC01LjQ0IDANCnYgLTEwLjI2IC0xMCAwDQp2IC0xMy42OCAtMTAgMA0KdiAtMTMuNjggLTYuNjkgMA0KdiAtMTAuMjYgLTYuNjkgMA0KdiAwIC03LjUgMA0KdiAtMy40MiAtNy41IDANCnYgLTMuNDIgLTQuMTkgMA0KdiAwIC00LjE5IDANCnYgLTEuNzEgLTguNzUgMA0KdiAtNS4xMyAtOC43NSAwDQp2IC01LjEzIC01LjQ0IDANCnYgLTEuNzEgLTUuNDQgMA0KdiAtMy40MiAtMTAgMA0KdiAtNi44NCAtMTAgMA0KdiAtNi44NCAtNi42OSAwDQp2IC0zLjQyIC02LjY5IDANCnYgLTUuMTMgLTExLjI1IDANCnYgLTguNTUgLTExLjI1IDANCnYgLTguNTUgLTcuOTQgMA0KdiAtNS4xMyAtNy45NCAwDQp2IC02Ljg0IC0xMi41IDANCnYgLTEwLjI2IC0xMi41IDANCnYgLTEwLjI2IC05LjE5IDANCnYgLTYuODQgLTkuMTkgMA0KDQojIFRleHR1cmUgY29vcmlkaW5hdGVzIChDb3VudCA9IDQpDQp2dCAwIDANCnZ0IDEgMA0KdnQgMSAxDQp2dCAwIDENCg0KIyBOb3JtYWwNCnZuIDAgMCAtMQ0KDQojIE1lc2ggZGVzY3JpcHRpb24NCmcgVGVzdFJlbmRlck9yZGVyX21lc2hfMDAwMQ0KDQojIEZhY2VzDQpmIDEvMS8xIDIvMi8xIDMvMy8xIDQvNC8xCmYgNS8xLzEgNi8yLzEgNy8zLzEgOC80LzEKZiA5LzEvMSAxMC8yLzEgMTEvMy8xIDEyLzQvMQpmIDEzLzEvMSAxNC8yLzEgMTUvMy8xIDE2LzQvMQpmIDE3LzEvMSAxOC8yLzEgMTkvMy8xIDIwLzQvMQpmIDIxLzEvMSAyMi8yLzEgMjMvMy8xIDI0LzQvMQpmIDI1LzEvMSAyNi8yLzEgMjcvMy8xIDI4LzQvMQpmIDI5LzEvMSAzMC8yLzEgMzEvMy8xIDMyLzQvMQpmIDMzLzEvMSAzNC8yLzEgMzUvMy8xIDM2LzQvMQpmIDM3LzEvMSAzOC8yLzEgMzkvMy8xIDQwLzQvMQpmIDQxLzEvMSA0Mi8yLzEgNDMvMy8xIDQ0LzQvMQpmIDQ1LzEvMSA0Ni8yLzEgNDcvMy8xIDQ4LzQvMQpmIDQ5LzEvMSA1MC8yLzEgNTEvMy8xIDUyLzQvMQpmIDUzLzEvMSA1NC8yLzEgNTUvMy8xIDU2LzQvMQpmIDU3LzEvMSA1OC8yLzEgNTkvMy8xIDYwLzQvMQoNCg==</ImportMesh>
+  <ImportMesh filename="TestRenderOrder_mesh_0002.obj">IyBUaWxlZDJVbml0eSBnZW5lcmF0ZWQgZmlsZS4gRG8gbm90IG1vZGlmeSBieSBoYW5kLg0KIyBXYXZlZnJvbnQgZmlsZSBmb3IgJ1Rlc3RSZW5kZXJPcmRlcl9tZXNoXzAwMDIub2JqJw0KDQojIFZlcnRpY2VzIChDb3VudCA9IDIwKQ0KdiAtNS4xMyAtMy43NSAwDQp2IC04LjU1IC0zLjc1IDANCnYgLTguNTUgLTEuMjUgMA0KdiAtNS4xMyAtMS4yNSAwDQp2IC02Ljg0IC01IDANCnYgLTEwLjI2IC01IDANCnYgLTEwLjI2IC0yLjUgMA0KdiAtNi44NCAtMi41IDANCnYgLTguNTUgLTYuMjUgMA0KdiAtMTEuOTcgLTYuMjUgMA0KdiAtMTEuOTcgLTMuNzUgMA0KdiAtOC41NSAtMy43NSAwDQp2IC0xMC4yNiAtNy41IDANCnYgLTEzLjY4IC03LjUgMA0KdiAtMTMuNjggLTUgMA0KdiAtMTAuMjYgLTUgMA0KdiAtMTEuOTcgLTguNzUgMA0KdiAtMTUuMzkgLTguNzUgMA0KdiAtMTUuMzkgLTYuMjUgMA0KdiAtMTEuOTcgLTYuMjUgMA0KDQojIFRleHR1cmUgY29vcmlkaW5hdGVzIChDb3VudCA9IDQpDQp2dCAwIDANCnZ0IDEgMA0KdnQgMSAxDQp2dCAwIDENCg0KIyBOb3JtYWwNCnZuIDAgMCAtMQ0KDQojIE1lc2ggZGVzY3JpcHRpb24NCmcgVGVzdFJlbmRlck9yZGVyX21lc2hfMDAwMg0KDQojIEZhY2VzDQpmIDEvMS8xIDIvMi8xIDMvMy8xIDQvNC8xCmYgNS8xLzEgNi8yLzEgNy8zLzEgOC80LzEKZiA5LzEvMSAxMC8yLzEgMTEvMy8xIDEyLzQvMQpmIDEzLzEvMSAxNC8yLzEgMTUvMy8xIDE2LzQvMQpmIDE3LzEvMSAxOC8yLzEgMTkvMy8xIDIwLzQvMQoNCg==</ImportMesh>
+  <ImportMesh filename="TestRenderOrder_mesh_0003.obj">IyBUaWxlZDJVbml0eSBnZW5lcmF0ZWQgZmlsZS4gRG8gbm90IG1vZGlmeSBieSBoYW5kLg0KIyBXYXZlZnJvbnQgZmlsZSBmb3IgJ1Rlc3RSZW5kZXJPcmRlcl9tZXNoXzAwMDMub2JqJw0KDQojIFZlcnRpY2VzIChDb3VudCA9IDIwKQ0KdiAtMS43MSAtNi4yNSAwDQp2IC01LjEzIC02LjI1IDANCnYgLTUuMTMgLTMuMTcgMA0KdiAtMS43MSAtMy4xNyAwDQp2IC0zLjQyIC03LjUgMA0KdiAtNi44NCAtNy41IDANCnYgLTYuODQgLTQuNDIgMA0KdiAtMy40MiAtNC40MiAwDQp2IC01LjEzIC04Ljc1IDANCnYgLTguNTUgLTguNzUgMA0KdiAtOC41NSAtNS42NyAwDQp2IC01LjEzIC01LjY3IDANCnYgLTYuODQgLTEwIDANCnYgLTEwLjI2IC0xMCAwDQp2IC0xMC4yNiAtNi45MiAwDQp2IC02Ljg0IC02LjkyIDANCnYgLTguNTUgLTExLjI1IDANCnYgLTExLjk3IC0xMS4yNSAwDQp2IC0xMS45NyAtOC4xNyAwDQp2IC04LjU1IC04LjE3IDANCg0KIyBUZXh0dXJlIGNvb3JpZGluYXRlcyAoQ291bnQgPSA0KQ0KdnQgMCAwDQp2dCAxIDANCnZ0IDEgMQ0KdnQgMCAxDQoNCiMgTm9ybWFsDQp2biAwIDAgLTENCg0KIyBNZXNoIGRlc2NyaXB0aW9uDQpnIFRlc3RSZW5kZXJPcmRlcl9tZXNoXzAwMDMNCg0KIyBGYWNlcw0KZiAxLzEvMSAyLzIvMSAzLzMvMSA0LzQvMQpmIDUvMS8xIDYvMi8xIDcvMy8xIDgvNC8xCmYgOS8xLzEgMTAvMi8xIDExLzMvMSAxMi80LzEKZiAxMy8xLzEgMTQvMi8xIDE1LzMvMSAxNi80LzEKZiAxNy8xLzEgMTgvMi8xIDE5LzMvMSAyMC80LzEKDQo=</ImportMesh>
+  <InternalTexture assetPath="Assets/Art/Tileset/forest4.png" materialName="forest4" />
+  <InternalTexture assetPath="Assets/Art/Tileset/forest5.png" materialName="forest5" />
+  <InternalTexture assetPath="Assets/Art/Tileset/forest1.png" materialName="forest1" />
+</Tiled2Unity>

@@ -3,13 +3,19 @@
  <objecttype name="City" color="#b9b9bd">
   <property name="Type" type="string" default="City"/>
  </objecttype>
- <objecttype name="Deep Forest" color="#006400">
+ <objecttype name="Deep_Forest" color="#006400">
   <property name="Type" type="string" default="Land"/>
  </objecttype>
  <objecttype name="Forest" color="#55aa00">
   <property name="Type" type="string" default="Land"/>
  </objecttype>
- <objecttype name="Water" color="#0055ff">
-  <property name="Type" type="string" default="Water"/>
+ <objecttype name="Grass" color="#a0a0a4"/>
+ <objecttype name="Hill" color="#a0a0a4"/>
+ <objecttype name="Snow" color="#a0a0a4"/>
+ <objecttype name="Ocean" color="#a0a0a4"/>
+ <objecttype name="Path" color="#a0a0a4">
+  <property name="Type" type="string" default="Path"/>
  </objecttype>
+ <objecttype name="River" color="#a0a0a4"/>
+ <objecttype name="Tundra" color="#a0a0a4"/>
 </objecttypes>
