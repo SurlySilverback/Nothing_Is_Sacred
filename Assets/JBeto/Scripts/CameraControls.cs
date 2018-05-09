@@ -31,7 +31,6 @@ public class CameraControls : MonoBehaviour
 
     [SerializeField] 
     float boundingBoxPadding = 2f;
-
     private Camera myCamera;
     private float originalZoomSize;
 

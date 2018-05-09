@@ -2,9 +2,9 @@
 # Wavefront file for 'GameMap_mesh_tile_0031.obj'
 
 # Vertices (Count = 4)
-v 0 -280 0
-v -400 -280 0
-v -400 0 0
+v 0 -2.8 0
+v -4 -2.8 0
+v -4 0 0
 v 0 0 0
 
 # Texture cooridinates (Count = 4)

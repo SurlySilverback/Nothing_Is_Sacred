@@ -3,15 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using MonsterLove.StateMachine;
 
+/* Directions to use:
+ * 1. Drag to sprite to attach script
+ * 2. Drag sprite into "selectedUnit" field inside the catmull-rom script's inspector
+ * 3. Drag sprite into "lr" field inside the catmull-rom script's inspector
+*/
+
+[RequireComponent (typeof(LineRenderer))]
 public class CatmullRom : MonoBehaviour {
 	enum State {start, drawMode, makePoint, stillHeld, lastNode};
 
 	[SerializeField]
-	private const float tension = 1.0f;
+	private float tension = 1.0f;
 	[SerializeField]
-	private const int ptsInBetween = 20;
+	private int ptsInBetween = 40;
 	[SerializeField]
-	private const float const_z = 0.0f;
+	private float const_z = -5.0f;
+
 	[SerializeField]
 	private State state = State.start;
 	[SerializeField]
@@ -20,16 +28,20 @@ public class CatmullRom : MonoBehaviour {
 	private LineRenderer lr;
 	[SerializeField]
 	private Matrix4x4 m;
+	[SerializeField]
+	private Transform selectedUnit;
+	[SerializeField]
+	private int nextlrPoint;
 
-	// Use this for initialization
+	// Use this for initialization of linerenderer and tension
 	void Start () {
 		state = State.start;
 		controlPoints = new List<Vector3>();
-		lr = gameObject.AddComponent<LineRenderer> ();
-		lr.startColor = Color.red;
-		lr.endColor = Color.red;
+		lr = GetComponent<LineRenderer>();
 		lr.useWorldSpace = true;
-		lr.widthMultiplier = 10.0f;
+		lr.widthMultiplier = 1.0f;
+		lr.SetPosition (0, selectedUnit.position);
+		lr.SetPosition (1, selectedUnit.position);
 
 		m = new Matrix4x4 ();
 		m[0,0] = 0;
@@ -50,6 +62,7 @@ public class CatmullRom : MonoBehaviour {
 		m [3, 3] = tension;
 	}
 
+	// Takes list of controlPoints, adds ghost points, and sets the linerenderer's Points based on them
 	void splitByFour() {
 		List<Vector3> fourpts = new List<Vector3>();
 		// add ghost points to beginning and end of controlPoints
@@ -97,9 +110,10 @@ public class CatmullRom : MonoBehaviour {
 		temp = m * temp;
 		float t = 0.0f, deltat = 1.0f/ptsInBetween;
 		for (i = 0; i < ptsInBetween; i++) {
-			t = deltat * i;
+			t += deltat;
 			Vector4 vect = new Vector4 (1.0f, t, t*t, t*t*t);
 			result [startingPos + i] =  temp.transpose * (0.5f *vect);
+			result [startingPos + i].z = const_z;
 		}
 	}
 
@@ -110,11 +124,11 @@ public class CatmullRom : MonoBehaviour {
 		controlPoints.Add (v);
 	}
 
+	// draws curve only when controlPoints exist(every state but start)
+	// linear or catmull-rom spline
 	void DrawCurve() {
 		// if below two points only displays the previous setup of controlPoints
-
 		if (controlPoints.Count == 2) {
-			//Debug.DrawLine (controlPoints [0], controlPoints [1], Color.red);
 			int i = 0;
 			lr.positionCount = controlPoints.Count;
 			foreach (var pt in controlPoints) {
@@ -132,7 +146,18 @@ public class CatmullRom : MonoBehaviour {
 	void UpdateState() {
 		switch (state){
 		case State.start:
+			// Temporary for mult characters
 			if (Input.GetMouseButtonDown (0)) {
+				Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				mouse.z = const_z;
+				if (Vector3.Distance (mouse, selectedUnit.position) > 20) {
+					// if mouse too far away from character
+					break;
+				}
+				// Take selected unit as starting point
+				controlPoints.Clear();
+				nextlrPoint = 0;
+				controlPoints.Add (selectedUnit.position);
 				state = State.drawMode;
 			}
 			break;
@@ -165,12 +190,82 @@ public class CatmullRom : MonoBehaviour {
 		}
 	}
 
+	// at position, find the terrain coef of the tile under that position
+	float GetTerrainCoef(Vector3 position) {
+		float terrainCoef = 1.0f;
+		RaycastHit2D hit = Physics2D.Raycast(position, -Vector2.up);
+		if (hit) {
+			switch (LayerMask.LayerToName(hit.transform.gameObject.layer)) {
+			case "Land":
+				terrainCoef = 1.0f;
+				break;
+			case "Forest":
+				terrainCoef = 1.5f;
+				break;
+			case "Water":
+				terrainCoef = 6.0f;
+				break;
+			case "Deep Forest":
+				terrainCoef = 3.0f;
+				break;
+			case "City":
+				terrainCoef = 0.5f;
+				break;
+			case "Path":
+				terrainCoef = 0.5f;
+				break;
+			}
+		}
+		// Debug.Log (hit.collider.name);
+		return terrainCoef;
+	}
+
+	// if called, have the selected unit transform along the linerenderer
+	void MoveUnit() {
+		float unitSpeed = 10.0f;
+		float dist = 0.0f;
+		float terrainCoef = 1.0f;
+
+		unitSpeed *= Time.deltaTime;
+		Vector3 currPos = selectedUnit.position;
+		Vector3 finalmov = Vector3.zero;
+
+		if (nextlrPoint >= lr.positionCount) {
+			return;
+		}
+
+		// Get terrain speed
+		terrainCoef = GetTerrainCoef(currPos);
+
+		dist = Vector3.Distance(currPos, lr.GetPosition(nextlrPoint)) * terrainCoef;
+		while (dist < unitSpeed) {
+			// not finished moving
+			currPos = lr.GetPosition(nextlrPoint);
+			++nextlrPoint;
+			if (nextlrPoint >= lr.positionCount) {
+				return;
+			}
+			unitSpeed -= dist;
+			terrainCoef = GetTerrainCoef (lr.GetPosition (nextlrPoint));
+			dist = Vector3.Distance (currPos, lr.GetPosition (nextlrPoint)) * terrainCoef;
+		}
+		if (nextlrPoint >= lr.positionCount) {
+			return;
+		}
+
+		// moved to some point between the currPos
+		// and the next point on the line renderer
+		finalmov = (lr.GetPosition(nextlrPoint) - currPos) * (unitSpeed / dist);
+		selectedUnit.position = currPos + finalmov;
+		
+	}
+
 	// actions taken at each state
 	void ProcessState() {
 		switch (state) {
 		case State.start:
 			// TEMPORARY
-			controlPoints.Clear ();
+			MoveUnit ();
 			break;
 		case State.drawMode:
 			// maybe shade the map
@@ -198,4 +293,5 @@ public class CatmullRom : MonoBehaviour {
 		ProcessState ();
 		DrawCurve ();
 	}
+
 }

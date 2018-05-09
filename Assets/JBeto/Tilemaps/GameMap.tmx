@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.4" orientation="isometric" renderorder="right-down" width="128" height="128" tilewidth="342" tileheight="250" infinite="0" nextobjectid="28">
+<map version="1.0" tiledversion="1.1.4" orientation="isometric" renderorder="right-down" width="128" height="128" tilewidth="342" tileheight="250" infinite="0" nextobjectid="109">
+ <properties>
+  <property name="unity:scale" value="1"/>
+ </properties>
  <tileset firstgid="1" source="Landscape.tsx"/>
  <tileset firstgid="31" source="Cities.tsx"/>
  <layer name="Terrain" width="128" height="128" locked="1">
@@ -398,23 +401,6 @@
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <objectgroup name="Paths" visible="0">
-  <object id="16" x="18750" y="19500">
-   <polyline points="0,0 -3250,-2000"/>
-  </object>
-  <object id="17" x="15500" y="17500">
-   <polyline points="0,0 1000,-2500"/>
-  </object>
-  <object id="18" x="15500" y="17500">
-   <polyline points="0,0 -3000,1500"/>
-  </object>
-  <object id="19" x="16000" y="14750"/>
-  <object id="20" x="16000" y="11750" width="500" height="3250"/>
-  <object id="21" x="16250" y="15000"/>
-  <object id="22" x="16250" y="11750"/>
-  <object id="23" x="16250" y="11500" width="4864.28" height="500" rotation="7.01202"/>
-  <object id="25" template="Path.tx" x="21500" y="11500"/>
- </objectgroup>
  <objectgroup name="Cities">
   <object id="3" type="City" gid="31" x="21614.4" y="12885.6" width="713" height="625"/>
   <object id="4" type="City" gid="31" x="16614.4" y="12135.6" width="713" height="625"/>
@@ -426,5 +412,16 @@
   <object id="10" type="City" gid="31" x="6114.4" y="17635.6" width="713" height="625"/>
   <object id="11" type="City" gid="31" x="10864.4" y="23635.6" width="713" height="625"/>
   <object id="14" type="City" gid="31" x="12609.9" y="19384.1" width="717.104" height="622"/>
+ </objectgroup>
+ <objectgroup name="Path">
+  <object id="100" template="Basic_Path.tx" x="17503.1" y="4032.06" width="5744.94" height="435.792" rotation="-305.604"/>
+  <object id="101" template="Basic_Path.tx" x="16375.3" y="11708.5" width="4726.31" height="336.936" rotation="7.55858"/>
+  <object id="102" template="Basic_Path.tx" x="16225.3" y="11508.6" width="7068.72" height="336.936" rotation="-19.9722"/>
+  <object id="103" template="Basic_Path.tx" x="11688.2" y="11291.5" width="4580.07" height="336.936" rotation="4.02815"/>
+  <object id="104" template="Basic_Path.tx" x="12174" y="18785.8" width="6386.25" height="336.936" rotation="325.921" visible="1"/>
+  <object id="105" template="Basic_Path.tx" x="16468.6" y="14965" width="5954.49" height="336.936" rotation="-25.6093"/>
+  <object id="106" template="Basic_Path.tx" x="12490" y="19046.4" width="5744.94" height="399.599" rotation="126.453"/>
+  <object id="107" template="Basic_Path.tx" x="12037" y="18831.4" width="6478.6" height="336.936" rotation="2.38227"/>
+  <object id="108" template="Basic_Path.tx" x="6069.84" y="17411.4" width="6474.21" height="336.936" rotation="64.7817"/>
  </objectgroup>
 </map>
