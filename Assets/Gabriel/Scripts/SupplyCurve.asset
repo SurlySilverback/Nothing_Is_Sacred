@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b401658dabd1446ae0c61984495f60, type: 3}
+  m_Name: SupplyCurve
+  m_EditorClassIdentifier: 
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: -0.0018911213
+      value: 16.008377
+      inSlope: -10.090546
+      outSlope: -10.090546
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.24979922
+      value: 4.0002837
+      inSlope: -11.595701
+      outSlope: -11.595701
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.5019539
+      value: 2.0169697
+      inSlope: -9.014173
+      outSlope: -9.014173
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.64991736
+      value: 1.001087
+      inSlope: -0.16474725
+      outSlope: -0.16474725
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.70038444
+      value: 0.99887276
+      inSlope: -0.04063936
+      outSlope: -0.04063936
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.8004487
+      value: 0.8969353
+      inSlope: -3.080992
+      outSlope: -5.286616
+      tangentMode: 1
+    - serializedVersion: 2
+      time: 1.0008194
+      value: 0.09580614
+      inSlope: -3.0813537
+      outSlope: -3.0813537
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
