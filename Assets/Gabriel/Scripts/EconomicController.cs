@@ -17,7 +17,7 @@ public class EconomicController : MonoBehaviour {
 																				15, 1, 10,
 																				5, 5, 1, 10};
 
-	private Dictionary<string, int> goodsToBasePrice;
+	private Dictionary<string, float> goodsToBasePrice;
 
 	// TODO: Calculate heat mult
 	public int calculateHeatMultiplier ()
@@ -53,7 +53,7 @@ public class EconomicController : MonoBehaviour {
 
 	void Awake() {
 	
-		goodsToBasePrice = new Dictionary<string, int>();
+		goodsToBasePrice = new Dictionary<string, float>();
 		for(int i = 0; i < goods.Count; i++) 
 		{
 			goodsToBasePrice.Add(goods[i], listOfBasePrices[i]);
