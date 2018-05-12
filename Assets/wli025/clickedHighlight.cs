@@ -10,8 +10,8 @@ public class clickedHighlight : MonoBehaviour, IPointerClickHandler {
 	Image myImage;
 	bool highlighted = false;
 	private static Image lastImage;
-	// Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-	// RaycastHit hit;
+
+	public currentlySelected selected;
 
 	// Use this for initialization
 	void Start () {
@@ -20,20 +20,6 @@ public class clickedHighlight : MonoBehaviour, IPointerClickHandler {
 	
 	// Update is called once per frame
 	void Update () {
-		//  if(Input.GetMouseButtonDown(0)){
-		// 	print("got mouse button click!");
-		// 	myImage.sprite = highlightImage;
-		// }
-		// if (Input.GetMouseButtonDown(0)) {
-        //     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //     // Vector2 mousePos2D = new Vector2(mousePos.x, mousePos.y);
-            
-        //     RaycastHit2D hit = Physics2D.Raycast(ray.origin, Vector2.zero);
-        //     if (hit != null) {
-		// 		Debug.Log(hit.collider.gameObject.name);
-        //         hit.collider.attachedRigidbody.AddForce(Vector2.up);
-        //     }
-        // }
 	}
 
 	public void OnPointerClick(PointerEventData eventData){
@@ -46,11 +32,14 @@ public class clickedHighlight : MonoBehaviour, IPointerClickHandler {
 		if(!highlighted && (transform.childCount > 0)){
 			myImage.sprite = highlightImage;
 			highlighted = true;
+			selected.CurrentItem = this.transform.GetChild(0).GetComponent<Image>();
 		}
 		else if (highlighted){
 			myImage.sprite = image;
 			highlighted = false;
+			// selected.Cur = null;
 		}
 
+		
 	}
 }
