@@ -15,16 +15,16 @@ TagManager:
   - UI
   - 
   - 
-  - Land
+  - Grass
+  - Ocean
+  - River
+  - Deep_Forest
+  - Hill
+  - Tundra
+  - Snow
   - City
   - Forest
-  - Deep Forest
-  - Path
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Road
   - 
   - 
   - 
