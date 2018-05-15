@@ -1,24 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Events;
+using TMPro;
 
+[RequireComponent(typeof(CanvasGroup))]
 public class InventoryUI : MonoBehaviour
 {
+    private CanvasGroup canvasGroup;
+    [SerializeField]
+    private GameObject inventoryUI;
+    [SerializeField]
+    private GameObject inventoryGrid;
+    public UnityEvent OnChangeInventory;
 
-	// Inventory inventory;
 
-	// // Use this for initialization
-	// void Start () {
-	// 	inventory = Inventory.instance
-	// 	inventory.onItemChangedCallback += UpdateUI;
-	// }
-	
-	// // Update is called once per frame
-	// void Update () {
-		
-	// }
+    private void Awake()
+    {
+        if (OnChangeInventory == null)
+        {
+            OnChangeInventory = new UnityEvent();
+        }
+        this.canvasGroup = GetComponent<CanvasGroup>();
+    }
 
-	// void UpdateUI() {
-	// 	Debug.Log("Updating UI");
-	// }
+    public void ToggleView(bool isVisible)
+    {
+        if (isVisible)
+        {
+            this.canvasGroup.alpha = 0;
+            this.canvasGroup.blocksRaycasts = false;
+        }
+        else
+        {
+            this.canvasGroup.alpha = 1;
+            this.canvasGroup.blocksRaycasts = true;
+        }
+    }
+
+    public void SetInventory(Inventory current)
+    {
+
+    }
 }
