@@ -7364,7 +7364,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8507dedeb39894bad8abb8dc4fd03f16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 500
+  animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &114580757304972150
 MonoBehaviour:
   m_ObjectHideFlags: 1
