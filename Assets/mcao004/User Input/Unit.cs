@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using MonsterLove.StateMachine;
 using UnityEngine;
 
+
+
 [RequireComponent(typeof(Deploy), typeof(DrawCurve), typeof(LineRenderer))]
+[RequireComponent(typeof(CircleCollider2D))]
 public class Unit : MonoBehaviour
 {
 	private string name;
@@ -33,8 +36,10 @@ public class Unit : MonoBehaviour
     // Use this for initialization
     private void Start()
 	{
+		
 		drawCurve.OnStartDrawing.AddListener (delegate { deploy.StopMove (); });
 		drawCurve.OnEndDrawing.AddListener(delegate{CallStartMove();});
+
 	}
 
 	private void Update()
