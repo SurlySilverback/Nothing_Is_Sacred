@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class City : MonoBehaviour { 
 
-	// STATES: The states the cities can be in
+	// STATES: The states the cities can be in.
 	enum CityState{normal, high_chaos, anti_govt_sentiments, anti_govt_demonstrations, civil_war, high_blackmarketeering,
 						   pacifying, infiltrating, genocide, raiding, independent};
 
