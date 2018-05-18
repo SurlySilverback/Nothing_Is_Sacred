@@ -4,32 +4,29 @@ using UnityEngine;
 
 public class DateTime : MonoBehaviour 
 {
-	private System.DateTime moment; 
-	private float timePassed; 
+	private static System.DateTime moment; 
+	private static float timePassed; 
 
 	// Getters
 	public static System.DateTime getDate() { 
-		return this.moment; 
+		return DateTime.moment; 
 	}
-
-
-
-
-
-
-
 
 	// One second of Real time = One Minute of In Game Time 
 	void UpdateMin() 
 	{ 
-		this.moment.AddMinutes(1);
+		DateTime.moment.AddMinutes(1);
+	}
+
+	void UpdateClockOnScreen() 
+	{ 
+
 	}
 
 	
-	// Update is called once per frame
 	void Awake()
 	{
-		this.moment = new System.DateTime(2013, 9, 15, 12, 0, 0);
+		DateTime.moment = new System.DateTime(2018, 10, 12, 0, 0, 0);
 	}
 
 	// Use this for initialization
@@ -37,13 +34,16 @@ public class DateTime : MonoBehaviour
 	{
 
 	}
+
+	// Update is called once per frame
 	void Update () 
 	{	
-		this.timePassed += Time.deltaTime; 
-		if (this.timePassed >= 1) 
+		DateTime.timePassed += Time.deltaTime; 
+		if (DateTime.timePassed >= 1) 
 		{ 
 			UpdateMin(); 
 			timePassed -= 1; 
+			UpdateClockOnScreen(); 
 		}
 	}
 }
