@@ -24,7 +24,7 @@ public class DateTime : MonoBehaviour
 
 	void SetClockOnScreen() 
 	{ 
-		displayDate.text = "Time: " + DateTime.moment.Hour.ToString() + " : " + DateTime.moment.Minute.ToString();
+		displayDate.text = "Time: " + DateTime.moment.Year.ToString() + " " + DateTime.moment.Month.ToString() + " " + DateTime.moment.Day.ToString() + " " + DateTime.moment.Hour.ToString() + " : " + DateTime.moment.Minute.ToString();
 		Debug.Log("CALLING: " + DateTime.moment.Date.ToString()); 
 	}
 
