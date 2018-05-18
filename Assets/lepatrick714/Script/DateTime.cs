@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class DateTime : MonoBehaviour 
 {
 	private static System.DateTime moment; 
 	private static float timePassed; 
+
+	public Text displayDate; 
+
 
 	// Getters
 	public static System.DateTime getDate() { 
@@ -15,12 +19,13 @@ public class DateTime : MonoBehaviour
 	// One second of Real time = One Minute of In Game Time 
 	void UpdateMin() 
 	{ 
-		DateTime.moment.AddMinutes(1);
+		DateTime.moment = DateTime.moment.AddMinutes(1);
 	}
 
-	void UpdateClockOnScreen() 
+	void SetClockOnScreen() 
 	{ 
-
+		displayDate.text = "Time: " + DateTime.moment.Hour.ToString() + " : " + DateTime.moment.Minute.ToString();
+		Debug.Log("CALLING: " + DateTime.moment.Date.ToString()); 
 	}
 
 	
@@ -32,7 +37,7 @@ public class DateTime : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-
+		SetClockOnScreen(); 
 	}
 
 	// Update is called once per frame
@@ -41,9 +46,9 @@ public class DateTime : MonoBehaviour
 		DateTime.timePassed += Time.deltaTime; 
 		if (DateTime.timePassed >= 1) 
 		{ 
-			UpdateMin(); 
 			timePassed -= 1; 
-			UpdateClockOnScreen(); 
+			UpdateMin(); 
+			SetClockOnScreen(); 
 		}
 	}
 }
