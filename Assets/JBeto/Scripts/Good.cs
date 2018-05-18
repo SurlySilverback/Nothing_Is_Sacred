@@ -7,7 +7,7 @@ public class Good : ScriptableObject
 {
     public float Weight;
 
-	public int MaslowIndex;					// Maslow's Hierarchy of Needs observes that human needs fall into a kind of 
+	public int MaslowIndex;					    // Maslow's Hierarchy of Needs observes that human needs fall into a kind of 
 												// urgency hierarchy. Certain basic needs (such as air, food, water, 
 												// and immediate safety) must be fulfilled before other needs (such as 
 												// happiness and self-fulfillment) will be pursued. maslowIndex indicates which

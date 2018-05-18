@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EconomicController : MonoBehaviour {
-
+public class EconomicController : MonoBehaviour
+{
 	// Contains a list of all cities in the game
 	[SerializeField] private List<City> listOfCities;
 
