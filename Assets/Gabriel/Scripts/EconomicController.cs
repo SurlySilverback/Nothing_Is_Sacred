@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class EconomicController : MonoBehaviour {
 
+	[SerializeField] private SupplyCurve supplyCurve;
+
 	// Contains a list of all cities in the game
 	[SerializeField] private List<City> listOfCities;
 
@@ -22,13 +24,16 @@ public class EconomicController : MonoBehaviour {
 	// TODO: Calculate heat mult
 	public int calculateHeatMultiplier ()
 	{
+		// Use Good's current Heat value to determine multiplier. 
+		// TODO: Draw animation curve for Heat multiplier curve, then use similar implementation to supplyMultiplier below.
 		return 1;
 	}
 
 	// TODO: Calculate supply mult
-	public int calculateSupplyMultipler()
+	public int calculateSupplyMultipler(float supply)
 	{
-		return 1;
+		// Use city supply to determine multiplier.
+		return Mathf.RoundToInt(supplyCurve.curve.Evaluate(supply));
 	}
 
 	// Updates all prices after purchases or sales
@@ -40,7 +45,7 @@ public class EconomicController : MonoBehaviour {
 			foreach (KeyValuePair<string, float> pair in city.goodsToPrices) 
 			{
 				// FIXME: Can the same key/value pair be used when calling city.goodToPrice AND this.listOfBasePrices? Will this call the correct Good's basePrice?
-				city.goodsToPrices[pair.Key] = ( (calculateHeatMultiplier() + calculateSupplyMultipler()) * this.goodsToBasePrice[pair.Key] );
+				city.goodsToPrices[pair.Key] = ( (calculateHeatMultiplier( ) + calculateSupplyMultipler( city.goodsToSupply[pair.Key] )) * this.goodsToBasePrice[pair.Key] );
 			}
 		}
 	}

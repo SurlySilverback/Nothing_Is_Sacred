@@ -4,11 +4,44 @@ using UnityEngine;
 
 
 public class City : MonoBehaviour { 
+
+	// STATES: The states the cities can be in
+	enum CityState{normal, high_chaos, anti_govt_sentiments, anti_govt_demonstrations, civil_war, high_blackmarketeering,
+						   pacifying, infiltrating, genocide, raiding, independent};
+
+	// NAME
 	[SerializeField] private string name;
 	public string GetName(){return name;}
 
+	// CHAOS
+	[SerializeField] private float chaos; 
+	public float GetChaos(){return chaos;}
+	public void SetChaos(float new_val)
+	{
+		chaos = new_val;
+	}
+
+	// HEAT
 	[SerializeField] private float heat; 
 	public float GetHeat(){return heat;}
+	public void SetHeat(float new_val)
+	{
+		heat = new_val;
+	}
+
+	// STATE
+	private string state;
+	public string GetState(){return state;}
+	public void SetState(string new_state)
+	{
+		state = new_state;
+	}
+
+	[SerializeField] private float foodProductionRate; 
+	[SerializeField] private float waterProductionRate; 
+	[SerializeField] private float population; 
+
+
 
 	// Cardinal Goods
 	[SerializeField] private List<string> goods = new List<string>(){ "Drugs", "Exotics", "Food", 
@@ -30,7 +63,7 @@ public class City : MonoBehaviour {
 
 
 	// Method for referencing the current supply of a Good.
-	private Dictionary<string, int> goodsToSupply;
+	public Dictionary<string, int> goodsToSupply;
 
 	// Method for referencing the current price of a Good.
 	public Dictionary<string, float> goodsToPrices;
@@ -45,7 +78,7 @@ public class City : MonoBehaviour {
 																	   0, 0, 0, 
 																	   0, 0, 0, 
 																	   0 };
-	private Dictionary<string, int> peopleGoodsToValues;
+	public Dictionary<string, int> peopleGoodsToValues;
 
 
 	// Inventory of the Gov't
@@ -58,11 +91,6 @@ public class City : MonoBehaviour {
 																	0, 0, 0, 
 																	0 };
 	private Dictionary<string, int> govGoodsToValues;
-
-
-	[SerializeField] private float foodProductionRate; 
-	[SerializeField] private float waterProductionRate; 
-	[SerializeField] private float population; 
 
 
 	private void Awake()
