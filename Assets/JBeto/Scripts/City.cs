@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class City : MonoBehaviour {
+public class City : MonoBehaviour
+{
     [SerializeField]
     private string cityName;
     [SerializeField]
@@ -21,20 +22,19 @@ public class City : MonoBehaviour {
 																			0, 0, 0, 
 																			0 };
 
-
 	// Method for referencing the current supply of a Good.
 	private Dictionary<string, int> goodsToSupply;
 
 	// Method for referencing the current price of a Good.
 	public Dictionary<string, float> goodsToPrices;
     
-    [SerializeField]
     private Inventory peopleInventory;
-    [SerializeField]
     private Inventory govInventory;
-
-	[SerializeField] private float foodProductionRate;
-	[SerializeField] private float population;
+    
+	[SerializeField]
+    private float foodProductionRate;
+	[SerializeField]
+    private float population;
 
     public float GetHeat()
     {
@@ -49,19 +49,5 @@ public class City : MonoBehaviour {
     private void Awake()
 	{
 		
-	}
-
-	public 
-	// Use this for initialization
-	void Start () {
-
-
-							
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-
 	}
 }
