@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Profiling;
 using UnityEngine.Events;
 
 [RequireComponent (typeof(LineRenderer))]
@@ -248,8 +249,10 @@ public class DrawCurve : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		Profiler.BeginSample ("unit");
 		UpdateState();
 		ProcessState();
 		DisplayCurve();
+		Profiler.EndSample ();
 	}
 }

@@ -12,11 +12,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         return (transform.childCount > 0) ? transform.GetChild(0).gameObject : null;
     }
 
-
 	#region IDropHandler implementation
     public void OnDrop(PointerEventData eventData)
     {
-        if (GetItem() != null)
+        if (GetItem() == null)
         {
             eventData.pointerDrag.transform.SetParent(transform);
         }

@@ -15,9 +15,11 @@ public class Deploy : MonoBehaviour {
 	float GetTerrainCoef(Vector3 position)
 	{
 		float terrainCoef = 1.0f;
-		RaycastHit2D hit = Physics2D.Raycast(position, -Vector2.up);
+		int layermask = LayerMask.GetMask ("Land", "Grass", "Ocean", "River", "Forest", "Water", "Deep Forest", "Hill", "Tundra", "Snow", "City", "Road");
+		RaycastHit2D hit = Physics2D.Raycast(position, -Vector2.up, Mathf.Infinity, layermask);
 		if (hit)
 		{
+			//Debug.Log (LayerMask.LayerToName (hit.transform.gameObject.layer));
 			switch (LayerMask.LayerToName(hit.transform.gameObject.layer))
 			{
 			case "Land":
@@ -51,6 +53,7 @@ public class Deploy : MonoBehaviour {
 				terrainCoef = 1.4f;
 				break;
 			case "City":
+				//Debug.Log ("HELOOOOOO");
 				terrainCoef = 0.5f;
 				break;
 			case "Road":
@@ -119,6 +122,10 @@ public class Deploy : MonoBehaviour {
 	public void StopMove() {
 		deployed = false;
 		nextlrPoint = 0;
+	}
+
+	public bool isDeployed() {
+		return deployed;
 	}
 
 	// Use this for initialization
