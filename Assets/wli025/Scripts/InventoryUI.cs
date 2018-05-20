@@ -53,11 +53,12 @@ public class InventoryUI : MonoBehaviour
     {
         //Set the private variable to the current inventory
         //update the view
-        int currentNumElements = currentInventory.Size;
-
-        for(int i = 0; i < currentInventory.Size; ++i){
-            Destroy(grid.transform.GetChild(i).gameObject);
+        if (currentInventory != null) {
+            for(int i = 0; i < currentInventory.Size; ++i){
+                Destroy(grid.transform.GetChild(i).gameObject);
+            }
         }
+        
         for(int i = 0; i < next.Size; ++i){
             Instantiate(slot, grid.transform);
         }
@@ -71,5 +72,6 @@ public class InventoryUI : MonoBehaviour
                 Instantiate(visual, currentSlot); 
             }
         }
+        currentInventory = next;
     }   
 }
