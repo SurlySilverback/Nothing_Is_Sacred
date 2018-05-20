@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RayCastGameObjectClicks : MonoBehaviour {
+	[Header("City View")]
+	[SerializeField] private CityUI cityUi; 
+	[SerializeField] private InventoryUI peopleInventory; 
+	[SerializeField] private InventoryUI govInventory; 
+	[Space(10)]
+
+	[Header("Unit View")]
+	[SerializeField] private InventoryUI unitInventory; 
+
 	// Update is called once per frame
 	void Update () 
 	{
@@ -20,11 +29,15 @@ public class RayCastGameObjectClicks : MonoBehaviour {
 				{ 
 					if (i.transform.gameObject.layer == LayerMask.NameToLayer("City")) {
 						Debug.Log("FOUND CITY");
+						City c = i.transform.gameObject.GetComponent<City>();
+						cityUi.SetCityView(c);
+						// peopleInventory.SetInventory(c.pplInventory);
+						// govInventory.SetInventory(c.govInventory);
 					}
 					if (i.transform.gameObject.layer == LayerMask.NameToLayer("Unit")) {
 						Debug.Log("FOUND Unit");
+						unitInventory.SetInventory(i.transform.gameObject.GetComponent<Unit>().Items); 
 					}
-					// if (i.transform.gameObject.layer == LayerMask.NameToLayer(""))
 				}
 			}
         }

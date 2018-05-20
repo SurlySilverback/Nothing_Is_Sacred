@@ -12,8 +12,7 @@ public class Unit : MonoBehaviour
 	private string name;
     [SerializeField]
     protected float baseSpeed = 10.0f;					    // Determines the base speed of the unit on roads.
-    [SerializeField]
-    private Inventory inventory;
+    public Inventory Items;
     public int Heat { get; set; }                   // Determines how aggressively the government will chase after this unit.
     public int Subtlety { get; set; }               // Determines how effective the unit is at avoiding detection.
     private Deploy deploy;
