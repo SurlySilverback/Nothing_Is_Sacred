@@ -22,7 +22,7 @@ public class PriorityQueue<T> : IEnumerable {
 
 	public int Enqueue(T new_item, float new_item_priority)
 	{
-		for (uint i = 0; i < priority.Count; ++i) 
+		for (int i = 0; i < priority.Count; ++i) 
 		{
 			if (new_item_priority > priority[i])
 			{

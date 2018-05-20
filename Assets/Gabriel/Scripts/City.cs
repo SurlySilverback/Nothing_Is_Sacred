@@ -1,13 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 public class City : MonoBehaviour { 
 
 	// STATES: The states the cities can be in.
-	enum CityState{normal, high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war,
-						   pacifying, infiltrating, genocide, raiding, independent};
+	public enum CityState{normal, high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war,
+						   pacifying, infiltrating, ending_demonstrations, genocide, raiding, independent};
+
+	// Unity Events for Observer Pattern: calls MainGovernment script to restore spent Tyranny when strategy actions are complete.
+	public UnityEvent OnEndPacifying;
+	public UnityEvent OnEndInfiltrating;
+	public UnityEvent OnEndEndingDemonstrations;
+	public UnityEvent OnEndGenocide;
+	public UnityEvent OnEndRaiding;
 
 	// NAME
 	[SerializeField] private string name;
@@ -41,10 +49,12 @@ public class City : MonoBehaviour {
 	[SerializeField] private float waterProductionRate; 
 	[SerializeField] private float population; 
 
+	private float timeCapture;		// Used along with intervention_timer to measure time passed since intervention events were initiated.
+
 	// TODO: Make this a Timer Class which increments its own value using time.deltaTime()
-	[SerializeField] int intervention_timer;
+	[SerializeField] float intervention_timer;
 	public float GetTimer(){return intervention_timer;}
-	public void SetTimer(int new_time)
+	public void SetTimer(float new_time)
 	{
 		intervention_timer = new_time;
 	}
@@ -103,7 +113,16 @@ public class City : MonoBehaviour {
 	private void DetermineState()
 	{
 		// Update storehouses here using ( 1/1440th of consumption rate * time.deltaTime);
-		intervention_timer += Time.deltaTime; 
+		// FIXME: Hardcoding consumption rates for project demo. #fututefeature: Implement a script to handle consumption rate based on population size.
+
+
+		timeCapture += Time.deltaTime;
+
+		if (timeCapture >= 1) 
+		{
+			timeCapture--;
+			intervention_timer++;
+		}
 
 		switch(state)
 		{
@@ -113,8 +132,8 @@ public class City : MonoBehaviour {
 				if (intervention_timer == 2880)
 				{
 					intervention_timer = 0;
-					state = "normal";
-					// Callback MainGovt to free up spent Tyranny
+					state = CityState.normal;
+					OnEndPacifying.Invoke();
 				}
 			break;
 
@@ -125,8 +144,19 @@ public class City : MonoBehaviour {
 				{
 					intervention_timer = 0;
 					state = CityState.normal;
-					// Callback MainGovt to free up spent Tyranny
+					OnEndInfiltrating.Invoke();
 				}
+			break;
+
+			case CityState.ending_demonstrations:
+
+			// Two days
+			if (intervention_timer == 2880)
+			{
+				intervention_timer = 0;
+				state = CityState.normal;
+				OnEndInfiltrating.Invoke();
+			}
 			break;
 
 			case CityState.genocide:
@@ -136,7 +166,7 @@ public class City : MonoBehaviour {
 				{
 					intervention_timer = 0;
 					state = CityState.normal;
-					// Callback MainGovt to free up spent Tyranny
+					OnEndGenocide.Invoke();
 				}
 			break;
 
@@ -147,11 +177,13 @@ public class City : MonoBehaviour {
 				{
 					intervention_timer = 0;
 					state = CityState.normal;
-					// Callback MainGovt to free up spent Tyranny
+					OnEndRaiding.Invoke();
 				}
 			break;
 
 			case CityState.independent:
+
+				state = CityState.normal;
 
 			break;
 
@@ -159,7 +191,7 @@ public class City : MonoBehaviour {
 
 				// If values are below threshhold, status is normal.
 				if (chaos <= 599 && heat <= 399)
-					state = "normal";
+					state = CityState.normal;
 
 				// If chaos is high...
 				else if (chaos > 599) 
@@ -167,12 +199,10 @@ public class City : MonoBehaviour {
 					// ...and if Idea supply is high...
 					if (goodsToSupply ["Ideas"] >= 299) {
 						state = CityState.anti_govt_demonstrations;		// ...anti-goverment demonstrations.
-						continue;
 					}
 					// ...and if Weapon supply is high...
 					if (goodsToSupply ["Weapons"] >= 299) {
 						state = CityState.civil_war;					// ...civil war.
-						continue;
 					}
 
 					state = CityState.unrest;
@@ -220,6 +250,7 @@ public class City : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+		timeCapture = 0;
 		intervention_timer = 0;
 							
 	}
