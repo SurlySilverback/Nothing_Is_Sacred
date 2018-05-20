@@ -46,7 +46,6 @@ public class PatrolAI : MonoBehaviour {
 	private GameObject PickCity() {
 		List<GameObject> cities = new List<GameObject> ();
 		foreach (PolygonCollider2D city in FindObjectsOfType(typeof(PolygonCollider2D))) {
-			//Debug.Log (city.gameObject.name);
 			if (city.gameObject.name == "Collision_City") {
 				cities.Add (city.gameObject);
 			}
@@ -55,9 +54,11 @@ public class PatrolAI : MonoBehaviour {
 	}
 
 	private bool targetAtCity() {
-		if (target != null)
+		// assume in chase mode, so seeUnit() should be in target
+		target = seeUnit();
+		if (target == null)
 			return false;
-		RaycastHit2D hit = Physics2D.Raycast(target.transform.position, -Vector2.up, Mathf.Infinity, LayerMask.GetMask("City"));
+		RaycastHit2D hit = Physics2D.Raycast(target.transform.position, -Vector2.up, 0.1f, LayerMask.GetMask("City"));
 		return (hit.collider != null);
 	}
 
@@ -97,7 +98,7 @@ public class PatrolAI : MonoBehaviour {
 			break;
 		case Mode.chase:
 			// capture, lostunit, or lostincity
-			if (seeUnit() != null && Vector2.Distance(transform.position, target.transform.position) < 0.5f) {
+			if ((target = seeUnit()) != null && Vector2.Distance(transform.position, target.transform.position) < 0.5f) {
 				// capture target
 				target.GetComponent<Deploy> ().StopMove ();
 				this.patrolTime = 15.0f;
@@ -105,15 +106,14 @@ public class PatrolAI : MonoBehaviour {
 				Destroy (target.gameObject);
 				deploy.StopMove ();
 				target = home;
+			} else if ((target = seeUnit ()) == null) { // lost unit
+				mode = Mode.lostUnit;
+				patrolTime = 20.0f;
 			} else if (targetAtCity ()) { // lost in city
 				mode = Mode.lostInCity;
 				this.patrolTime = 15.0f;
 				target = PickCity ();
 				moveToTarget ();
-			}
-			else if (seeUnit () == null) { // lost unit
-				mode = Mode.lostUnit;
-				patrolTime = 20.0f;
 			}
 			break;
 		case Mode.captureUnit:
@@ -126,14 +126,18 @@ public class PatrolAI : MonoBehaviour {
 		case Mode.lostInCity:
 			if (patrolTime < 0.0f) {
 				mode = Mode.patrol;
-				patrolTime = 1440.0f;
+				patrolTime = timeInDay;
 			}
 			break;
 		case Mode.lostUnit:
 			if (patrolTime < 0.0f) {
 				mode = Mode.patrol;
-				patrolTime = 1440.0f;
+				patrolTime = timeInDay;
 				target = PickCity ();
+				moveToTarget ();
+			} else if ((target = seeUnit ()) != null) {
+				mode = Mode.chase;
+				patrolTime = timeInDay;
 				moveToTarget ();
 			}
 			break;
@@ -154,7 +158,7 @@ public class PatrolAI : MonoBehaviour {
 
 	// reassign the destination to the target
 	private void moveToTarget() {
-		if (target == null) {
+		if (mode == Mode.chase && (target = seeUnit()) == null) {
 			target = home;
 		}
 		List<Vector3> moveList = new List<Vector3> ();
@@ -167,7 +171,6 @@ public class PatrolAI : MonoBehaviour {
 		switch (mode) {
 		case Mode.patrol:
 			if (!deploy.isDeployed ()) {
-				//Debug.Log ("Redeploy patrol");
 				// choose new city to go to
 				target = PickCity ();
 				moveToTarget ();
