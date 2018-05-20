@@ -6,8 +6,12 @@ public class MainGovernment : MonoBehaviour {
 
 	// FIXME: MAY NOT BE NEEDED NOW
 	//private Dictionary <City, CityState> listOfCityStates;		// A list of the states of all the cities in the game. This is how the government determines
-																// if a city has already been instructed to raid, infiltrate, pacify, etc, so that redundant
-																// orders are not issued.
+																	// if a city has already been instructed to raid, infiltrate, pacify, etc, so that redundant
+																	// orders are not issued.
+	// STATES: The states the cities can be in.
+	enum CityState{normal, high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war,
+				   pacifying, infiltrating, genocide, raiding, deploying, independent};
+
 
 	public float MaxTyranny{ get; set; }		// A measure of the main governnment's Maximum Tyranny. It is a measure of the government's control over the
 												// capitol city plus all of the other cities in the country. Half of this value comes from the Tyranny of the
@@ -29,7 +33,7 @@ public class MainGovernment : MonoBehaviour {
 	private void Genocide ( City c );			// #futurefeature: When a city's Chaos and Supply of Ideas are both high, then the government will implement a
 												// program of mass genocide to end Idea-driven dissent.
 
-	private void DeployPatrols ( City c );
+	private void DeployPatrols ( City c );		
 
 	private void OrderRaid ( City c );
 
@@ -37,21 +41,76 @@ public class MainGovernment : MonoBehaviour {
 												// click and drag a Unity prefab from the scene list into the object so we can populate this with a MapGraph
 												// automatically.
 
-	// Two prioritiy queues, one for Heat and one for Chaos. These are used when staging government interventions.
-	private PriorityQueue <City> ChaosList;
-	private PriorityQueue <City> HeatList;
 
-	// Survey() uses a foreach (City c in graph){ PriorityQueue.Enqueue(graph.c) } loop to push cities into a Chaos queue and a Heat queue. It then priorities actions 
-	// based on Chaos and Heat values, with higher values rising to the top of the queues. It uses these queues to prioritize and stage interventions.
+	// TaskList contains the list of cities, sorted by their state. The government enacts strategic interventions using this list.
+	private PriorityQueue <City> TaskList;
+
 	private void Survey()
 	{
 		foreach (City c in graph) 
 		{
-			ChaosList.Enqueue (c, c.GetChaos ());
-			HeatList.Enqueue (c, c.GetHeat ());
+			TaskList.Enqueue (c, c.GetState ());
 		}
 	}
 
+	private void Strategy()
+	{
+		// Employ new strategy system using single TaskList. Foreach city in TaskList, switch statement based on city's state
+		foreach (City c in TaskList) 
+		{
+			// high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war
+			switch (c.GetState ()) 
+			{
+				case CityState.high_blackmarketeering:
+
+					// FIXME: #futurefeature: Once black marketeering is detected, launch a Timer object: if timer reaches thresshold,
+					// 		  then begin preparing for a raid. Give player time to cool down Heat meter.
+
+					// System message: Government has detected black market activity, deploying patrols...
+					
+					// Deploy multiple patrols
+
+					c.SetState (CityState.raiding);
+
+				break;
+
+				// If the city is in a state of unrest (high Chaos)...
+				case CityState.unrest:
+
+					c.SetState (CityState.pacifying);	// ...pacify the populace (spend Tyranny to lower Chaos)
+
+				break;
+			
+				case CityState.anti_govt_sentiments:
+
+					c.SetState (CityState.infiltrating);
+
+				break;
+
+				case CityState.anti_govt_demonstrations:
+				
+					c.SetState (CityState.pacifying);
+
+				break;
+
+				case CityState.civil_war:
+
+					c.SetState (CityState.genocide);
+
+				break;
+
+				default:
+
+				//pacifying, infiltrating, genocide, raiding, deploying, independent
+
+				break;
+			}
+		}
+
+		ClearQueue ();
+	}
+
+	/* OLD CODE
 	private void Strategy()
 	{
 		// Chaos Interventions
@@ -102,27 +161,16 @@ public class MainGovernment : MonoBehaviour {
 		}
 
 		ClearQueues ();
-	}
+	}*/
 
 
-	private void ClearQueues()
+	private void ClearQueue()
 	{
-		while (ChaosList.Count > 0) 
+		while (TaskList.Count > 0) 
 		{
-			ChaosList.Dequeue ();
-		}
-
-		while (HeatList.Count > 0) 
-		{
-			HeatList.Dequeue ();
+			TaskList.Dequeue ();
 		}
 	}
-
-	// Think about combinatorial logic for calling Pacification(), Infiltrate(), DeployPatrols(), OrderRaid(), etc.
-
-	// Add the implementation for Pacification(), Infiltrate(), DeployPatrols(), OrderRaid() in the CityGovernment class which actually executes the action
-	// in question.
-
 
 	// Use this for initialization
 	void Start () {
