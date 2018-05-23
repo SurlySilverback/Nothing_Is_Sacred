@@ -37,7 +37,9 @@ public class City : MonoBehaviour {
 		heat = new_val;
 	}
 
-	// STATE
+	private Curve SupplyCurve;
+
+	/********************************************************** STATE MANAGEMENNT **********************************************************/
 	private CityState state;
 	public CityState GetState(){return state;}
 	public void SetState(CityState new_state)
@@ -60,31 +62,23 @@ public class City : MonoBehaviour {
 	}
 
 
+	/********************************************************** INVENTORIES **********************************************************/
+	private Inventory playerInventory;
+	private Inventory peoplesInventory;
+	private Inventory govtInventory;
+
+
 	// Cardinal Goods
-	[SerializeField] private List<string> goods = new List<string>(){ "Drugs", "Exotics", "Food", 
-																	  "Fuel", "Ideas", "Medicine", 
-																	  "People", "Textiles", "Water", 
-																	  "Weapons" };
+	[SerializeField] private List<Good> goods;
 	
 	// Contains the city's supply of each Cardinal Good.
-	[SerializeField] private List<int> supplyOfGoods = new List<int>(){ 0, 0, 0, 
-																		 0, 0, 0, 
-																		 0, 0, 0, 
-																 		0 };
+	[SerializeField] private List<float> supplyOfGoods;
 
 	// Contains the current prices of all of the Cardinal Goods in the city.
-	[SerializeField] private List<float> pricesOfGoods = new List<float>(){ 0, 0, 0, 
-																			0, 0, 0, 
-																			0, 0, 0, 
-																			0 };
-
+	[SerializeField] private List<float> pricesOfGoods;
 
 	// Method for referencing the current supply of a Good.
-	public Dictionary<string, int> goodsToSupply;
-
-	// Method for referencing the current price of a Good.
-	public Dictionary<string, float> goodsToPrices;
-
+	public Dictionary<Good, float> goodsToSupply;
 
 	// Inventory of the People
 	[SerializeField] private List<string> peopleGoods = new List<string>(){ "Drugs", "Exotics", "Food", 
@@ -110,6 +104,25 @@ public class City : MonoBehaviour {
 	private Dictionary<string, int> govGoodsToValues;
 
 
+
+	/************************************************** ECONOMIC CALCULATIONS **************************************************/
+	public float GetSupplyMultipler(float value)
+	{
+		// Use city supply to determine multiplier.
+		return SupplyCurve.Evaluate(value);
+	}
+
+
+	// Function for getting the price of a Good in the local (City) context. Good prices vary between cities based on their supply.
+	// FIXME: The second parameter may not be necessary, depending on how the UI wants to grab the price.
+	public float GetPrice(Good g)
+	{
+		float supply_multiplier = GetSupplyMultipler ( goodsToSupply[g] );
+		float heat_multiplier = g.GetHeatMultiplier ();
+
+		return (supply_multiplier + heat_multiplier) * g.GetBasePrice ();
+	}
+		
 	private void DetermineState()
 	{
 		// Update storehouses here using ( 1/1440th of consumption rate * time.deltaTime);

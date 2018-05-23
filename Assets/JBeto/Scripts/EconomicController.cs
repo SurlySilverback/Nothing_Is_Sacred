@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class EconomicController : MonoBehaviour {
 
-	[SerializeField] private SupplyCurve supplyCurve;
+	[SerializeField] private Curve supplyCurve;
 
 	// Contains a list of all cities in the game
 	[SerializeField] private List<City> listOfCities;
@@ -21,20 +21,7 @@ public class EconomicController : MonoBehaviour {
 
 	private Dictionary<string, float> goodsToBasePrice;
 
-	// TODO: Calculate heat mult
-	public int calculateHeatMultiplier ()
-	{
-		// Use Good's current Heat value to determine multiplier. 
-		// TODO: Draw animation curve for Heat multiplier curve, then use similar implementation to supplyMultiplier below.
-		return 1;
-	}
 
-	// TODO: Calculate supply mult
-	public int calculateSupplyMultipler(float supply)
-	{
-		// Use city supply to determine multiplier.
-		return Mathf.RoundToInt(supplyCurve.curve.Evaluate(supply));
-	}
 
 	// Updates all prices after purchases or sales
 	public void updatePrices()
