@@ -64,8 +64,9 @@ public class InventoryUI : MonoBehaviour
         }
 
         Good[] allGoods = next.GetEntireInventory();
+        print(allGoods);
         for (int i = 0; i < next.Size; ++i){
-            var currentSlot = grid.transform.GetChild(i);
+            Transform currentSlot = grid.transform.GetChild(i);
             Good currentGood = allGoods[i];
             if(currentGood != null) {
                 GameObject visual = goodToSprite[currentGood];
