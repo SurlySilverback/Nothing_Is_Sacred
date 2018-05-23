@@ -20,6 +20,7 @@ public class InventoryUI : MonoBehaviour
     private List<Good> goods;
     private Dictionary<Good, GameObject> goodToSprite;
 
+
     private void Awake()
     {
         if (OnChangeInventory == null)
@@ -49,6 +50,11 @@ public class InventoryUI : MonoBehaviour
 
     // Based on the current inventory that should be displayed, SetInventory will update the view and set currentInventory
 
+    public Inventory GetInventory()
+    {
+        return this.currentInventory;
+    }
+
     public void SetInventory(Inventory next)
     {
         //Set the private variable to the current inventory
@@ -59,7 +65,7 @@ public class InventoryUI : MonoBehaviour
             }
         }
         
-        for(int i = 0; i < next.Size; ++i){
+        for(int i = 0; i < next.Size; ++i) {
             Instantiate(slot, grid.transform);
         }
 
@@ -69,10 +75,12 @@ public class InventoryUI : MonoBehaviour
             Transform currentSlot = grid.transform.GetChild(i);
             Good currentGood = allGoods[i];
             if(currentGood != null) {
+                Debug.Log("Creating Item");
                 GameObject visual = goodToSprite[currentGood];
                 Instantiate(visual, currentSlot); 
             }
         }
         currentInventory = next;
+        OnChangeInventory.Invoke();
     }   
 }
