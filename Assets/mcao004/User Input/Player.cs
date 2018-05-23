@@ -14,6 +14,17 @@ public class Player : MonoBehaviour
 	public float Money { get; set; }			// Stores the running total of the Player's money.
 	public float Complicity { get; set; }		// Stores the running total of the Player's Complicity with the government.
 
+    public bool BuyUnit(Unit unit, float cost)
+    {
+        if(Money >= cost) { 
+            GameObject gb = Instantiate(unit);
+            gb.transform.position = transform.position;
+            Money -= cost; 
+            return true; 
+        }
+        return false; 
+    }
+
     private void Awake()
     {
         Money = startingMoney;
