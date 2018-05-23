@@ -15,7 +15,6 @@ public class CityUI : MonoBehaviour
     private GameObject cityView;
     public UnityEvent OnChangeCityView;
 
-
     private void Awake()
     {
         if (OnChangeCityView == null)
