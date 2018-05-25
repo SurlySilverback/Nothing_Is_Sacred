@@ -37,7 +37,7 @@ public class PatrolAI : MonoBehaviour {
 		this.target = null;
 	}
 
-	void SetHome(GameObject home) {
+	public void SetHome(GameObject home) {
 		this.home = home;
 		transform.position = home.transform.position;
 	}

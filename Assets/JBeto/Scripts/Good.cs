@@ -5,6 +5,12 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class Good : ScriptableObject
 {
+	public enum GoodType {Drugs, Exotics, Food, Fuel, Ideas, Medicine, People, Textiles, Water, Weapons};
+
+	public GoodType type;
+
+	public GameObject visual;
+
 	private Curve HeatCurve;
 
 	public float GetHeatMultiplier()				// This returns the current Heat value multiplier based on the Good's Heat value.

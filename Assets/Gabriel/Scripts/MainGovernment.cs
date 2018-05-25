@@ -17,25 +17,11 @@ public class MainGovernment : MonoBehaviour {
 												// it spends part of its maximum Tyranny. While its maximum Tyranny is reduced in this way, Current Tyranny is
 												// used to make Tyranny-based calculations.
 
-	//private void Strategy ();					// Strategic logic for the Main Government.
-
-	//private void Pacification ( City c );		// ACTION: When a city's Chaos rises above the Chaos threshhold, the government will deploy peacekeeping forces
-												// to quell riots and arrest malcontents. This will cost Tyranny and reduce the Chaos level of the target City.
-
-	//private void Infiltrate ( City c );			// ACTION: When a city's supply of Ideas grows beyond a certain threshhold, the government will deploy secret
-												// police to find and execute the malcontents. This process will take time, but it will eventually lead to the
-												// reduction of a City's supply of Ideas.
-
-	//private void Genocide ( City c );			// #futurefeature: When a city's Chaos and Supply of Ideas are both high, then the government will implement a
-												// program of mass genocide to end Idea-driven dissent.
-
-	//private void DeployPatrols ( City c );		
-
-	//private void OrderRaid ( City c );
-
 	[SerializeField] private MapGraph graph;	// A structure which holds a MapGraph representation of the cities and roads. SerializeField allows us to
 												// click and drag a Unity prefab from the scene list into the object so we can populate this with a MapGraph
 												// automatically.
+
+	[SerializeField] GameObject Patrol;
 
 
 	// TaskList contains the list of cities, sorted by their state. The government enacts strategic interventions using this list.
@@ -64,13 +50,27 @@ public class MainGovernment : MonoBehaviour {
 
 					// System message: Government has detected black market activity, deploying patrols...
 					
-					// Deploy multiple patrols
-					if (CurrentTyranny >= 50) 
+					// FIXME: Include a timer parameter in this conditional so that a raid is only launched if the timer has elapsed.
+					if (CurrentTyranny >= 80) 
 					{
-						CurrentTyranny = CurrentTyranny - 50;
+						CurrentTyranny = CurrentTyranny - 80;
 						c.SetState (City.CityState.raiding);
 						// SYSTEM MESSAGE: Government is investigating black market activity in City.Name.
+
+						GameObject new_patrol_1 = (GameObject)Instantiate(Patrol);
+						GameObject new_patrol_2 = (GameObject)Instantiate(Patrol);
+						GameObject new_patrol_3 = (GameObject)Instantiate(Patrol);
+						new_patrol_1.GetComponent<PatrolAI> ().SetHome(c.gameObject);
+						new_patrol_2.GetComponent<PatrolAI> ().SetHome(c.gameObject);
+						new_patrol_3.GetComponent<PatrolAI> ().SetHome(c.gameObject);
 					}
+
+				break;
+
+				case City.CityState.raiding:
+
+					// Add a timer that keeps track of time elapsed since the City was assigned the raiding state.
+					// Once this timer has elapsed, the player's inventory in that city should be cleared out.
 
 				break;
 
@@ -148,7 +148,7 @@ public class MainGovernment : MonoBehaviour {
 
 		foreach (City c in graph) {
 		
-			c.OnEndRaiding.AddListener ( delegate{ RestoreTyranny(50); });
+			c.OnEndRaiding.AddListener ( delegate{ RestoreTyranny(80); });
 			c.OnEndPacifying.AddListener ( delegate{ RestoreTyranny(150); });
 			c.OnEndInfiltrating.AddListener ( delegate{ RestoreTyranny (10); });
 			c.OnEndEndingDemonstrations.AddListener ( delegate{ RestoreTyranny (250); });
@@ -160,10 +160,5 @@ public class MainGovernment : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		// SurveyChaos();
-		// Execute Chaos-reducing actions.
-
-		// SurveyHeat();
-		// Execute anti-player actios.
 	}
 }
