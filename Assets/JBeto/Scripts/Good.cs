@@ -5,7 +5,22 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class Good : ScriptableObject
 {
-    public float Weight;
+	public enum GoodType {Drugs, Exotics, Food, Fuel, Ideas, Medicine, People, Textiles, Water, Weapons};
+
+	public GoodType type;
+
+	public GameObject visual;
+
+	private Curve HeatCurve;
+
+	public float GetHeatMultiplier()				// This returns the current Heat value multiplier based on the Good's Heat value.
+	{												// The more Heat on a Good, the more it costs to buy, and the more you make from
+		return HeatCurve.Evaluate ( heat );			// selling it.
+	}
+
+
+
+	public float Weight;
 
 	public int MaslowIndex;					    // Maslow's Hierarchy of Needs observes that human needs fall into a kind of 
 												// urgency hierarchy. Certain basic needs (such as air, food, water, 
@@ -27,6 +42,10 @@ public class Good : ScriptableObject
 												// that role in the interim. If we can design the game so that scarcity alone can be used 
 												// to determine the prices, then basePrice variable will be discarded. THIS VALUE DOES NOT CHANGE.
 												// THIS VALUE IS NOT DISPLAYED TO THE PLAYER.
+	public float GetBasePrice()
+	{
+		return basePrice;
+	}
 
     [SerializeField]
 	private int baseHeat;                       // The heat value of goods may increase or decrease over time, but certain goods will
