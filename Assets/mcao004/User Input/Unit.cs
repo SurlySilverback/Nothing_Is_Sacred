@@ -24,6 +24,8 @@ public class Unit : MonoBehaviour
 	private DrawCurve drawCurve;
 	private LineRenderer linerenderer;
 
+	public string unitName;
+
     private void Awake()
     {
 		Items = new Inventory(inventorySize, maxCapacity);

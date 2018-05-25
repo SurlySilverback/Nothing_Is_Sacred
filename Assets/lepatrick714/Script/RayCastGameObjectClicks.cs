@@ -7,10 +7,12 @@ public class RayCastGameObjectClicks : MonoBehaviour {
 	[SerializeField] private CityUI cityUi; 
 	[SerializeField] private InventoryUI peopleInventory; 
 	[SerializeField] private InventoryUI govInventory; 
+	[SerializeField] private InventoryUI storeHouseInventory; 
 	[Space(10)]
 
 	[Header("Unit View")]
 	[SerializeField] private InventoryUI unitInventory; 
+	[SerializeField] private InventoryUI unitInformation; 
 
 	// Update is called once per frame
 	void Update () 
