@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+using UnityEngine.Events;
+using UberAudio;
+
 [RequireComponent(typeof(Deploy))]
 public class PatrolAI : MonoBehaviour {
 	enum Mode{patrol, chase, captureUnit, lostInCity, lostUnit, goHome};
@@ -21,9 +24,23 @@ public class PatrolAI : MonoBehaviour {
 
 	private const float timeInDay = 1440.0f;
 
+	public UnityEvent OnCapture;
+	//private AudioManager audioManager;
+
+	void Awake() 
+	{
+		if (OnCapture == null) {
+			OnCapture = new UnityEvent ();
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		this.deploy = GetComponent<Deploy>();
+		//this.audioManager = GetComponent<AudioManager> ();
+		OnCapture.AddListener (delegate {
+			AudioManager.Instance.Play ("Scream");	
+		});
 
 		// get the home by raycast
 		home = PickCity();
@@ -37,9 +54,14 @@ public class PatrolAI : MonoBehaviour {
 		this.target = null;
 	}
 
+	// When a patrol is made, can be called to set starting point of patrol
 	public void SetHome(GameObject home) {
 		this.home = home;
 		transform.position = home.transform.position;
+		this.patrolTime = timeInDay;
+		this.mode = Mode.patrol;
+		target = PickCity ();
+		moveToTarget ();
 	}
 
 	// picks a random city to move towards
@@ -103,6 +125,7 @@ public class PatrolAI : MonoBehaviour {
 				target.GetComponent<Deploy> ().StopMove ();
 				this.patrolTime = 15.0f;
 				mode = Mode.captureUnit;
+				OnCapture.Invoke ();
 				Destroy (target.gameObject);
 				deploy.StopMove ();
 				target = home;

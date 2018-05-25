@@ -41,7 +41,7 @@ public class MinimizeUI : MonoBehaviour
     private void UpdateAnimation(float t)
     {
         this.timePassed += Time.unscaledDeltaTime;
-        transform.localPosition = Vector3.Lerp(minimizedPosition, maximizedPosition, animationCurve.Evaluate(t));
+        transform.localPosition = Vector3.Lerp(maximizedPosition, minimizedPosition, animationCurve.Evaluate(t));
         if (this.timePassed >= this.timeFrame)
         {
             this.state = UIState.Stationary;
