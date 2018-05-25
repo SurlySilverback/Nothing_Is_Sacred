@@ -1542,7 +1542,7 @@ GameObject:
   - component: {fileID: 4191714019711686}
   - component: {fileID: 114067557119073006}
   m_Layer: 0
-  m_Name: Road(Clone)
+  m_Name: GameMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13665,6 +13665,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5da2de7428332874a836fa94099ce40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TmxId: 0
+  TmxName: 
+  TmxType: 
+  TmxPosition: {x: 0, y: 0}
+  TmxSize: {x: 0, y: 0}
+  TmxRotation: 0
+  TmxFlippingHorizontal: 0
+  TmxFlippingVertical: 0
+  TileWidth: 0
+  TileHeight: 0
 --- !u!114 &114320182088846474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13882,16 +13892,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36f478cbe2fdbeb43a1a2ec45e99ca69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TmxId: 147
-  TmxName: 
-  TmxType: City
-  TmxPosition: {x: 15841.4, y: 22316.6}
-  TmxSize: {x: 657, y: 843}
-  TmxRotation: 0
-  TmxFlippingHorizontal: 0
-  TmxFlippingVertical: 0
-  TileWidth: 6.5699997
-  TileHeight: 8.429999
+  Offset: {x: 0, y: 0}
 --- !u!114 &114610133452864006
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -13979,6 +13980,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4529e6d50e7df746bb0157362724759, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Offset: {x: 0, y: 0}
+  Color: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &114679779529495356
 MonoBehaviour:
   m_ObjectHideFlags: 1
