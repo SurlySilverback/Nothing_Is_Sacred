@@ -12,8 +12,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     
     private bool IsEmpty()
     {
-        Inventory inventory = inventoryUI.GetInventory();
-        return inventory.GetGood(transform.GetSiblingIndex()) == null;
+        return (transform.childCount == 0);
     }
 
 	#region IDropHandler implementation
@@ -23,7 +22,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         {
             eventData.pointerDrag.transform.SetParent(transform);
             Inventory inventory = inventoryUI.GetInventory();
-           // Good currentGood = inventory.AddGood(eventData.pointerDrag.transform);
+            inventory.AddGood(eventData.pointerDrag.GetComponent<DragHandler>().good);
         }
     }
 
