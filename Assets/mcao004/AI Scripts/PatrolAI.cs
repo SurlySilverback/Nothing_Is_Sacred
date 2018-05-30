@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.Events;
 using UberAudio;
 
-[RequireComponent(typeof(Deploy))]
+[RequireComponent(typeof(Deploy),typeof(LineRenderer))]
 public class PatrolAI : MonoBehaviour {
-	enum Mode{patrol, chase, captureUnit, lostInCity, lostUnit, goHome};
+	enum Mode{init, patrol, chase, captureUnit, lostInCity, lostUnit, goHome};
 	private Deploy deploy;
+	private LineRenderer linerenderer;
 	private GameObject home;
 	[SerializeField]
 	private float baseSpeed;
@@ -25,7 +26,6 @@ public class PatrolAI : MonoBehaviour {
 	private const float timeInDay = 1440.0f;
 
 	public UnityEvent OnCapture;
-	//private AudioManager audioManager;
 
 	void Awake() 
 	{
@@ -37,7 +37,7 @@ public class PatrolAI : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		this.deploy = GetComponent<Deploy>();
-		//this.audioManager = GetComponent<AudioManager> ();
+		this.linerenderer = GetComponent<LineRenderer> ();
 		OnCapture.AddListener (delegate {
 			AudioManager.Instance.Play ("Scream");	
 		});
@@ -46,12 +46,10 @@ public class PatrolAI : MonoBehaviour {
 		home = PickCity();
 		transform.position = home.transform.position;
 
-		this.mode = Mode.patrol;
-		this.baseSpeed = 8.0f;
-		this.fieldOfView = 10.0f;
-		this.tyrannyCost = 10.0f;
+		this.mode = Mode.init;
 		this.patrolTime = timeInDay;
 		this.target = null;
+
 	}
 
 	// When a patrol is made, can be called to set starting point of patrol
@@ -60,8 +58,7 @@ public class PatrolAI : MonoBehaviour {
 		transform.position = home.transform.position;
 		this.patrolTime = timeInDay;
 		this.mode = Mode.patrol;
-		target = PickCity ();
-		moveToTarget ();
+		target = null;
 	}
 
 	// picks a random city to move towards
@@ -98,20 +95,45 @@ public class PatrolAI : MonoBehaviour {
 			currFieldOfView *= 0.7f;
 		}
 		// actual collider using that fieldOfView as radius of visibility circle
-		Collider2D collider = Physics2D.OverlapCircle (transform.position, fieldOfView, unitmask);
-		if (collider != null) {
-			result = collider.gameObject;
+		Collider2D[] colliders = Physics2D.OverlapCircleAll (transform.position, fieldOfView + 2.0f, unitmask);
+		Vector2 sight = deploy.direction ();
+		if (sight == Vector2.zero) {
+			return result;
+		}
+
+		foreach (Collider2D collider in colliders) {
+			if (collider != null) {
+				Vector2 collideDirection = (collider.gameObject.transform.position - transform.position);
+				//Debug.DrawRay (transform.position, sight.normalized, Color.cyan, 1.0f, false);
+				//Debug.Log (Vector2.Angle (sight, collideDirection));
+				if (Vector2.Angle(sight, collideDirection) < 20.0f)
+				{
+					//Debug.Log (collider.gameObject.name);
+					return collider.gameObject;
+				}
+			}
 		}
 		return result;
 	}
 
-	void ChangeMode() {
+	private void ChangeMode() {
 		switch (mode) {
+		case Mode.init:
+			AudioManager.Instance.Play ("IScream", this.gameObject);
+			//AudioManager.Instance.Play ("blackflagblues");
+			if (home == null) {
+				SetHome (PickCity ());
+			}
+			mode = Mode.patrol;
+			target = PickCity ();
+			patrolTime = timeInDay;
+			break;
 		case Mode.patrol:
-			if ((target = seeUnit ()) != null) {
+			if ((target = seeUnit ()) != null && !targetAtCity()) {
 				moveToTarget ();
 				mode = Mode.chase;
 				this.patrolTime = timeInDay * 3.0f;
+				AudioManager.Instance.Play ("OhShit");
 			} else if (patrolTime < 0) {
 				target = home;
 				moveToTarget ();
@@ -125,18 +147,20 @@ public class PatrolAI : MonoBehaviour {
 				target.GetComponent<Deploy> ().StopMove ();
 				this.patrolTime = 15.0f;
 				mode = Mode.captureUnit;
-				OnCapture.Invoke ();
 				Destroy (target.gameObject);
+				Camera.main.GetComponent<AudioListener> ().enabled = true;
+				OnCapture.Invoke ();
 				deploy.StopMove ();
 				target = home;
 			} else if ((target = seeUnit ()) == null) { // lost unit
+				Debug.Log("Lost");
 				mode = Mode.lostUnit;
 				patrolTime = 20.0f;
 			} else if (targetAtCity ()) { // lost in city
 				mode = Mode.lostInCity;
 				this.patrolTime = 15.0f;
-				target = PickCity ();
 				moveToTarget ();
+				target = PickCity ();
 			}
 			break;
 		case Mode.captureUnit:
@@ -150,6 +174,11 @@ public class PatrolAI : MonoBehaviour {
 			if (patrolTime < 0.0f) {
 				mode = Mode.patrol;
 				patrolTime = timeInDay;
+			} else if ((target = seeUnit ()) != null && !targetAtCity ()) {
+				moveToTarget ();
+				mode = Mode.chase;
+				this.patrolTime = timeInDay * 3.0f;
+				AudioManager.Instance.Play ("OhShit");
 			}
 			break;
 		case Mode.lostUnit:
@@ -162,6 +191,7 @@ public class PatrolAI : MonoBehaviour {
 				mode = Mode.chase;
 				patrolTime = timeInDay;
 				moveToTarget ();
+				AudioManager.Instance.Play ("OhShit");
 			}
 			break;
 		case Mode.goHome:
@@ -169,6 +199,7 @@ public class PatrolAI : MonoBehaviour {
 				moveToTarget ();
 				mode = Mode.chase;
 				this.patrolTime = timeInDay * 3.0f;
+				AudioManager.Instance.Play ("OhShit");
 			} else if (Vector2.Distance(transform.position,home.transform.position) < 0.5f) {
 				// got home, so despawn
 				/////////////////////FIXFORSETTINGTYRANNY();
@@ -182,16 +213,23 @@ public class PatrolAI : MonoBehaviour {
 	// reassign the destination to the target
 	private void moveToTarget() {
 		if (mode == Mode.chase && (target = seeUnit()) == null) {
-			target = home;
+			return;
 		}
+		Vector3 temp;
 		List<Vector3> moveList = new List<Vector3> ();
-		moveList.Add (transform.position);
-		moveList.Add (target.transform.position);
-		deploy.StartMove (moveList, baseSpeed);
+		temp = transform.position;
+		temp.z = -5.0f;
+		moveList.Add (temp);
+		temp = target.transform.position;
+		temp.z = -5.0f;
+		moveList.Add (temp);
+		this.deploy.StartMove (moveList,baseSpeed);
 	}
 
 	void ProcessMode() {
 		switch (mode) {
+		case Mode.init:
+			break;
 		case Mode.patrol:
 			if (!deploy.isDeployed ()) {
 				// choose new city to go to
@@ -218,10 +256,31 @@ public class PatrolAI : MonoBehaviour {
 		}
 		patrolTime -= Time.deltaTime;
 	}
+
+	private void drawLineOfSight () {
+		if (!deploy.isDeployed ()) {
+			linerenderer.enabled = false;
+		}
+		linerenderer.enabled = true;
+		Vector3 position = transform.position;
+		position.z = -1.0f;
+		Vector2 direction = deploy.direction ().normalized * fieldOfView;
+		if (target != null) {
+			direction = target.transform.position - transform.position;
+			direction = direction.normalized * fieldOfView;
+		}
+		linerenderer.positionCount = 2;
+		linerenderer.SetPosition (0, position);
+		linerenderer.SetPosition (1, position + (Vector3)direction);
+		linerenderer.startWidth = 0;
+		linerenderer.endWidth = 1 * fieldOfView;
+		linerenderer.sortingOrder = SortingLayer.GetLayerValueFromName ("Unit");
+	}
 	
 	// Update is called once per frame
 	void Update () {
 		ChangeMode ();
 		ProcessMode ();
+		drawLineOfSight ();
 	}
 }
