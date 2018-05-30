@@ -7,6 +7,14 @@ using System.Linq;
 
 public class City : MonoBehaviour { 
 
+	[SerializeField]
+	private Flag flag;
+	public void SetFlag(Color c) {
+		flag.ChangeColor (c);
+	}
+	[SerializeField]
+	private float count;
+
 	// STATES: The states the cities can be in.
 	public enum CityState{normal, high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war,
 						   pacifying, infiltrating, ending_demonstrations, genocide, raiding, independent};
@@ -45,7 +53,7 @@ public class City : MonoBehaviour {
 	private Curve SupplyCurve;
 
 	/********************************************************** STATE MANAGEMENNT **********************************************************/
-	private CityState state;
+	[SerializeField] private CityState state;
 	public CityState GetState(){return state;}
 	public void SetState(CityState new_state)
 	{
@@ -202,14 +210,6 @@ public class City : MonoBehaviour {
 		ConsumeGoods ();		// Consume goods for the city.
 		CalculateChaos ();		// Calculate Chaos accrual based on current supply status.
 
-		timeCapture += Time.deltaTime;
-
-		if (timeCapture >= 1) 		// Determine the amount of in-game time passed since last tick.
-		{
-			timeCapture--;
-			intervention_timer++;
-		}
-
 		switch(state)
 		{
 			case CityState.pacifying:
@@ -316,36 +316,43 @@ public class City : MonoBehaviour {
 
 			break;
 
-			default:
-
+		default:
+			Debug.Log (chaos);
 				// If values are below threshhold, status is normal.
-				if (chaos <= (0.6f * maxChaos) && heat <= (0.4f * maxHeat))
+				if (chaos <= (0.6f * maxChaos) && heat <= (0.4f * maxHeat)) 
+				{
 					state = CityState.normal;
-
+					flag.ChangeColor (Color.white);
+				}
 				// If chaos is high...
 				else if (chaos > (0.6f * maxChaos)) 
 				{
 					// ...and if Idea supply is high...
 					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 300) {		// <-- Terrible coding practice, don't do this in final version.
 						state = CityState.anti_govt_demonstrations;		// ...anti-goverment demonstrations.
+						flag.ChangeColor(new Color(255,205,98)); 	// light orange
 					}
 					// ...and if Weapon supply is high...
 					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Weapons)] >= 300) {
 						state = CityState.civil_war;					// ...civil war.
+						flag.ChangeColor(new Color(255,128,128));	// salmon
 					}
 
 					state = CityState.unrest;
+					flag.ChangeColor (new Color (137,128,255)); 	// light blue
 				} 
 
 				// If heat is high...
 				else if (heat > 0.4f * maxHeat) {
 					state = CityState.high_blackmarketeering;	// ...high black marketeering.
+					flag.ChangeColor(new Color(128,255,149));	// light green
 				}
 
 				// If Idea supply is high...
 				else if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 300) 
 				{
 					state = CityState.anti_govt_sentiments;
+					flag.ChangeColor (new Color (248,128,255));
 				}
 
 			break;
@@ -368,15 +375,30 @@ public class City : MonoBehaviour {
 		
 	// Use this for initialization
 	void Start () {
-
+		count = 0;
 		timeCapture = 0;
 		intervention_timer = 0;
-							
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+		count += Time.deltaTime;
+		if (count >= 10.0f) 
+		{
+			count -= 10.0f;
+			DetermineState ();
+		}
 
+		// when it is one of these
+		if (!(state != CityState.infiltrating && state != CityState.genocide && state != CityState.pacifying && state != CityState.raiding && state != CityState.ending_demonstrations)) 
+		{
+			timeCapture += Time.deltaTime;
+			if (timeCapture >= 1.0f) {
+				timeCapture--;
+				intervention_timer++;
+			}
+		}
 	}
 }
