@@ -1542,11 +1542,7 @@ GameObject:
   - component: {fileID: 4191714019711686}
   - component: {fileID: 114067557119073006}
   m_Layer: 0
-<<<<<<< HEAD
-  m_Name: GameMap
-=======
   m_Name: Road(Clone)
->>>>>>> master
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13883,11 +13879,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1573594551111848}
   m_Enabled: 1
   m_EditorHideFlags: 0
-<<<<<<< HEAD
-  m_Script: {fileID: 11500000, guid: 5da2de7428332874a836fa94099ce40e, type: 3}
-=======
   m_Script: {fileID: 11500000, guid: 36f478cbe2fdbeb43a1a2ec45e99ca69, type: 3}
->>>>>>> master
   m_Name: 
   m_EditorClassIdentifier: 
   TmxId: 147
