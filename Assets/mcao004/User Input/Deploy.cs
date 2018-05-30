@@ -1,12 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UberAudio;
 
 public class Deploy : MonoBehaviour {
-
+	[SerializeField]
 	private int nextlrPoint;
 	[SerializeField]
 	private bool deployed;
+	[SerializeField]
 	private IList<Vector3> list;
 	private float unitSpeed;
 	private float usableSpeed;
@@ -90,6 +92,7 @@ public class Deploy : MonoBehaviour {
 			if (nextlrPoint >= list.Count)
 			{
 				deployed = false;
+				transform.position = currPos;
 				return;
 			}
 			usableSpeed -= dist;
@@ -99,6 +102,7 @@ public class Deploy : MonoBehaviour {
 		if (nextlrPoint >= list.Count)
 		{
 			deployed = false;
+			transform.position = currPos;
 			return;
 		}
 
@@ -128,10 +132,19 @@ public class Deploy : MonoBehaviour {
 		return deployed;
 	}
 
+	public Vector2 direction() {
+		if (!deployed) {
+			return Vector2.one;
+		} else {
+			return list [nextlrPoint] - transform.position;
+		}
+	}
+
 	// Use this for initialization
 	void Start () {
 		nextlrPoint = 0;
 		deployed = false;
+		list = new List<Vector3> ();
 	}
 	
 	// Update is called once per frame
@@ -139,5 +152,14 @@ public class Deploy : MonoBehaviour {
 		if (deployed) {
 			MoveUnit ();
 		}
+		/*if (direction ().x >= 0) {
+			Vector3 temp = transform.localScale;
+			temp.x = 1;
+			transform.localScale = temp;
+		} else {
+			Vector3 temp = transform.localScale;
+			temp.x = -1;
+			transform.localScale = temp;
+		}*/
 	}
 }
