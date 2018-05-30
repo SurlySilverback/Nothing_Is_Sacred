@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using MonsterLove.StateMachine;
 using UnityEngine;
-
-
+using UberAudio;
 
 [RequireComponent(typeof(Deploy), typeof(DrawCurve), typeof(LineRenderer))]
 [RequireComponent(typeof(CircleCollider2D))]
@@ -23,6 +22,8 @@ public class Unit : MonoBehaviour
 	private DrawCurve drawCurve;
 	private LineRenderer linerenderer;
 
+	private AudioEmitter audioemitter;
+
     private void Awake()
     {
 		Items = new Inventory(inventorySize, maxCapacity);
@@ -40,10 +41,8 @@ public class Unit : MonoBehaviour
     // Use this for initialization
     private void Start()
 	{
-		
 		drawCurve.OnStartDrawing.AddListener (delegate { deploy.StopMove (); });
 		drawCurve.OnEndDrawing.AddListener(delegate{CallStartMove();});
-
 	}
 
 	private void Update()

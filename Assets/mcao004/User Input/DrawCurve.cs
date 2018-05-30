@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.Events;
 
-[RequireComponent (typeof(LineRenderer))]
+[RequireComponent (typeof(LineRenderer), typeof(Deploy), typeof(CircleCollider2D))]
 public class DrawCurve : MonoBehaviour {
 
 	enum State { Start, DrawMode, MakePoint, StillHeld, LastNode };
@@ -20,6 +20,8 @@ public class DrawCurve : MonoBehaviour {
 
 	private List<Vector3> controlPoints;
 	private LineRenderer lr;
+	private Deploy deploy;
+	private CircleCollider2D circleCollider;
 	private Matrix4x4 m;
 
 	public UnityEvent OnEndDrawing;
@@ -46,6 +48,9 @@ public class DrawCurve : MonoBehaviour {
 		lr.endColor = Color.black;
 		lr.SetPosition (0, transform.position);
 		lr.SetPosition (1, transform.position);
+
+		deploy = GetComponent<Deploy> ();
+		circleCollider = GetComponent<CircleCollider2D> ();
 
 		m = new Matrix4x4 ();
 		m[0,0] = 0;
@@ -165,12 +170,18 @@ public class DrawCurve : MonoBehaviour {
 		switch (state)
 		{
 		case State.Start:
-			// Temporary for mult characters
+			if (!deploy.isDeployed ()) {
+				lr.enabled = false;
+				lr.positionCount = 2;
+				lr.SetPosition (0, transform.position);
+				lr.SetPosition (1, transform.position);
+			}
 			if (Input.GetMouseButtonDown(0))
 			{
 				Vector3 mouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				mouse.z = CONST_Z;
-				if (Vector3.Distance (mouse, transform.position) > this.clickRadius)
+				RaycastHit2D hit = Physics2D.Raycast (mouse, -Vector2.up, 0.1f, LayerMask.GetMask ("Unit"));
+				if ( hit.collider != circleCollider)
 				{
 					// if mouse too far away from character
 					break;
@@ -179,6 +190,7 @@ public class DrawCurve : MonoBehaviour {
 				controlPoints.Clear();
 				controlPoints.Add (transform.position);
 				state = State.DrawMode;
+				lr.enabled = true;
 				OnStartDrawing.Invoke ();
 			}
 			break;
