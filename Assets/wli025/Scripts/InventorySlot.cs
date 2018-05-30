@@ -7,18 +7,30 @@ using UnityEngine.EventSystems;
 // Inventory groups
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    public GameObject GetItem()
+    [SerializeField]
+    private InventoryUI inventoryUI;
+    
+    private bool IsEmpty()
     {
-        return (transform.childCount > 0) ? transform.GetChild(0).gameObject : null;
+        Inventory inventory = inventoryUI.GetInventory();
+        return inventory.GetGood(transform.GetSiblingIndex()) == null;
     }
 
 	#region IDropHandler implementation
     public void OnDrop(PointerEventData eventData)
     {
-        if (GetItem() == null)
+        if (IsEmpty())
         {
             eventData.pointerDrag.transform.SetParent(transform);
+            Inventory inventory = inventoryUI.GetInventory();
+           // Good currentGood = inventory.AddGood(eventData.pointerDrag.transform);
         }
+    }
+
+    public Good GetGood()
+    {
+        Inventory inventory = inventoryUI.GetInventory();
+        return inventory.GetGood(transform.GetSiblingIndex());
     }
 	#endregion
 }

@@ -8,8 +8,9 @@ using UberAudio;
 [RequireComponent(typeof(CircleCollider2D))]
 public class Unit : MonoBehaviour
 {
+    public string UnitName;
     [SerializeField]
-    protected float baseSpeed = 10.0f;					    // Determines the base speed of the unit on roads.
+    private float baseSpeed = 10.0f;					    // Determines the base speed of the unit on roads.
 	[Header("Inventory")]
 	[SerializeField]
 	private int inventorySize;
@@ -22,7 +23,7 @@ public class Unit : MonoBehaviour
 	private DrawCurve drawCurve;
 	private LineRenderer linerenderer;
 
-	private AudioEmitter audioemitter;
+	public string unitName;
 
     private void Awake()
     {
