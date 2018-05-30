@@ -220,10 +220,10 @@ public class City : MonoBehaviour {
 					intervention_timer = 0;
 
 					// Reduce Chaos
-					if (chaos < 0.3 * maxChaos)
+					if (chaos < 0.3f * maxChaos)
 						chaos = 0;
 					else 
-						chaos -= (0.3 * maxChaos);
+						chaos -= (0.3f * maxChaos);
 					
 					state = CityState.normal;
 					OnEndPacifying.Invoke();
@@ -238,10 +238,10 @@ public class City : MonoBehaviour {
 					intervention_timer = 0;
 					
 					// Reduce Idea Supply
-					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] < 0.3 * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)])
+					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)])
 						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] = 0;
 					else
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] -= 0.3 * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
 
 					state = CityState.normal;
 					OnEndInfiltrating.Invoke();
@@ -256,16 +256,16 @@ public class City : MonoBehaviour {
 					intervention_timer = 0;
 
 					// Reduce Chaos
-					if (chaos < 0.3 * maxChaos)
+					if (chaos < 0.3f * maxChaos)
 						chaos = 0;
 					else 
-						chaos -= (0.3 * maxChaos);
+						chaos -= (0.3f * maxChaos);
 
 					// Reduce Idea Supply
-					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] < 0.3 * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)])
+					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)])
 						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] = 0;
 					else
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] -= 0.3 * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
 
 					state = CityState.normal;
 					OnEndInfiltrating.Invoke();
@@ -280,16 +280,16 @@ public class City : MonoBehaviour {
 					intervention_timer = 0;
 
 					// Reduce Chaos
-					if (chaos < 0.3 * maxChaos)
+					if (chaos < 0.3f * maxChaos)
 						chaos = 0;
 					else 
-						chaos -= (0.3 * maxChaos);
+						chaos -= (0.3f * maxChaos);
 
 					// Reduce Weapons Supply
-					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] < 0.3 * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)])
+					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)])
 						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] = 0;
 					else
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] -= 0.3 * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)];
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)];
 
 					state = CityState.normal;
 					OnEndGenocide.Invoke();
@@ -319,11 +319,11 @@ public class City : MonoBehaviour {
 			default:
 
 				// If values are below threshhold, status is normal.
-				if (chaos <= (0.6 * maxChaos) && heat <= (0.4 * maxHeat))
+				if (chaos <= (0.6f * maxChaos) && heat <= (0.4f * maxHeat))
 					state = CityState.normal;
 
 				// If chaos is high...
-				else if (chaos > (0.6 * maxChaos)) 
+				else if (chaos > (0.6f * maxChaos)) 
 				{
 					// ...and if Idea supply is high...
 					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 300) {		// <-- Terrible coding practice, don't do this in final version.
@@ -338,7 +338,7 @@ public class City : MonoBehaviour {
 				} 
 
 				// If heat is high...
-				else if (heat > 0.4 * maxHeat) {
+				else if (heat > 0.4f * maxHeat) {
 					state = CityState.high_blackmarketeering;	// ...high black marketeering.
 				}
 
