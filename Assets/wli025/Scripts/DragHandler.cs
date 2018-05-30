@@ -7,17 +7,17 @@ using UnityEngine.UI;
 public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
 	[SerializeField]
-	Transform canvasTransform;
+	private Transform canvasTransform;
 
-	Vector3 startPosition;
-	Transform startParent;
-    public static GameObject itemBeingDragged;
+	private Vector3 startPosition;
+	private Transform startParent;
+    public static Good ItemDragged;
 
 	#region IBeginDragHandler implementation
 
 	public void OnBeginDrag (PointerEventData eventData)
     {
-	 	itemBeingDragged = gameObject;
+	 	// ItemDragged = gameObject;
 		startPosition = transform.position;
 		startParent = transform.parent;
 		transform.SetParent(canvasTransform);
@@ -39,7 +39,7 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
 	public void OnEndDrag (PointerEventData eventData)
     {
-	    itemBeingDragged = null;
+	    ItemDragged = null;
 	    GetComponent<CanvasGroup>().blocksRaycasts = true;
 	    if (transform.parent == canvasTransform)
         {

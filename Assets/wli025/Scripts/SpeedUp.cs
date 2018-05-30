@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SpeedUp : MonoBehaviour {
+    [SerializeField]
+    private float timeMultiplier;
 
 	public void FastForward(bool isForward) {
 		if (isForward) {
-			Time.timeScale = 5.0f;
+			Time.timeScale = timeMultiplier;
 		} else {
 			Time.timeScale = 1.0f;
 		}

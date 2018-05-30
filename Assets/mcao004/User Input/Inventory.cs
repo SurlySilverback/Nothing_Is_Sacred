@@ -104,4 +104,14 @@ public class Inventory
             this.inventory[position] = null;
         }
     }
+
+	public void ClearInventory()
+	{
+		for (int i = 0; i < this.inventory.Length; ++i) {
+		
+			inventory[i] = null;
+		}
+
+		CurrentWeight = 0;
+	}
 }
