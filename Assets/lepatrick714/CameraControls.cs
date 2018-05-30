@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(Camera))]
 public class CameraControls : MonoBehaviour
@@ -52,7 +53,8 @@ public class CameraControls : MonoBehaviour
     private void Update()
     {
         // Zooming
-        float scrollMovement = Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        float scrollMovement = EventSystem.current.IsPointerOverGameObject() ? 0 : Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+
         myCamera.orthographicSize = Mathf.Clamp(myCamera.orthographicSize - scrollMovement, minViewSize, maxViewSize);
         // Panning
         Vector3 position = this.transform.localPosition;
