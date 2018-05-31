@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using MonsterLove.StateMachine;
 using UnityEngine;
+using UberAudio;
 
 [RequireComponent(typeof(Deploy), typeof(DrawCurve), typeof(LineRenderer))]
 [RequireComponent(typeof(CircleCollider2D))]

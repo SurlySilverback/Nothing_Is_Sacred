@@ -5,8 +5,16 @@ using UnityEngine.Events;
 using System.Linq;
 
 
-public class City : MonoBehaviour, IMarket
-{
+public class City : MonoBehaviour { 
+
+	[SerializeField]
+	private Flag flag;
+	public void SetFlag(Color c) {
+		flag.ChangeColor (c);
+	}
+	[SerializeField]
+	private float count;
+
 	// STATES: The states the cities can be in.
 	public enum CityState{normal, high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war,
 						   pacifying, infiltrating, ending_demonstrations, genocide, raiding, independent};
@@ -46,7 +54,7 @@ public class City : MonoBehaviour, IMarket
 	private Curve SupplyCurve;
 
 	/********************************************************** STATE MANAGEMENNT **********************************************************/
-	private CityState state;
+	[SerializeField] private CityState state;
 	public CityState GetState(){return state;}
 	public void SetState(CityState new_state)
 	{
@@ -202,14 +210,6 @@ public class City : MonoBehaviour, IMarket
 		ConsumeGoods ();		// Consume goods for the city.
 		CalculateChaos ();		// Calculate Chaos accrual based on current supply status.
 
-		timeCapture += Time.deltaTime;
-
-		if (timeCapture >= 1) 		// Determine the amount of in-game time passed since last tick.
-		{
-			timeCapture--;
-			intervention_timer++;
-		}
-
 		switch(state)
 		{
 			case CityState.pacifying:
@@ -218,7 +218,13 @@ public class City : MonoBehaviour, IMarket
 				if (intervention_timer == 2880)
 				{
 					intervention_timer = 0;
-					// FIXME: Reduce Chaos
+
+					// Reduce Chaos
+					if (chaos < 0.3f * maxChaos)
+						chaos = 0;
+					else 
+						chaos -= (0.3f * maxChaos);
+					
 					state = CityState.normal;
 					OnEndPacifying.Invoke();
 				}
@@ -230,7 +236,13 @@ public class City : MonoBehaviour, IMarket
 				if (intervention_timer == 10800)
 				{
 					intervention_timer = 0;
-					// FIXME: Reduce Idea supply
+					
+					// Reduce Idea Supply
+					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)])
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] = 0;
+					else
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
+
 					state = CityState.normal;
 					OnEndInfiltrating.Invoke();
 				}
@@ -242,6 +254,19 @@ public class City : MonoBehaviour, IMarket
 				if (intervention_timer == 2880)
 				{
 					intervention_timer = 0;
+
+					// Reduce Chaos
+					if (chaos < 0.3f * maxChaos)
+						chaos = 0;
+					else 
+						chaos -= (0.3f * maxChaos);
+
+					// Reduce Idea Supply
+					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)])
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] = 0;
+					else
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
+
 					state = CityState.normal;
 					OnEndInfiltrating.Invoke();
 				}
@@ -253,6 +278,19 @@ public class City : MonoBehaviour, IMarket
 				if (intervention_timer == 10800)
 				{
 					intervention_timer = 0;
+
+					// Reduce Chaos
+					if (chaos < 0.3f * maxChaos)
+						chaos = 0;
+					else 
+						chaos -= (0.3f * maxChaos);
+
+					// Reduce Weapons Supply
+					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)])
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] = 0;
+					else
+						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)];
+
 					state = CityState.normal;
 					OnEndGenocide.Invoke();
 				}
@@ -264,6 +302,9 @@ public class City : MonoBehaviour, IMarket
 				if (intervention_timer == 4320)
 				{
 					intervention_timer = 0;
+
+					// FIXME: EMPTY PLAYER STOREHOUSE in this city
+
 					state = CityState.normal;
 					OnEndRaiding.Invoke();
 				}
@@ -275,42 +316,43 @@ public class City : MonoBehaviour, IMarket
 
 			break;
 
-			default:
-
+		default:
+			Debug.Log (chaos);
 				// If values are below threshhold, status is normal.
-				if (chaos <= (0.6 * maxChaos) && heat <= (0.4 * maxHeat))
-                {
-                    state = CityState.normal;
-                    // TODO
-                    peoplesInventory.AddGood(goods.Single(g => g.type == Good.GoodType.Food));
-                    govtInventory.AddGood(goods.Single(g => g.type == Good.GoodType.Food));
-                    govtInventory.AddGood(goods.Single(g => g.type == Good.GoodType.Medicine));
-                }
-
+				if (chaos <= (0.6f * maxChaos) && heat <= (0.4f * maxHeat)) 
+				{
+					state = CityState.normal;
+					flag.ChangeColor (Color.white);
+				}
 				// If chaos is high...
-				else if (chaos > (0.6 * maxChaos)) 
+				else if (chaos > (0.6f * maxChaos)) 
 				{
 					// ...and if Idea supply is high...
-					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 299) {		// <-- Terrible coding practice, don't do this in final version.
+					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 300) {		// <-- Terrible coding practice, don't do this in final version.
 						state = CityState.anti_govt_demonstrations;		// ...anti-goverment demonstrations.
+						flag.ChangeColor(new Color(255,205,98)); 	// light orange
 					}
 					// ...and if Weapon supply is high...
-					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Weapons)] >= 299) {
+					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Weapons)] >= 300) {
 						state = CityState.civil_war;					// ...civil war.
+						flag.ChangeColor(new Color(255,128,128));	// salmon
 					}
 
 					state = CityState.unrest;
+					flag.ChangeColor (new Color (137,128,255)); 	// light blue
 				} 
 
 				// If heat is high...
-				else if (heat > 0.4 * maxHeat) {
+				else if (heat > 0.4f * maxHeat) {
 					state = CityState.high_blackmarketeering;	// ...high black marketeering.
+					flag.ChangeColor(new Color(128,255,149));	// light green
 				}
 
 				// If Idea supply is high...
-				else if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 299) 
+				else if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 300) 
 				{
 					state = CityState.anti_govt_sentiments;
+					flag.ChangeColor (new Color (248,128,255));
 				}
 
 			break;
@@ -333,14 +375,30 @@ public class City : MonoBehaviour, IMarket
 		
 	// Use this for initialization
 	void Start () {
-        InvokeRepeating("DetermineState", 5, 60);
+		count = 0;
 		timeCapture = 0;
 		intervention_timer = 0;
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+		count += Time.deltaTime;
+		if (count >= 10.0f) 
+		{
+			count -= 10.0f;
+			DetermineState ();
+		}
 
+		// when it is one of these
+		if (!(state != CityState.infiltrating && state != CityState.genocide && state != CityState.pacifying && state != CityState.raiding && state != CityState.ending_demonstrations)) 
+		{
+			timeCapture += Time.deltaTime;
+			if (timeCapture >= 1.0f) {
+				timeCapture--;
+				intervention_timer++;
+			}
+		}
 	}
 }

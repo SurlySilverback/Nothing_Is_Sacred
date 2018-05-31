@@ -13,9 +13,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AudioEvents:
   - EventName: Scream
-    RandomWeight: 1
+    RandomWeight: 10
     Volume: 1
     AudioClip: {fileID: 8300000, guid: 7d3746f21934aa6489d89445b09b29d5, type: 3}
+    Priority: 0
+    GroupID: 0
+    Loop: 0
+    StopWhenSourceDies: 0
+    KeepLoopingWhenSourceDies: 0
+    DoNotTrackSourceMovement: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    DopplerLevel: 1
+    MaxDistance: 500
+    MinDistance: 1
+    Mute: 0
+    OutputAudioMixerGroup: {fileID: 0}
+    PanStereo: 0
+    Pitch: 1
+    Spatialize: 0
+    RolloffMode: 0
+    CustomRolloffCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+  - EventName: OhNo
+    RandomWeight: 1
+    Volume: 1
+    AudioClip: {fileID: 8300000, guid: 6904c76bc7964b445a53a68e8c1105df, type: 3}
     Priority: 128
     GroupID: 0
     Loop: 0
@@ -26,6 +56,126 @@ MonoBehaviour:
     BypassListenerEffects: 0
     BypassReverbZones: 0
     DopplerLevel: 1
+    MaxDistance: 500
+    MinDistance: 1
+    Mute: 0
+    OutputAudioMixerGroup: {fileID: 0}
+    PanStereo: 0
+    Pitch: 1
+    Spatialize: 0
+    RolloffMode: 0
+    CustomRolloffCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+  - EventName: OhShit
+    RandomWeight: 1
+    Volume: 1
+    AudioClip: {fileID: 8300000, guid: 26d28060180bc1844b3b3881a43ca038, type: 3}
+    Priority: 128
+    GroupID: 0
+    Loop: 0
+    StopWhenSourceDies: 0
+    KeepLoopingWhenSourceDies: 0
+    DoNotTrackSourceMovement: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    DopplerLevel: 1
+    MaxDistance: 500
+    MinDistance: 1
+    Mute: 0
+    OutputAudioMixerGroup: {fileID: 0}
+    PanStereo: 0
+    Pitch: 1
+    Spatialize: 0
+    RolloffMode: 0
+    CustomRolloffCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    SpatialBlend: 0
+    ReverbZoneMix: 1
+  - EventName: IScream
+    RandomWeight: 1
+    Volume: 1
+    AudioClip: {fileID: 8300000, guid: a71d740eaabcbac4d913b1fa59f37e99, type: 3}
+    Priority: 128
+    GroupID: 0
+    Loop: 1
+    StopWhenSourceDies: 1
+    KeepLoopingWhenSourceDies: 0
+    DoNotTrackSourceMovement: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    DopplerLevel: 5
+    MaxDistance: 1000
+    MinDistance: 0.1
+    Mute: 0
+    OutputAudioMixerGroup: {fileID: 0}
+    PanStereo: 0
+    Pitch: 1
+    Spatialize: 0
+    RolloffMode: 2
+    CustomRolloffCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.2203
+        value: 0.87578696
+        inSlope: -1.0305643
+        outSlope: -1.0305643
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.5567365
+        value: 0.41526514
+        inSlope: -1.4810264
+        outSlope: -1.4810264
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 0.62717295
+        value: 0.31334147
+        inSlope: -1.4032423
+        outSlope: -1.4032423
+        tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    SpatialBlend: 1
+    ReverbZoneMix: 1
+  - EventName: blackflagblues
+    RandomWeight: 1
+    Volume: 1
+    AudioClip: {fileID: 8300000, guid: 3a4e71b4afc63cb40a1ce28366e41271, type: 3}
+    Priority: 128
+    GroupID: 0
+    Loop: 1
+    StopWhenSourceDies: 0
+    KeepLoopingWhenSourceDies: 1
+    DoNotTrackSourceMovement: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    DopplerLevel: 0
     MaxDistance: 500
     MinDistance: 1
     Mute: 0

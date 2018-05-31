@@ -55,6 +55,7 @@ public class MainGovernment : MonoBehaviour {
 					{
 						CurrentTyranny = CurrentTyranny - 80;
 						c.SetState (City.CityState.raiding);
+						c.SetFlag (new Color (0,176,9));	// dark green
 						// SYSTEM MESSAGE: Government is investigating black market activity in City.Name.
 
 						GameObject new_patrol_1 = (GameObject)Instantiate(Patrol);
@@ -80,6 +81,7 @@ public class MainGovernment : MonoBehaviour {
 					if (CurrentTyranny >= 150) 
 					{
 						c.SetState (City.CityState.pacifying);	// ...pacify the populace (spend Tyranny to lower Chaos)
+						c.SetFlag(new Color(14,0,189)); // dark blue
 						CurrentTyranny = CurrentTyranny - 150;
 						// SYSTEM MESSAGE: Government is pacifying the angry citizens of City.Name.
 					}
@@ -91,6 +93,7 @@ public class MainGovernment : MonoBehaviour {
 					if (CurrentTyranny >= 10) 
 					{
 						c.SetState (City.CityState.infiltrating);
+						c.SetFlag (new Color (178,0,229)); // dark purple
 						CurrentTyranny = CurrentTyranny - 10;
 						// SYSTEM MESSAGE: Government is investigating anti-government sentiments in City.Name.
 					}
@@ -102,6 +105,7 @@ public class MainGovernment : MonoBehaviour {
 					if (CurrentTyranny >= 250) 
 					{
 						c.SetState (City.CityState.ending_demonstrations);
+						c.SetFlag (new Color (229, 99, 0));	// dark orange
 						CurrentTyranny = CurrentTyranny - 250;
 						// SYSTEM MESSAGE: Government is suppressing anti-government demmonstrations in City.Name.
 					}
@@ -113,6 +117,7 @@ public class MainGovernment : MonoBehaviour {
 					if (CurrentTyranny >= 300) 
 					{
 						c.SetState (City.CityState.genocide);
+						c.SetFlag (new Color(200,0,0));
 						CurrentTyranny = CurrentTyranny - 300;
 						// SYSTEM MESSAGE: Government is fighting a violent civil uprising in City.Name.
 					}
@@ -154,12 +159,12 @@ public class MainGovernment : MonoBehaviour {
 			c.OnEndEndingDemonstrations.AddListener ( delegate{ RestoreTyranny (250); });
 			c.OnEndGenocide.AddListener ( delegate{ RestoreTyranny (300); });
 		}
-        
-        InvokeRepeating("Strategy", 5, 1440);
+		DateTime dt = FindObjectOfType<DateTime> ();
+		dt.onDaily.AddListener (delegate {Survey(); Strategy();});
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Survey();
-    }
+		
+	}
 }
