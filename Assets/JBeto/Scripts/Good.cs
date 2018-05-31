@@ -11,6 +11,7 @@ public class Good : ScriptableObject
 
 	public GameObject visual;
 
+    [SerializeField]
 	private Curve HeatCurve;
 
 	public float GetHeatMultiplier()				// This returns the current Heat value multiplier based on the Good's Heat value.

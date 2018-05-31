@@ -6,88 +6,57 @@ using UnityEngine.UI;
 
 public class DateTime : MonoBehaviour 
 {
-	private static System.DateTime moment; 
-	private static float timePassed;
+	private System.DateTime moment; 
+	private float timePassed;
     
     [SerializeField]
     private Text displayDate;
-    [SerializeField]
-    private Image mapOverlay;
-    [SerializeField]
-    private Color night;
-    [SerializeField]
-    private AnimationCurve dayNightTransition;
 
-    public UnityEvent onDay;   // 6AM 
-	public UnityEvent onNight; // 6PM 
-	public UnityEvent onDaily; // Day begins midnight 
-
-	// Getters
-	public static System.DateTime getDate() { 
-		return DateTime.moment; 
-	}
+    public UnityEvent OnDay;   // 6AM 
+	public UnityEvent OnNight; // 6PM 
+	public UnityEvent OnDaily; // Day begins midnight 
 
 	// One second of Real time = One Minute of In Game Time 
 	void UpdateMin() 
 	{ 
-		DateTime.moment = DateTime.moment.AddMinutes(1);
+		moment = moment.AddMinutes(1);
 	}
-
-    private IEnumerator StartAnimation(Color start, Color end)
-    {
-        float timeStep = .01f;
-        float timeFrame = dayNightTransition[dayNightTransition.length - 1].time;
-        for (float animationTime = 0; animationTime < timeFrame; animationTime += timeStep)
-        {
-            mapOverlay.color = Color.Lerp(start, end, dayNightTransition.Evaluate(animationTime / timeFrame));
-            yield return new WaitForSeconds(timeStep);
-        }
-    }
 
 	void CheckCallBacks()
 	{
         // Checking for 6AM 
-        if (DateTime.moment.Hour == 5 && DateTime.moment.Minute == 0)
+        if (moment.Hour == 5 && moment.Minute == 0)
 		{
-			onDay.Invoke(); 
+			OnDay.Invoke(); 
 		}
-        if (DateTime.moment.Hour == 17 && DateTime.moment.Minute == 0) 
+        if (moment.Hour == 17 && moment.Minute == 0) 
 		{ 
-			onNight.Invoke(); 
+			OnNight.Invoke(); 
 		}
-		if(DateTime.moment.Hour == 0 && DateTime.moment.Minute == 0) 
+		if(moment.Hour == 0 && moment.Minute == 0) 
 		{
-			onDaily.Invoke(); 
+			OnDaily.Invoke(); 
 		}
 	}
 
 	void SetClockOnScreen() 
 	{ 
-		displayDate.text = "Time: " + DateTime.moment.Year.ToString() + " " + DateTime.moment.Month.ToString() + " " + DateTime.moment.Day.ToString() + " " + DateTime.moment.Hour.ToString() + " : " + DateTime.moment.Minute.ToString();
-		Debug.Log("CALLING: " + DateTime.moment.Date.ToString()); 
+		displayDate.text = "Time: " + moment.Year.ToString() + " " + moment.Month.ToString() + " " + moment.Day.ToString() + " " + moment.Hour.ToString() + " : " + moment.Minute.ToString();
 	}
 
 	void Awake()
 	{
-		if(onDay == null) { 
-			onDay = new UnityEvent(); 
+		if(OnDay == null) { 
+			OnDay = new UnityEvent(); 
 		}
-		if(onNight == null) { 
-			onNight = new UnityEvent(); 
+		if(OnNight == null) { 
+			OnNight = new UnityEvent(); 
 		}
-		if(onDaily == null) { 
-			onDaily = new UnityEvent(); 
+		if(OnDaily == null) { 
+			OnDaily = new UnityEvent(); 
 		}
-
-        Color day = night;
-        day.a = 0;
-
-
-        onDay.AddListener(delegate { StartCoroutine(StartAnimation(night, day)); });
-        onNight.AddListener(delegate { StartCoroutine(StartAnimation(day, night)); });
-        DateTime.moment = new System.DateTime(1957, 10, 12, 5, 0, 0);
-        mapOverlay.color = day;
-	}
+        moment = new System.DateTime(1957, 10, 12, 5, 0, 0);
+    }
 
 	// Use this for initialization
 	void Start () 
@@ -99,8 +68,8 @@ public class DateTime : MonoBehaviour
     // Update is called once per frame
     void Update () 
 	{	
-		DateTime.timePassed += Time.deltaTime; 
-		if (DateTime.timePassed >= 1) 
+		timePassed += Time.deltaTime; 
+		if (timePassed >= 1) 
 		{ 
 			timePassed -= 1; 
 			UpdateMin(); 

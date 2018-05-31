@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class HeatCircleController : MonoBehaviour {
 	// Max Heat Numerical Value is 1000 
-	float maxHeat = 10; 
 	public City city; 
 	private SpriteRenderer sr; 
 
 	void Awake()
 	{
+        city = GetComponent<City>();
 		sr = GetComponent<SpriteRenderer>(); 
 	}
 

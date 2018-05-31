@@ -56,7 +56,7 @@ public class CameraControls : MonoBehaviour
         myCamera.orthographicSize = Mathf.Clamp(myCamera.orthographicSize - scrollMovement, minViewSize, maxViewSize);
         // Panning
         Vector3 position = this.transform.localPosition;
-        float panChange = Time.deltaTime * panSpeed * (this.myCamera.orthographicSize / originalZoomSize);
+        float panChange = Time.unscaledDeltaTime * panSpeed * (this.myCamera.orthographicSize / originalZoomSize);
 
         const float minX = -16940;
         const float maxX = 16940;
@@ -110,7 +110,7 @@ public class CameraControls : MonoBehaviour
         else
             orthographicSize = Mathf.Abs(boundingBox.height) / 2f;
 
-        return Mathf.Clamp(Mathf.Lerp(myCamera.orthographicSize, orthographicSize, Time.deltaTime * zoomSpeed), minViewSize, Mathf.Infinity);
+        return Mathf.Clamp(Mathf.Lerp(myCamera.orthographicSize, orthographicSize, Time.unscaledDeltaTime * zoomSpeed), minViewSize, Mathf.Infinity);
     }
 
 }

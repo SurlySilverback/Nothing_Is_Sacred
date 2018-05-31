@@ -24,8 +24,8 @@ public class MainGovernment : MonoBehaviour {
 	[SerializeField] GameObject Patrol;
 
 
-	// TaskList contains the list of cities, sorted by their state. The government enacts strategic interventions using this list.
-	private PriorityQueue <City> TaskList;
+    // TaskList contains the list of cities, sorted by their state. The government enacts strategic interventions using this list.
+    private PriorityQueue<City> TaskList = new PriorityQueue<City>();
 
 	private void Survey()
 	{
@@ -154,11 +154,12 @@ public class MainGovernment : MonoBehaviour {
 			c.OnEndEndingDemonstrations.AddListener ( delegate{ RestoreTyranny (250); });
 			c.OnEndGenocide.AddListener ( delegate{ RestoreTyranny (300); });
 		}
-
+        
+        InvokeRepeating("Strategy", 5, 1440);
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-	}
+        Survey();
+    }
 }

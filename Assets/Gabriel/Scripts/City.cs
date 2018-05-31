@@ -5,8 +5,8 @@ using UnityEngine.Events;
 using System.Linq;
 
 
-public class City : MonoBehaviour { 
-
+public class City : MonoBehaviour, IMarket
+{
 	// STATES: The states the cities can be in.
 	public enum CityState{normal, high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war,
 						   pacifying, infiltrating, ending_demonstrations, genocide, raiding, independent};
@@ -42,6 +42,7 @@ public class City : MonoBehaviour {
 		heat = new_val;
 	}
 
+    [SerializeField]
 	private Curve SupplyCurve;
 
 	/********************************************************** STATE MANAGEMENNT **********************************************************/
@@ -96,11 +97,10 @@ public class City : MonoBehaviour {
 	[SerializeField] private float CritChaosIncrease = 2.0f;
 
 	/********************************************************** INVENTORIES **********************************************************/
-	private Inventory playerInventory;
-	private Inventory peoplesInventory;
-	private Inventory govtInventory;
-
-
+	public Inventory playerInventory;
+	public Inventory peoplesInventory;
+	public Inventory govtInventory;
+    
 	// Cardinal Goods
 	[SerializeField] private List<Good> goods;
 	
@@ -279,7 +279,13 @@ public class City : MonoBehaviour {
 
 				// If values are below threshhold, status is normal.
 				if (chaos <= (0.6 * maxChaos) && heat <= (0.4 * maxHeat))
-					state = CityState.normal;
+                {
+                    state = CityState.normal;
+                    // TODO
+                    peoplesInventory.AddGood(goods.Single(g => g.type == Good.GoodType.Food));
+                    govtInventory.AddGood(goods.Single(g => g.type == Good.GoodType.Food));
+                    govtInventory.AddGood(goods.Single(g => g.type == Good.GoodType.Medicine));
+                }
 
 				// If chaos is high...
 				else if (chaos > (0.6 * maxChaos)) 
@@ -327,10 +333,9 @@ public class City : MonoBehaviour {
 		
 	// Use this for initialization
 	void Start () {
-
+        InvokeRepeating("DetermineState", 5, 60);
 		timeCapture = 0;
 		intervention_timer = 0;
-							
 	}
 	
 	// Update is called once per frame
