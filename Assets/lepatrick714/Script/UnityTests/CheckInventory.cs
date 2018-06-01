@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Assertions;
+﻿using UnityEngine;
 
 public class CheckInventory : MonoBehaviour {
+    /*
 	public List<Good> Goods;
 	private Inventory Testing; 
 	public Unit u;
@@ -114,7 +112,7 @@ public class CheckInventory : MonoBehaviour {
 		DeletingAllGoodsTest(); 
 		DeleteSingleGoodsTest(); 
 	}
-	
+	*/
 	// Update is called once per frame
 	void Update () {
 	}

@@ -1,408 +1,400 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
+using System;
+using MonsterLove.StateMachine;
 
-
-public class City : MonoBehaviour { 
-
-	// This Flag object provides the player with a visual representation of a City's condition.
-	[SerializeField]
-	private Flag flag;
-	public void SetFlag(Color c) {
-		flag.ChangeColor (c);
-	}
-	[SerializeField]
-	private float count;
-
-	// STATES: The states the cities can be in.
-	public enum CityState{normal, high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war,
-						   pacifying, infiltrating, ending_demonstrations, genocide, raiding, independent};
-
-	// Unity Events for Observer Pattern
-	// These functions restore the MainGovernment's spent Tyranny when strategy actions are complete.
+public class City : MonoBehaviour
+{
+    #region Events
+    // Unity Events for Observer Pattern: Calls MainGovernment script to restore spent Tyranny when strategy actions are complete.
+  public UnityEvent OnChangeState;
 	public UnityEvent OnEndPacifying;
 	public UnityEvent OnEndInfiltrating;
 	public UnityEvent OnEndEndingDemonstrations;
 	public UnityEvent OnEndGenocide;
 	public UnityEvent OnEndRaiding;
+    #endregion
 
-	// NAME
-	[SerializeField] private string cityName;
-	public string GetName(){return name;}
+    #region Init
+    [SerializeField]
+    private Curve SupplyCurve;
 
-	// CHAOS
-	[SerializeField] private float chaos;
-	[SerializeField] private float maxChaos = 1000;
-	public float GetMaxChaos(){return maxChaos;}
-	public float GetChaos(){return chaos;}
-	public void SetChaos(float new_val)
-	{
-		chaos = new_val;
-	}
+    // NAME
+    [Header("Name")]
+    [SerializeField]
+    private string cityName;
+	public string CityName { get { return cityName; } private set { } }
+    [Space(10)]
 
-	// HEAT
-	[SerializeField] private float heat;
-	[SerializeField] private float maxHeat = 1000;
-	public float GetMaxHeat(){return maxHeat;}
-	public float GetHeat(){return heat;}
-	public void SetHeat(float new_val)
-	{
-		heat = new_val;
-	}
-
-	private Curve SupplyCurve;
-
-	/********************************************************** STATE MANAGEMENENT **********************************************************/
-	[SerializeField] private CityState state;
-	public CityState GetState(){return state;}
-	public void SetState(CityState new_state)
-	{
-		state = new_state;
-	}
-
-	private float timeCapture;		// Used along with intervention_timer to measure time passed since intervention events were initiated.
-
-	[SerializeField] float intervention_timer;
-	public float GetTimer(){return intervention_timer;}
-	public void SetTimer(float new_time)
-	{
-		intervention_timer = new_time;
-	}
-
-	// CHAOS ACCRURAL RATES
-	[SerializeField] private float VeryLowChaosIncrease = 0.0625f;
-	[SerializeField] private float LowChaosIncrease = 0.125f;
-	[SerializeField] private float MedChaosIncrease = 0.25f;
-	[SerializeField] private float HighChaosIncrease = 0.5f;
-	[SerializeField] private float VeryHighChaosIncrease = 1.0f;
-	[SerializeField] private float CritChaosIncrease = 2.0f;
-
-	/********************************************************** INVENTORIES **********************************************************/
-	private Inventory playerInventory;
-	private Inventory peoplesInventory;
-	private Inventory govtInventory;
-
-	// Cardinal Goods
-	[SerializeField] private List<Good> goods;
-	
-	// Contains the city's supply of each Cardinal Good.
-	[SerializeField] private List<float> supplyOfGoods;
-
-	// Contains the current prices of all of the Cardinal Goods in the city.
-	[SerializeField] private List<float> pricesOfGoods;
-
-	// Method for referencing the current supply of a Good.
-	public Dictionary<Good, float> goodsToSupply;
-
+    // CHAOS
+    [Header("Chaos")]
+    [SerializeField]
+    private float chaos;
+    public float Chaos { get { return chaos; } set { } }
 	[SerializeField]
-	class GoodsData{
+    private float maxChaos = 1000;
+	public float MaxChaos { get { return maxChaos; } private set { } }
+    [Space(10)]
 
-		// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
-		public float MaxDrugsSupply = 2160f;
-		public float MaxExoticsSupply = 2160f;
-		public float MaxFoodSupply = 2160f;
-		public float MaxFuelSupply = 2160f;
-		public float MaxIdeasSupply = 1000f;
-		public float MaxMedicineSupply = 2160f;
-		public float MaxTextilesSupply = 2160f;
-		public float MaxWaterSupply = 2160f;
-		public float MaxWeaponsSupply = 2160f;
+	[Header("Heat")]
+	[SerializeField]
+    private float maxHeat = 1000;
+	public float MaxHeat { get { return maxHeat; } private set { } }
+    [SerializeField]
+    private float heat;
+    public float Heat { get { return heat; } set { } }
+    #endregion
 
-		// CONSUMPTION RATES
-		public float ConsumeDrugs = 0.25f;
-		public float ConsumeExotics = 0.05f;
-		public float ConsumeFood = 1.0f;
-		public float ConsumeFuel = 0.5f;
-		public float ConsumeMedicine = 0.25f;
-		public float ConsumeTextiles = 0.5f;
-		public float ConsumeWater = 1.0f;
-		public float ConsumeWeapons = 0.05f;
+    #region Goods
+    [Space(10)]
+    [Header("Goods")]
+    [SerializeField]
+    private float population;
+    [SerializeField]
+    private float foodProductionRate; 
+	[SerializeField]
+    private float waterProductionRate; 
 
-		// PRODUCTION RATES
-		public float ProduceFood = 0.5f;
-		public float ProduceWater = 0.5f;
-	};
-	GoodsData goodsData;
+	// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
+	[SerializeField]
+    private float MaxDrugsSupply = 2160f;
+	[SerializeField]
+    private float MaxExoticsSupply = 2160f;
+	[SerializeField]
+    private float MaxFoodSupply = 2160f;
+	[SerializeField]
+    private float MaxFuelSupply = 2160f;
+	[SerializeField]
+    private float MaxIdeasSupply = 1000f;
+	[SerializeField]
+    private float MaxMedicineSupply = 2160f;
+	[SerializeField]
+    private float MaxTextilesSupply = 2160f;
+	[SerializeField]
+    private float MaxWaterSupply = 2160f;
+	[SerializeField]
+    private float MaxWeaponsSupply = 2160f;
 
-	/************************************************** ECONOMIC CALCULATIONS **************************************************/
-	public float GetSupplyMultipler(float value)
+	// CONSUMPTION RATES
+	[SerializeField]
+    private float ConsumeDrugs = 0.25f;
+	[SerializeField]
+    private float ConsumeExotics = 0.05f;
+	[SerializeField]
+    private float ConsumeFood = 1.0f;
+	[SerializeField]
+    private float ConsumeFuel = 0.5f;
+	[SerializeField]
+    private float ConsumeMedicine = 0.25f;
+	[SerializeField]
+    private float ConsumeTextiles = 0.5f;
+	[SerializeField]
+    private float ConsumeWater = 1.0f;
+	[SerializeField]
+    private float ConsumeWeapons = 0.05f;
+    [Space(10)]
+
+	// CHAOS RATES
+    [Header("Chaos")]
+	[SerializeField]
+    private float VeryLowChaosIncrease = 0.0625f;
+	[SerializeField]
+    private float LowChaosIncrease = 0.125f;
+	[SerializeField]
+    private float MedChaosIncrease = 0.25f;
+	[SerializeField]
+    private float HighChaosIncrease = 0.5f;
+	[SerializeField]
+    private float VeryHighChaosIncrease = 1.0f;
+	[SerializeField]
+    private float CritChaosIncrease = 2.0f;
+    [Space(10)]
+    #endregion
+    
+    #region Inventory
+    [Header("Inventories")]
+
+    [Space(5)]
+    [SerializeField]
+    private int storeHouseSize;
+    [SerializeField]
+    private int storeHouseWeight;
+
+    [Space(5)]
+    [SerializeField]
+    private int peopleSize;
+    [SerializeField]
+    private int peopleWeight;
+
+    [Space(5)]
+    [SerializeField]
+    private int govtSize;
+    [SerializeField]
+    private int govtWeight;
+
+    public Inventory PlayerInventory { get; private set; }
+    public Inventory PeoplesInventory { get; private set; }
+	public Inventory GovtInventory { get; private set; }
+    #endregion
+
+    #region CityState
+    public enum CityState
+    {
+        Normal, HighBlackmarketeering, Unrest, AntiGovtSentiments, AntiGovtDemonstrations, CivilWar,
+        Pacifying, Infiltrating, EndingDemonstrations, Genocide, Raiding
+    };
+
+    private CityState state;
+    public CityState State
+    {
+        get
+        {
+            return state;
+        }
+        set
+        {
+            if (state != value)
+            {
+                state = value;
+                OnChangeState.Invoke();
+            }
+        }
+    }
+    #endregion
+
+    // Method for referencing the current supply of a Good.
+    private Dictionary<Good.GoodType, float> goodsToSupply;
+    private int hoursInState; // In Hours
+    private const int HoursInDays = 24;
+
+    #region Unity Callbacks
+    private void Awake()
+    {
+        this.goodsToSupply = new Dictionary<Good.GoodType, float>
+        {
+            { Good.GoodType.Drugs, 10 },
+            { Good.GoodType.Exotics, 10 },
+            { Good.GoodType.Food, 10 },
+            { Good.GoodType.Fuel, 10 },
+            { Good.GoodType.Ideas, 10 },
+            { Good.GoodType.Medicine, 10 },
+            { Good.GoodType.People, 10 },
+            { Good.GoodType.Textiles, 10 },
+            { Good.GoodType.Water, 10 },
+            { Good.GoodType.Weapons, 10 }
+        };
+        this.hoursInState = 0;
+        State = CityState.Normal;
+    }
+
+    private void Start()
+    {
+        ServiceLocator.Instance.GetClock().OnHour.AddListener(DetermineState);
+    }
+
+    #endregion
+
+    #region FSM
+    // This function is called once every in-game hour to update the state of the city.
+    private void DetermineState()
+    {
+        ConsumeGoods();
+        CalculateChaos();
+        switch (State)
+        {
+            case CityState.Pacifying:
+                if (hoursInState == HoursInDays * 2)
+                {             
+                    chaos = chaos < 0.3f * maxChaos ? 0 : chaos - (0.3f * maxChaos);
+                    State = CityState.Normal;
+                    OnEndPacifying.Invoke();
+                    hoursInState = 0;
+                }
+                else
+                {
+                    hoursInState++;
+                }
+                break;
+            case CityState.Infiltrating:
+                if (hoursInState == HoursInDays * 7)
+                {
+                    float ideaSupply = goodsToSupply[Good.GoodType.Ideas];
+                    goodsToSupply[Good.GoodType.Ideas] = ideaSupply < 0.3f ? 0 : ideaSupply - 0.3f;
+                    State = CityState.Normal;
+                    OnEndInfiltrating.Invoke();
+                    hoursInState = 0;
+                }
+                else
+                {
+                    hoursInState++;
+                }
+                break;
+            case CityState.EndingDemonstrations:
+                if (hoursInState == HoursInDays * 2)
+                {
+                    chaos = chaos < 0.3f * maxChaos ? 0 : chaos - (0.3f * maxChaos);
+                    float ideaSupply = goodsToSupply[Good.GoodType.Ideas];
+                    goodsToSupply[Good.GoodType.Ideas] =  ideaSupply < 0.3f ? 0 : ideaSupply - 0.3f;
+                    State = CityState.Normal;
+                    OnEndInfiltrating.Invoke();
+                    hoursInState = 0;
+                }
+                else
+                {
+                    hoursInState++;
+                }
+                break;
+            case CityState.Genocide:
+                if (hoursInState == HoursInDays * 7)
+                {
+                    chaos = chaos < 0.3f * maxChaos ? 0 : chaos - (0.3f * maxChaos);
+                    float weaponSupply = goodsToSupply[Good.GoodType.Weapons];
+                    goodsToSupply[Good.GoodType.Weapons] = weaponSupply < 0.3f ? 0 : weaponSupply - 0.3f;
+                    State = CityState.Normal;
+                    OnEndGenocide.Invoke();
+                    hoursInState = 0;
+                }
+                else
+                {
+                    hoursInState++;
+                }
+                break;
+            case CityState.Raiding:
+                if (hoursInState == HoursInDays * 3)
+                {
+                    hoursInState = 0;
+                    PlayerInventory.ClearInventory();
+                    State = CityState.Normal;
+                    OnEndRaiding.Invoke();
+                }
+                else
+                {
+                    hoursInState++;
+                }
+                break;
+            default:
+                hoursInState = 0;
+                // If values are below threshhold, status is normal.
+                if (chaos <= (0.6f * maxChaos) && heat <= (0.4f * maxHeat))
+                {
+                    State = CityState.Normal;
+                }
+                // If chaos is high...
+                else if (chaos > (0.6f * maxChaos))
+                {
+                    // ...and if Idea supply is high...
+                    if (goodsToSupply[Good.GoodType.Ideas] >= 300)
+                    {
+                        State = CityState.AntiGovtDemonstrations;
+                    }
+                    // ...and if Weapon supply is high...
+                    else if (goodsToSupply[Good.GoodType.Weapons] >= 300)
+                    {
+                        State = CityState.CivilWar;
+                    }
+                    else
+                    {
+                        State = CityState.Unrest;
+                    }
+                }
+                // If heat is high...
+                else if (heat > 0.4f * maxHeat)
+                {
+                    State = CityState.HighBlackmarketeering;
+                }
+                // If Idea supply is high...
+                else if (goodsToSupply[Good.GoodType.Ideas] >= 300)
+                {
+                    State = CityState.AntiGovtSentiments;
+                }
+                break;
+        }
+    }
+    #endregion
+
+    #region Helper
+    // Call each Good type in the Supply dictionary and reduce its supply by one in-game hour's worth.
+    private void ConsumeGoods()
+    {
+        goodsToSupply[Good.GoodType.Drugs] -= ConsumeDrugs;
+        goodsToSupply[Good.GoodType.Exotics] -= ConsumeExotics;
+        goodsToSupply[Good.GoodType.Food] -= ConsumeFood;
+        goodsToSupply[Good.GoodType.Fuel] -= ConsumeFuel;
+        goodsToSupply[Good.GoodType.Medicine] -= ConsumeMedicine;
+        goodsToSupply[Good.GoodType.Textiles] -= ConsumeTextiles;
+        goodsToSupply[Good.GoodType.Water] -= ConsumeWater;
+        goodsToSupply[Good.GoodType.Weapons] -= ConsumeWeapons;
+    }
+
+    private void CalculateChaos()
+    {
+        float foodSupply = goodsToSupply[Good.GoodType.Food];
+        float waterSupply = goodsToSupply[Good.GoodType.Water];
+        float fuelSupply = goodsToSupply[Good.GoodType.Fuel];
+        float ideasSupply = goodsToSupply[Good.GoodType.Ideas];
+
+        // Checking Food Supply
+        if (foodSupply <= 0.1 * MaxFoodSupply)
+            chaos += CritChaosIncrease;
+        else if (foodSupply <= 0.2 * MaxFoodSupply)
+            chaos += VeryHighChaosIncrease;
+        else if (foodSupply <= 0.3 * MaxFoodSupply)
+            chaos += HighChaosIncrease;
+        else if (foodSupply <= 0.4 * MaxFoodSupply)
+            chaos += MedChaosIncrease;
+        else if (foodSupply <= 0.5 * MaxFoodSupply)
+            chaos += LowChaosIncrease;
+
+        // Checking Water Supply
+        if (waterSupply <= 0.1 * MaxWaterSupply)
+            chaos += CritChaosIncrease;
+        else if (waterSupply <= 0.2 * MaxWaterSupply)
+            chaos += VeryHighChaosIncrease;
+        else if (waterSupply <= 0.3 * MaxWaterSupply)
+            chaos += HighChaosIncrease;
+        else if (waterSupply <= 0.4 * MaxWaterSupply)
+            chaos += MedChaosIncrease;
+        else if (waterSupply <= 0.5 * MaxWaterSupply)
+            chaos += LowChaosIncrease;
+
+        // Checking Fuel Supply
+        if (fuelSupply <= 0.1 * MaxFuelSupply)
+            chaos += HighChaosIncrease;
+        else if (fuelSupply <= 0.2 * MaxFuelSupply)
+            chaos += MedChaosIncrease;
+        else if (fuelSupply <= 0.3 * MaxFuelSupply)
+            chaos += LowChaosIncrease;
+        else if (fuelSupply <= 0.4 * MaxFuelSupply)
+            chaos += VeryLowChaosIncrease;
+
+        // Checking Ideas Supply
+        if (ideasSupply >= 0.8 * MaxIdeasSupply)
+            chaos += MedChaosIncrease;
+        else if (ideasSupply >= 0.4 * MaxIdeasSupply)
+            chaos += LowChaosIncrease;
+        else if (ideasSupply >= 0.2 * MaxIdeasSupply)
+            chaos += VeryLowChaosIncrease;
+    }
+    #endregion 
+
+    #region Economics
+    public float GetSupplyMultipler(float value)
 	{
-		// Use city supply to determine multiplier.
 		return SupplyCurve.Evaluate(value);
 	}
 
-
-	// Function for getting the price of a Good in the local (City) context. Good prices vary between cities based on their supply.
-	// FIXME: The second parameter may not be necessary, depending on how the UI wants to grab the price.
-	public float GetPrice(Good g)
+	public float GetPrice(Good good)
 	{
-		float supply_multiplier = GetSupplyMultipler ( goodsToSupply[g] );
-		float heat_multiplier = g.GetHeatMultiplier ();
-
-		return (supply_multiplier + heat_multiplier) * g.GetBasePrice ();
+		float supplyMultiplier = GetSupplyMultipler(goodsToSupply[good.type]);
+		float heatMultiplier = good.GetHeatMultiplier();
+		return (supplyMultiplier + heatMultiplier) * good.GetBasePrice();
 	}
 
-
-	// Call each Good type in the Supply dictionary and reduce its supply by one in-game hour's worth.
-	private void ConsumeGoods()
-	{
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Drugs)] -= goodsData.ConsumeDrugs;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Exotics)] -= goodsData.ConsumeExotics;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Food)] -= goodsData.ConsumeFood;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Fuel)] -= goodsData.ConsumeFuel;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Medicine)] -= goodsData.ConsumeMedicine;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Textiles)] -= goodsData.ConsumeTextiles;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Water)] -= goodsData.ConsumeWater;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Weapons)] -= goodsData.ConsumeWeapons;
-	}
-
-	private void CalculateChaos()
-	{
-		float food_supply = goodsToSupply [goods.Single (g => g.type == Good.GoodType.Food)];
-		float water_supply = goodsToSupply [goods.Single (g => g.type == Good.GoodType.Water)];
-		float fuel_supply = goodsToSupply [goods.Single (g => g.type == Good.GoodType.Fuel)];
-		float ideas_supply = goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
-
-		// Checking Food Supply
-		if (food_supply <= 0.1 * goodsData.MaxFoodSupply)
-			chaos += CritChaosIncrease;
-		else if (food_supply <= 0.2 * goodsData.MaxFoodSupply)
-			chaos += VeryHighChaosIncrease;
-		else if (food_supply <= 0.3 * goodsData.MaxFoodSupply)
-			chaos += HighChaosIncrease;
-		else if (food_supply <= 0.4 * goodsData.MaxFoodSupply)
-			chaos += MedChaosIncrease;
-		else if (food_supply <= 0.5 * goodsData.MaxFoodSupply)
-			chaos += LowChaosIncrease;
-
-		// Checking Water Supply
-		if (water_supply <= 0.1 * goodsData.MaxWaterSupply)
-			chaos += CritChaosIncrease;
-		else if (water_supply <= 0.2 * goodsData.MaxWaterSupply)
-			chaos += VeryHighChaosIncrease;
-		else if (water_supply <= 0.3 * goodsData.MaxWaterSupply)
-			chaos += HighChaosIncrease;
-		else if (water_supply <= 0.4 * goodsData.MaxWaterSupply)
-			chaos += MedChaosIncrease;
-		else if (water_supply <= 0.5 * goodsData.MaxWaterSupply)
-			chaos += LowChaosIncrease;
-	
-		// Checking Fuel Supply
-		if (fuel_supply <= 0.1 * goodsData.MaxFuelSupply)
-			chaos += HighChaosIncrease;
-		else if (fuel_supply <= 0.2 * goodsData.MaxFuelSupply)
-			chaos += MedChaosIncrease;
-		else if (fuel_supply <= 0.3 * goodsData.MaxFuelSupply)
-			chaos += LowChaosIncrease;
-		else if (fuel_supply <= 0.4 * goodsData.MaxFuelSupply)
-			chaos += VeryLowChaosIncrease;
-
-		// Checking Ideas Supply
-		if (ideas_supply >= 0.8 * goodsData.MaxIdeasSupply)
-			chaos += MedChaosIncrease;
-		else if (ideas_supply >= 0.4 * goodsData.MaxIdeasSupply)
-			chaos += LowChaosIncrease;
-		else if (ideas_supply >= 0.2 * goodsData.MaxIdeasSupply)
-			chaos += VeryLowChaosIncrease;
-	}
-		
-	// This function is called once every in-game hour to update the state of the city.
-	private void DetermineState()
-	{
-		ConsumeGoods ();		// Consume goods for the city.
-		CalculateChaos ();		// Calculate Chaos accrual based on current supply status.
-
-		switch(state)
-		{
-			case CityState.pacifying:
-
-				// Two days
-				if (intervention_timer == 2880)
-				{
-					intervention_timer = 0;
-
-					// Reduce Chaos
-					if (chaos < 0.3f * maxChaos)
-						chaos = 0;
-					else 
-						chaos -= (0.3f * maxChaos);
-					
-					state = CityState.normal;
-					OnEndPacifying.Invoke();
-				}
-			break;
-
-			case CityState.infiltrating:
-
-				// One week
-				if (intervention_timer == 10800)
-				{
-					intervention_timer = 0;
-					
-					// Reduce Idea Supply
-					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)])
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] = 0;
-					else
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
-
-					state = CityState.normal;
-					OnEndInfiltrating.Invoke();
-				}
-			break;
-
-			case CityState.ending_demonstrations:
-
-				// Two days
-				if (intervention_timer == 2880)
-				{
-					intervention_timer = 0;
-
-					// Reduce Chaos
-					if (chaos < 0.3f * maxChaos)
-						chaos = 0;
-					else 
-						chaos -= (0.3f * maxChaos);
-
-					// Reduce Idea Supply
-					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)])
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] = 0;
-					else
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
-
-					state = CityState.normal;
-					OnEndInfiltrating.Invoke();
-				}
-			break;
-
-			case CityState.genocide:
-
-				// One week
-				if (intervention_timer == 10800)
-				{
-					intervention_timer = 0;
-
-					// Reduce Chaos
-					if (chaos < 0.3f * maxChaos)
-						chaos = 0;
-					else 
-						chaos -= (0.3f * maxChaos);
-
-					// Reduce Weapons Supply
-					if (goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] < 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)])
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] = 0;
-					else
-						goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)] -= 0.3f * goodsToSupply [goods.Single (g => g.type == Good.GoodType.Weapons)];
-
-					state = CityState.normal;
-					OnEndGenocide.Invoke();
-				}
-			break;
-
-			case CityState.raiding:
-
-				// Three days
-				if (intervention_timer == 4320)
-				{
-					intervention_timer = 0;
-
-					// FIXME: EMPTY PLAYER STOREHOUSE in this city
-
-					state = CityState.normal;
-					OnEndRaiding.Invoke();
-				}
-			break;
-
-			case CityState.independent:
-
-				state = CityState.normal;
-
-			break;
-
-		default:
-			Debug.Log (chaos);
-				// If values are below threshhold, status is normal.
-				if (chaos <= (0.6f * maxChaos) && heat <= (0.4f * maxHeat)) 
-				{
-					state = CityState.normal;
-					flag.ChangeColor (Color.white);
-				}
-				// If chaos is high...
-				else if (chaos > (0.6f * maxChaos)) 
-				{
-					// ...and if Idea supply is high...
-					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 300) {		// <-- Terrible coding practice, don't do this in final version.
-						state = CityState.anti_govt_demonstrations;		// ...anti-goverment demonstrations.
-						flag.ChangeColor(new Color(255,205,98)); 	// light orange
-					}
-					// ...and if Weapon supply is high...
-					if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Weapons)] >= 300) {
-						state = CityState.civil_war;					// ...civil war.
-						flag.ChangeColor(new Color(255,128,128));	// salmon
-					}
-
-					state = CityState.unrest;
-					flag.ChangeColor (new Color (137,128,255)); 	// light blue
-				} 
-
-				// If heat is high...
-				else if (heat > 0.4f * maxHeat) {
-					state = CityState.high_blackmarketeering;	// ...high black marketeering.
-					flag.ChangeColor(new Color(128,255,149));	// light green
-				}
-
-				// If Idea supply is high...
-				else if (goodsToSupply [goods.Single(g => g.type == Good.GoodType.Ideas)] >= 300) 
-				{
-					state = CityState.anti_govt_sentiments;
-					flag.ChangeColor (new Color (248,128,255));
-				}
-
-			break;
-		}
-	}
-
-	private void Awake()
-	{
-		goodsToSupply = new Dictionary<Good, float>();
-		for(int i = 0; i < goods.Count; i++) {
-			goodsToSupply.Add(goods[i], supplyOfGoods[i]);
-		}
-	}
-
-	private void OnValidate() {
-		if (goods.Count != supplyOfGoods.Count) {
-			Debug.LogError("Number of keys do not match number of values");
-		}
-	}
-		
-	// Use this for initialization
-	void Start () {
-		count = 0;
-		timeCapture = 0;
-		intervention_timer = 0;
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-		count += Time.deltaTime;
-		if (count >= 10.0f) 
-		{
-			count -= 10.0f;
-			DetermineState ();
-		}
-
-		// when it is one of these
-		if (!(state != CityState.infiltrating && state != CityState.genocide && state != CityState.pacifying && state != CityState.raiding && state != CityState.ending_demonstrations)) 
-		{
-			timeCapture += Time.deltaTime;
-			if (timeCapture >= 1.0f) {
-				timeCapture--;
-				intervention_timer++;
-			}
-		}
-	}
+    public float GetSupply(Good.GoodType good)
+    {
+        return this.goodsToSupply[good];
+    }
+    #endregion
 }

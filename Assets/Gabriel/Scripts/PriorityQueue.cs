@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class PriorityQueue<T> : IEnumerable {
 
@@ -36,6 +35,12 @@ public class PriorityQueue<T> : IEnumerable {
 		priority.Add (new_item_priority);
 		return list.Count - 1;
 	}
+
+    public void Clear()
+    {
+        list.Clear();
+        priority.Clear();
+    }
 
 	public T Dequeue()
 	{
