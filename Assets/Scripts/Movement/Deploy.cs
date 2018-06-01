@@ -150,7 +150,7 @@ public class Deploy : MonoBehaviour {
 		if (deployed) {
 			MoveUnit ();
 		}
-		/*if (direction ().x >= 0) {
+		if (direction ().x < 0) {
 			Vector3 temp = transform.localScale;
 			temp.x = 1;
 			transform.localScale = temp;
@@ -158,6 +158,6 @@ public class Deploy : MonoBehaviour {
 			Vector3 temp = transform.localScale;
 			temp.x = -1;
 			transform.localScale = temp;
-		}*/
+		}
 	}
 }
