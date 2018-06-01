@@ -7,6 +7,7 @@ using System.Linq;
 
 public class City : MonoBehaviour { 
 
+	// This Flag object provides the player with a visual representation of a City's condition.
 	[SerializeField]
 	private Flag flag;
 	public void SetFlag(Color c) {
@@ -19,7 +20,8 @@ public class City : MonoBehaviour {
 	public enum CityState{normal, high_blackmarketeering, unrest, anti_govt_sentiments, anti_govt_demonstrations, civil_war,
 						   pacifying, infiltrating, ending_demonstrations, genocide, raiding, independent};
 
-	// Unity Events for Observer Pattern: calls MainGovernment script to restore spent Tyranny when strategy actions are complete.
+	// Unity Events for Observer Pattern
+	// These functions restore the MainGovernment's spent Tyranny when strategy actions are complete.
 	public UnityEvent OnEndPacifying;
 	public UnityEvent OnEndInfiltrating;
 	public UnityEvent OnEndEndingDemonstrations;
@@ -27,7 +29,7 @@ public class City : MonoBehaviour {
 	public UnityEvent OnEndRaiding;
 
 	// NAME
-	[SerializeField] private string name;
+	[SerializeField] private string cityName;
 	public string GetName(){return name;}
 
 	// CHAOS
@@ -52,7 +54,7 @@ public class City : MonoBehaviour {
 
 	private Curve SupplyCurve;
 
-	/********************************************************** STATE MANAGEMENNT **********************************************************/
+	/********************************************************** STATE MANAGEMENENT **********************************************************/
 	[SerializeField] private CityState state;
 	public CityState GetState(){return state;}
 	public void SetState(CityState new_state)
@@ -60,40 +62,14 @@ public class City : MonoBehaviour {
 		state = new_state;
 	}
 
-	[SerializeField] private float foodProductionRate; 
-	[SerializeField] private float waterProductionRate; 
-	[SerializeField] private float population; 
-
 	private float timeCapture;		// Used along with intervention_timer to measure time passed since intervention events were initiated.
 
-	// TODO: Make this a Timer Class which increments its own value using time.deltaTime()
 	[SerializeField] float intervention_timer;
 	public float GetTimer(){return intervention_timer;}
 	public void SetTimer(float new_time)
 	{
 		intervention_timer = new_time;
 	}
-
-	// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
-	[SerializeField] private float MaxDrugsSupply = 2160f;
-	[SerializeField] private float MaxExoticsSupply = 2160f;
-	[SerializeField] private float MaxFoodSupply = 2160f;
-	[SerializeField] private float MaxFuelSupply = 2160f;
-	[SerializeField] private float MaxIdeasSupply = 1000f;
-	[SerializeField] private float MaxMedicineSupply = 2160f;
-	[SerializeField] private float MaxTextilesSupply = 2160f;
-	[SerializeField] private float MaxWaterSupply = 2160f;
-	[SerializeField] private float MaxWeaponsSupply = 2160f;
-
-	// CONSUMPTION RATES
-	[SerializeField] private float ConsumeDrugs = 0.25f;
-	[SerializeField] private float ConsumeExotics = 0.05f;
-	[SerializeField] private float ConsumeFood = 1.0f;
-	[SerializeField] private float ConsumeFuel = 0.5f;
-	[SerializeField] private float ConsumeMedicine = 0.25f;
-	[SerializeField] private float ConsumeTextiles = 0.5f;
-	[SerializeField] private float ConsumeWater = 1.0f;
-	[SerializeField] private float ConsumeWeapons = 0.05f;
 
 	// CHAOS ACCRURAL RATES
 	[SerializeField] private float VeryLowChaosIncrease = 0.0625f;
@@ -108,7 +84,6 @@ public class City : MonoBehaviour {
 	private Inventory peoplesInventory;
 	private Inventory govtInventory;
 
-
 	// Cardinal Goods
 	[SerializeField] private List<Good> goods;
 	
@@ -121,6 +96,35 @@ public class City : MonoBehaviour {
 	// Method for referencing the current supply of a Good.
 	public Dictionary<Good, float> goodsToSupply;
 
+	[SerializeField]
+	class GoodsData{
+
+		// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
+		public float MaxDrugsSupply = 2160f;
+		public float MaxExoticsSupply = 2160f;
+		public float MaxFoodSupply = 2160f;
+		public float MaxFuelSupply = 2160f;
+		public float MaxIdeasSupply = 1000f;
+		public float MaxMedicineSupply = 2160f;
+		public float MaxTextilesSupply = 2160f;
+		public float MaxWaterSupply = 2160f;
+		public float MaxWeaponsSupply = 2160f;
+
+		// CONSUMPTION RATES
+		public float ConsumeDrugs = 0.25f;
+		public float ConsumeExotics = 0.05f;
+		public float ConsumeFood = 1.0f;
+		public float ConsumeFuel = 0.5f;
+		public float ConsumeMedicine = 0.25f;
+		public float ConsumeTextiles = 0.5f;
+		public float ConsumeWater = 1.0f;
+		public float ConsumeWeapons = 0.05f;
+
+		// PRODUCTION RATES
+		public float ProduceFood = 0.5f;
+		public float ProduceWater = 0.5f;
+	};
+	GoodsData goodsData;
 
 	/************************************************** ECONOMIC CALCULATIONS **************************************************/
 	public float GetSupplyMultipler(float value)
@@ -144,14 +148,14 @@ public class City : MonoBehaviour {
 	// Call each Good type in the Supply dictionary and reduce its supply by one in-game hour's worth.
 	private void ConsumeGoods()
 	{
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Drugs)] -= ConsumeDrugs;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Exotics)] -= ConsumeExotics;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Food)] -= ConsumeFood;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Fuel)] -= ConsumeFuel;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Medicine)] -= ConsumeMedicine;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Textiles)] -= ConsumeTextiles;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Water)] -= ConsumeWater;
-		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Weapons)] -= ConsumeWeapons;
+		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Drugs)] -= goodsData.ConsumeDrugs;
+		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Exotics)] -= goodsData.ConsumeExotics;
+		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Food)] -= goodsData.ConsumeFood;
+		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Fuel)] -= goodsData.ConsumeFuel;
+		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Medicine)] -= goodsData.ConsumeMedicine;
+		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Textiles)] -= goodsData.ConsumeTextiles;
+		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Water)] -= goodsData.ConsumeWater;
+		goodsToSupply[goods.Single(g => g.type == Good.GoodType.Weapons)] -= goodsData.ConsumeWeapons;
 	}
 
 	private void CalculateChaos()
@@ -162,45 +166,45 @@ public class City : MonoBehaviour {
 		float ideas_supply = goodsToSupply [goods.Single (g => g.type == Good.GoodType.Ideas)];
 
 		// Checking Food Supply
-		if (food_supply <= 0.1 * MaxFoodSupply)
+		if (food_supply <= 0.1 * goodsData.MaxFoodSupply)
 			chaos += CritChaosIncrease;
-		else if (food_supply <= 0.2 * MaxFoodSupply)
+		else if (food_supply <= 0.2 * goodsData.MaxFoodSupply)
 			chaos += VeryHighChaosIncrease;
-		else if (food_supply <= 0.3 * MaxFoodSupply)
+		else if (food_supply <= 0.3 * goodsData.MaxFoodSupply)
 			chaos += HighChaosIncrease;
-		else if (food_supply <= 0.4 * MaxFoodSupply)
+		else if (food_supply <= 0.4 * goodsData.MaxFoodSupply)
 			chaos += MedChaosIncrease;
-		else if (food_supply <= 0.5 * MaxFoodSupply)
+		else if (food_supply <= 0.5 * goodsData.MaxFoodSupply)
 			chaos += LowChaosIncrease;
 
 		// Checking Water Supply
-		if (water_supply <= 0.1 * MaxWaterSupply)
+		if (water_supply <= 0.1 * goodsData.MaxWaterSupply)
 			chaos += CritChaosIncrease;
-		else if (water_supply <= 0.2 * MaxWaterSupply)
+		else if (water_supply <= 0.2 * goodsData.MaxWaterSupply)
 			chaos += VeryHighChaosIncrease;
-		else if (water_supply <= 0.3 * MaxWaterSupply)
+		else if (water_supply <= 0.3 * goodsData.MaxWaterSupply)
 			chaos += HighChaosIncrease;
-		else if (water_supply <= 0.4 * MaxWaterSupply)
+		else if (water_supply <= 0.4 * goodsData.MaxWaterSupply)
 			chaos += MedChaosIncrease;
-		else if (water_supply <= 0.5 * MaxWaterSupply)
+		else if (water_supply <= 0.5 * goodsData.MaxWaterSupply)
 			chaos += LowChaosIncrease;
 	
 		// Checking Fuel Supply
-		if (fuel_supply <= 0.1 * MaxFuelSupply)
+		if (fuel_supply <= 0.1 * goodsData.MaxFuelSupply)
 			chaos += HighChaosIncrease;
-		else if (fuel_supply <= 0.2 * MaxFuelSupply)
+		else if (fuel_supply <= 0.2 * goodsData.MaxFuelSupply)
 			chaos += MedChaosIncrease;
-		else if (fuel_supply <= 0.3 * MaxFuelSupply)
+		else if (fuel_supply <= 0.3 * goodsData.MaxFuelSupply)
 			chaos += LowChaosIncrease;
-		else if (fuel_supply <= 0.4 * MaxFuelSupply)
+		else if (fuel_supply <= 0.4 * goodsData.MaxFuelSupply)
 			chaos += VeryLowChaosIncrease;
 
 		// Checking Ideas Supply
-		if (ideas_supply >= 0.8 * MaxIdeasSupply)
+		if (ideas_supply >= 0.8 * goodsData.MaxIdeasSupply)
 			chaos += MedChaosIncrease;
-		else if (ideas_supply >= 0.4 * MaxIdeasSupply)
+		else if (ideas_supply >= 0.4 * goodsData.MaxIdeasSupply)
 			chaos += LowChaosIncrease;
-		else if (ideas_supply >= 0.2 * MaxIdeasSupply)
+		else if (ideas_supply >= 0.2 * goodsData.MaxIdeasSupply)
 			chaos += VeryLowChaosIncrease;
 	}
 		
