@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public static class UnityUtility
 {
@@ -9,7 +7,7 @@ public static class UnityUtility
         T component = gameObject.GetComponent<T>();
         if (component == null)
         {
-            Debug.LogError("Component: " + component.GetType().Name  + " requested is null!");
+            Debug.LogError("Component requested is null!");
         }
         return component;
     }

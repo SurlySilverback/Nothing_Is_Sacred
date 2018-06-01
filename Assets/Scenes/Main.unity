@@ -805,7 +805,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4592502001226910, guid: b99f5c36073894840b4d43d7c6820ea5, type: 2}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b99f5c36073894840b4d43d7c6820ea5, type: 2}
@@ -1131,7 +1131,7 @@ Transform:
   - {fileID: 1047829645}
   - {fileID: 974129707}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &95138423
 GameObject:
@@ -2842,12 +2842,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a0863c816d04e18a0f3e80d7759280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlot: {fileID: 0}
+  gridTransform: {fileID: 0}
   OnMoveGood:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  inventorySlot: {fileID: 0}
 --- !u!114 &207367992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5008,12 +5009,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a0863c816d04e18a0f3e80d7759280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlot: {fileID: 0}
+  gridTransform: {fileID: 0}
   OnMoveGood:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  inventorySlot: {fileID: 0}
 --- !u!114 &360092921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7660,6 +7662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95d7d357b1bf642babe17c14a52196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextlrPoint: 0
   deployed: 0
 --- !u!212 &462312416
 SpriteRenderer:
@@ -8402,7 +8405,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cecd8a60dd81594439d56f0e9237d26b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targets: []
   minViewSize: 1
   maxViewSize: 100
   zoomSpeed: 10
@@ -8875,6 +8877,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -8900,12 +8904,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -8934,16 +8939,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -9081,7 +9086,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &550989780
 GameObject:
@@ -9134,12 +9139,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a0863c816d04e18a0f3e80d7759280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlot: {fileID: 0}
+  gridTransform: {fileID: 0}
   OnMoveGood:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  inventorySlot: {fileID: 0}
 --- !u!114 &550989783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9225,6 +9231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95d7d357b1bf642babe17c14a52196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextlrPoint: 0
   deployed: 0
 --- !u!212 &561329084
 SpriteRenderer:
@@ -9352,6 +9359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -9377,12 +9386,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -9411,16 +9421,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -12816,7 +12826,7 @@ Transform:
   - {fileID: 1175235526}
   - {fileID: 744067357}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &879502228
 MonoBehaviour:
@@ -13527,6 +13537,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -13552,12 +13564,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -13586,16 +13599,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -13847,6 +13860,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -13872,12 +13887,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -13906,16 +13922,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -14077,6 +14093,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95d7d357b1bf642babe17c14a52196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextlrPoint: 0
   deployed: 0
 --- !u!212 &974129706
 SpriteRenderer:
@@ -14295,6 +14312,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -14320,12 +14339,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -14354,16 +14374,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -14460,10 +14480,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd8147b1a349074d83a699fb8272e06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  viewInfo: {fileID: 0}
-  text: {fileID: 211082884}
-  startingMoney: 3000
-  startingComplicity: 0
+  money: 0
+  complicity: 0
   OnGameOver:
     m_PersistentCalls:
       m_Calls:
@@ -14480,7 +14498,16 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  cityGraph: {fileID: 1226519827}
+  OnMoneyChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  OnComplicityChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   unit: {fileID: 1744604951673594, guid: b99f5c36073894840b4d43d7c6820ea5, type: 2}
   unitPrice: 1000
 --- !u!58 &980266765
@@ -14620,6 +14647,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95d7d357b1bf642babe17c14a52196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextlrPoint: 0
   deployed: 0
 --- !u!114 &980266769
 MonoBehaviour:
@@ -14691,7 +14719,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &980266772
 MonoBehaviour:
@@ -16807,6 +16835,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95d7d357b1bf642babe17c14a52196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextlrPoint: 0
   deployed: 0
 --- !u!212 &1006597069
 SpriteRenderer:
@@ -17369,7 +17398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.0000075622656}
+  m_AnchoredPosition: {x: 0, y: 0.000015319001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1035160446
@@ -17655,6 +17684,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95d7d357b1bf642babe17c14a52196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextlrPoint: 0
   deployed: 0
 --- !u!212 &1047829644
 SpriteRenderer:
@@ -19152,6 +19182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da0a7fdad482daa41b2b9bc6f9366469, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnChangeTyranny:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
   graph: {fileID: 1226519827}
   Patrol: {fileID: 1825916703927168, guid: 0ca0497e57fe8224ab9676d8561aeb12, type: 2}
 --- !u!1 &1175966161
@@ -19577,7 +19612,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1229247366
 GameObject:
@@ -19630,12 +19665,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a0863c816d04e18a0f3e80d7759280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlot: {fileID: 0}
+  gridTransform: {fileID: 0}
   OnMoveGood:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  inventorySlot: {fileID: 0}
 --- !u!114 &1229247370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25462,6 +25498,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -25487,12 +25525,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -25521,16 +25560,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -25622,6 +25661,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -25647,12 +25688,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -25681,16 +25723,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -26394,9 +26436,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a352bd1095b4bf692229029ea2a8b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  peopleInventory: {fileID: 1229247369}
-  govInventory: {fileID: 550989782}
-  storeHouseInventory: {fileID: 360092920}
+  peopleInventory: {fileID: 0}
+  govInventory: {fileID: 0}
+  storeHouseInventory: {fileID: 0}
   unitInventory: {fileID: 1858323198}
 --- !u!4 &1707387830
 Transform:
@@ -26409,7 +26451,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1716299654
 GameObject:
@@ -26609,7 +26651,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1755110042
 GameObject:
@@ -26707,7 +26749,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1778371900
 GameObject:
@@ -27316,6 +27358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -27341,12 +27385,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -27375,16 +27420,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -28521,106 +28566,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!1001 &1842405844
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 1087.6761
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 126.7775
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 224380824042952548, guid: 89dec6af7675151439deee18bd8e0c85,
-        type: 2}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 89dec6af7675151439deee18bd8e0c85, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &1843965910
 GameObject:
   m_ObjectHideFlags: 0
@@ -28671,6 +28616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95d7d357b1bf642babe17c14a52196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextlrPoint: 0
   deployed: 0
 --- !u!212 &1843965913
 SpriteRenderer:
@@ -28816,12 +28762,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a0863c816d04e18a0f3e80d7759280, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventorySlot: {fileID: 0}
+  gridTransform: {fileID: 0}
   OnMoveGood:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  inventorySlot: {fileID: 0}
 --- !u!114 &1858323199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28874,7 +28821,7 @@ RectTransform:
   - {fileID: 516218072}
   - {fileID: 1448162487}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -29151,6 +29098,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -29176,12 +29125,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -29210,16 +29160,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
@@ -29520,7 +29470,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1914581247
 GameObject:
@@ -31296,6 +31246,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bbd9c65d66896f4e95d8d15ed95c5ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  flag: {fileID: 0}
+  count: 0
   OnEndPacifying:
     m_PersistentCalls:
       m_Calls: []
@@ -31321,12 +31273,13 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
-  name: a
+  cityName: 
   chaos: 0
   maxChaos: 1000
   heat: 0
   maxHeat: 1000
   SupplyCurve: {fileID: 11400000, guid: 60282124a11dd944f9901aa545d6d9f0, type: 2}
+  state: 0
   foodProductionRate: 0
   waterProductionRate: 0
   population: 0
@@ -31355,16 +31308,16 @@ MonoBehaviour:
   VeryHighChaosIncrease: 1
   CritChaosIncrease: 2
   goods:
-  - {fileID: 11400000, guid: fde25b5ec845846cdb2a3d6f8f8d56c0, type: 2}
-  - {fileID: 11400000, guid: aa6c91c34fecb4327beb84c40daccb96, type: 2}
-  - {fileID: 11400000, guid: b5ff11472afda0242874280d5a18c50a, type: 2}
-  - {fileID: 11400000, guid: d799f094e662e4d4c868ef9c95c3de9a, type: 2}
-  - {fileID: 11400000, guid: 8e8dee70940f6ca4097df26b5626ac8a, type: 2}
-  - {fileID: 11400000, guid: 902625fca61425148b153581b202698e, type: 2}
-  - {fileID: 11400000, guid: 83d728fded2c10e4c92c51784dcff4cf, type: 2}
-  - {fileID: 11400000, guid: cb9bfecf97ae54543a071e70e91f43b4, type: 2}
-  - {fileID: 11400000, guid: 345e92f8b6fa046129add3dc0dbf4ef8, type: 2}
-  - {fileID: 11400000, guid: 1c5b248b603ad46048a8dae26d8d304e, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   supplyOfGoods:
   - 30
   - 20
