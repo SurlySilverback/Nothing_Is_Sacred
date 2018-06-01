@@ -1,14 +1,42 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using TMPro;
 
-[RequireComponent(typeof(CanvasGroup))]
 public class CityUI : MonoBehaviour
 {
-    private CanvasGroup canvasGroup;
+    [Header("Inventories")]
     [SerializeField]
-    private GameObject cityUI;
+    private InventoryViewModel peopleInventory;
     [SerializeField]
-    private GameObject cityView;
+    private InventoryViewModel govInventory;
+    [SerializeField]
+    private InventoryViewModel storeHouseInventory;
+    [Space(10)]
+
+    [Header("City Stats")]
+    [SerializeField]
+    private TextMeshProUGUI cityName;
+    [SerializeField]
+    private Slider drugsMeter;
+    [SerializeField]
+    private Slider exoticsMeter;
+    [SerializeField]
+    private Slider foodMeter;
+    [SerializeField]
+    private Slider ideasMeter;
+    [SerializeField]
+    private Slider medicineMeter;
+    [SerializeField]
+    private Slider peopleMeter;
+    [SerializeField]
+    private Slider textilesMeter;
+    [SerializeField]
+    private Slider waterMeter;
+    [SerializeField]
+    private Slider weaponsMeter;
+    [Space(10)]
+
     public UnityEvent OnChangeCityView;
 
     private void Awake()
@@ -17,25 +45,10 @@ public class CityUI : MonoBehaviour
         {
             OnChangeCityView = new UnityEvent();
         }
-        this.canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public void ToggleView(bool isVisible)
+    public void SetCity(City current)
     {
-        if (isVisible)
-        {
-            this.canvasGroup.alpha = 0;
-            this.canvasGroup.blocksRaycasts = false;
-        }
-        else
-        {
-            this.canvasGroup.alpha = 1;
-            this.canvasGroup.blocksRaycasts = true;
-        }
-    }
-
-    public void SetCityView(City current)
-    {
-
+        OnChangeCityView.Invoke();
     }
 }

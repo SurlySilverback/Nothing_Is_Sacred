@@ -9,7 +9,7 @@ public class PlainMarket : IMarket
     }
 }
 
-public class InfoView : MonoBehaviour
+public class ShowDetails : MonoBehaviour
 {
     public IMarket SelectedMarket { get; private set; }
 
