@@ -75,6 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b95d7d357b1bf642babe17c14a52196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nextlrPoint: 0
   deployed: 0
 --- !u!120 &120827939312358150
 LineRenderer:

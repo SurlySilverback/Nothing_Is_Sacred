@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="128" height="128" tilewidth="342" tileheight="250" infinite="0" backgroundcolor="#bfbfbf" nextobjectid="163">
+<map version="1.0" tiledversion="1.1.5" orientation="isometric" renderorder="right-down" width="128" height="128" tilewidth="342" tileheight="250" infinite="0" backgroundcolor="#bfbfbf" nextobjectid="168">
  <properties>
   <property name="unity:scale" value="1"/>
  </properties>
  <tileset firstgid="1" source="Landscape.tsx"/>
  <tileset firstgid="131" source="Cities.tsx"/>
- <tileset firstgid="133" source="Roads.tsx"/>
+ <tileset firstgid="135" source="Roads.tsx"/>
  <layer name="Base" width="128" height="128">
   <data encoding="csv">
 93,81,93,95,95,94,94,93,81,95,94,94,93,95,81,81,95,93,93,94,93,93,94,93,95,81,81,81,93,95,95,94,94,81,94,95,95,93,94,94,95,94,81,93,81,94,81,94,93,81,81,93,93,81,94,93,81,95,93,95,93,95,93,81,81,81,81,95,93,94,81,95,81,81,94,94,94,81,93,94,81,93,81,95,95,93,81,93,81,94,94,95,93,95,95,93,94,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
@@ -802,74 +802,74 @@
   <properties>
    <property name="Neighbors" type="file" value=""/>
   </properties>
-  <object id="138" type="City" gid="132" x="23250" y="10750" width="657" height="843">
+  <object id="138" type="City" gid="132" x="23250" y="10750" width="1415" height="800">
    <properties>
     <property name="Name" value="Tomats"/>
     <property name="Neighbors">Zukinni
 Shalotte</property>
    </properties>
   </object>
-  <object id="143" type="City" gid="132" x="16999" y="6500" width="657" height="843">
+  <object id="143" type="City" gid="132" x="15643.8" y="6127.23" width="1415" height="800">
    <properties>
     <property name="Name" value="Zukinni"/>
-    <property name="Neighbors">Rusmari
-Tomats</property>
+    <property name="Neighbors" value="Tomats"/>
    </properties>
   </object>
-  <object id="144" type="City" gid="132" x="11750" y="8250" width="657" height="843">
+  <object id="144" type="City" gid="132" x="10842" y="13190" width="1415" height="800">
    <properties>
     <property name="Name" value="Rusmari"/>
     <property name="Neighbors">Qucambert
-Zukinni</property>
-   </properties>
-  </object>
-  <object id="145" type="City" gid="132" x="20912.1" y="14631.9" width="657" height="843">
-   <properties>
-    <property name="Name" value="Shalotte"/>
-    <property name="Neighbors">Tomats
+Bruckley
 Sahl</property>
    </properties>
   </object>
-  <object id="146" type="City" gid="132" x="22009.9" y="21240.1" width="657" height="843">
+  <object id="145" type="City" gid="132" x="20912.1" y="14631.9" width="1415" height="800">
+   <properties>
+    <property name="Name" value="Shalotte"/>
+    <property name="Neighbors">Obergine
+Tomats</property>
+   </properties>
+  </object>
+  <object id="146" type="City" gid="132" x="15483.8" y="10550.2" width="1415" height="800">
    <properties>
     <property name="Name" value="Sahl"/>
-    <property name="Neighbors">Shalotte
-Obergine</property>
+    <property name="Neighbors" value="Rusmari"/>
    </properties>
   </object>
-  <object id="147" type="City" gid="132" x="15841.4" y="22316.6" width="657" height="843">
-   <properties>
-    <property name="Name" value="Obergine"/>
-    <property name="Neighbors">Sahl
-Chantrelle</property>
-   </properties>
-  </object>
-  <object id="148" type="City" gid="132" x="11000" y="17250" width="657" height="843">
+  <object id="148" type="City" gid="132" x="16953.7" y="23715.3" width="1415" height="800">
    <properties>
     <property name="Name" value="Karotte"/>
     <property name="Neighbors">Chantrelle
-Qucambert</property>
+Obergine</property>
    </properties>
   </object>
-  <object id="149" type="City" gid="132" x="7500" y="12250" width="657" height="843">
-   <properties>
-    <property name="Name" value="Qucambert"/>
-    <property name="Neighbors">Rusmari
-Karotte</property>
-   </properties>
-  </object>
-  <object id="150" type="City" gid="132" x="5748" y="18500" width="657" height="843">
-   <properties>
-    <property name="Name" value="Bruckley"/>
-    <property name="Neighbors" value="Chantrelle"/>
-   </properties>
-  </object>
-  <object id="152" type="City" gid="132" x="11032.8" y="21844.2" width="657" height="843">
+  <object id="152" type="City" gid="132" x="11081.7" y="21729.3" width="1415" height="800">
    <properties>
     <property name="Name" value="Chantrelle"/>
     <property name="Neighbors">Obergine
 Karotte
 Bruckley</property>
+   </properties>
+  </object>
+  <object id="163" type="City" gid="134" x="6363.93" y="18819.1" width="1415" height="800">
+   <properties>
+    <property name="Name" value="Bruckley"/>
+    <property name="Neighbors">Chantrelle
+Rusmari</property>
+   </properties>
+  </object>
+  <object id="165" type="City" gid="133" x="16765.6" y="17904.4" width="2200" height="1400">
+   <properties>
+    <property name="Name" value="Obergine"/>
+    <property name="Neighbors">Shalotte
+Karotte
+Chantrelle</property>
+   </properties>
+  </object>
+  <object id="167" type="City" gid="134" x="5482.16" y="12994.3" width="1415" height="800">
+   <properties>
+    <property name="Name" value="Qucambert"/>
+    <property name="Neighbors" value="Rusmari"/>
    </properties>
   </object>
  </objectgroup>

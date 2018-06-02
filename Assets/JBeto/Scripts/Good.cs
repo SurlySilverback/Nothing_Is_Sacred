@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu()]
 public class Good : ScriptableObject
@@ -11,14 +9,13 @@ public class Good : ScriptableObject
 
 	public GameObject visual;
 
+    [SerializeField]
 	private Curve HeatCurve;
 
 	public float GetHeatMultiplier()				// This returns the current Heat value multiplier based on the Good's Heat value.
 	{												// The more Heat on a Good, the more it costs to buy, and the more you make from
 		return HeatCurve.Evaluate ( heat );			// selling it.
 	}
-
-
 
 	public float Weight;
 
