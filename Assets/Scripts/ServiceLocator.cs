@@ -6,7 +6,6 @@ public class ServiceLocator : Singleton<ServiceLocator>
 {
     private Player player;
     private ShowDetails viewInfo;
-    private MapGraph mapGraph;
     private MainGovernment mainGov;
     private InGameTime clock;
     private List<City> cities;
@@ -16,7 +15,6 @@ public class ServiceLocator : Singleton<ServiceLocator>
     {
         player = FindObjectOfType<Player>();
         viewInfo = FindObjectOfType<ShowDetails>();
-        mapGraph = FindObjectOfType<MapGraph>();
         mainGov = FindObjectOfType<MainGovernment>();
         clock = FindObjectOfType<InGameTime>();
         alertSystem = FindObjectOfType<AlertSystem>();
