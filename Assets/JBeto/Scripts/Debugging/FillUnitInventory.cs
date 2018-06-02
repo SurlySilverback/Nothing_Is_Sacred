@@ -11,7 +11,7 @@ public class FillUnitInventory : MonoBehaviour
 	// Use this for initialization
 	void Start ()
     {
-        InventoryModel inv = unit.Items;
+        Inventory inv = unit.Items;
         foreach(Good g in goods)
         {
             inv.AddGood(g);

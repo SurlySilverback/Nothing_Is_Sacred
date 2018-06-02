@@ -6,7 +6,7 @@ using UberAudio;
 
 [RequireComponent(typeof(Deploy),typeof(LineRenderer))]
 public class PatrolAI : MonoBehaviour {
-	enum Mode{init, patrol, chase, captureUnit, lostInCity, lostUnit, goHome};
+	enum Mode{ Init, Patrol, Chase, CaptureUnit, LostInCity, LostUnit, GoHome };
 	private Deploy deploy;
 	private LineRenderer linerenderer;
 	private GameObject home;
@@ -34,7 +34,8 @@ public class PatrolAI : MonoBehaviour {
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+    {
 		this.deploy = GetComponent<Deploy>();
 		this.linerenderer = GetComponent<LineRenderer> ();
 		OnCapture.AddListener (delegate {
@@ -45,35 +46,33 @@ public class PatrolAI : MonoBehaviour {
 		home = PickCity();
 		transform.position = home.transform.position;
 
-		this.mode = Mode.init;
+		this.mode = Mode.Init;
 		this.patrolTime = timeInDay;
 		this.target = null;
 
 	}
 
 	// When a patrol is made, can be called to set starting point of patrol
-	public void SetHome(GameObject home) {
+	public void SetHome(GameObject home)
+    {
 		this.home = home;
 		transform.position = home.transform.position;
 		this.patrolTime = timeInDay;
-		this.mode = Mode.patrol;
+		this.mode = Mode.Patrol;
 		target = null;
 	}
 
 	// picks a random city to move towards
-	private GameObject PickCity() {
-		List<GameObject> cities = new List<GameObject> ();
-		foreach (PolygonCollider2D city in FindObjectsOfType(typeof(PolygonCollider2D))) {
-			if (city.gameObject.name == "Collision_City") {
-				cities.Add (city.gameObject);
-			}
-		}
-		return cities[Random.Range (0, cities.Count)];
+	private GameObject PickCity()
+    {
+		List<City> cities = new List<City> (ServiceLocator.Instance.GetCities());
+		return cities[Random.Range (0, cities.Count)].gameObject;
 	}
 
-	private bool targetAtCity() {
+	private bool TargetAtCity()
+    {
 		// assume in chase mode, so seeUnit() should be in target
-		target = seeUnit();
+		target = SeeUnit();
 		if (target == null)
 			return false;
 		RaycastHit2D hit = Physics2D.Raycast(target.transform.position, -Vector2.up, 0.1f, LayerMask.GetMask("City"));
@@ -81,7 +80,8 @@ public class PatrolAI : MonoBehaviour {
 	}
 
 	// if this patrol unit sees a player unit
-	private GameObject seeUnit() {
+	private GameObject SeeUnit()
+    {
 		GameObject result = null;
 		int unitmask = LayerMask.GetMask ("Unit");
 
@@ -115,88 +115,89 @@ public class PatrolAI : MonoBehaviour {
 		return result;
 	}
 
-	private void ChangeMode() {
+	private void ChangeMode()
+    {
 		switch (mode) {
-		case Mode.init:
+		case Mode.Init:
 			AudioManager.Instance.Play ("IScream", this.gameObject);
 			//AudioManager.Instance.Play ("blackflagblues");
 			if (home == null) {
 				SetHome (PickCity ());
 			}
-			mode = Mode.patrol;
+			mode = Mode.Patrol;
 			target = PickCity ();
 			patrolTime = timeInDay;
 			break;
-		case Mode.patrol:
-			if ((target = seeUnit ()) != null && !targetAtCity()) {
-				moveToTarget ();
-				mode = Mode.chase;
+		case Mode.Patrol:
+			if ((target = SeeUnit ()) != null && !TargetAtCity()) {
+				MoveToTarget ();
+				mode = Mode.Chase;
 				this.patrolTime = timeInDay * 3.0f;
 				AudioManager.Instance.Play ("OhShit");
 			} else if (patrolTime < 0) {
 				target = home;
-				moveToTarget ();
-				mode = Mode.goHome;
+				MoveToTarget ();
+				mode = Mode.GoHome;
 			}
 			break;
-		case Mode.chase:
+		case Mode.Chase:
 			// capture, lostunit, or lostincity
-			if ((target = seeUnit()) != null && Vector2.Distance(transform.position, target.transform.position) < 0.5f) {
+			if ((target = SeeUnit()) != null && Vector2.Distance(transform.position, target.transform.position) < 0.5f) {
 				// capture target
 				target.GetComponent<Deploy> ().StopMove ();
 				this.patrolTime = 15.0f;
-				mode = Mode.captureUnit;
+				mode = Mode.CaptureUnit;
 				Destroy (target.gameObject);
 				Camera.main.GetComponent<AudioListener> ().enabled = true;
 				OnCapture.Invoke ();
 				deploy.StopMove ();
 				target = home;
-			} else if ((target = seeUnit ()) == null) { // lost unit
+			} else if ((target = SeeUnit ()) == null) { // lost unit
 				Debug.Log("Lost");
-				mode = Mode.lostUnit;
+				mode = Mode.LostUnit;
 				patrolTime = 20.0f;
-			} else if (targetAtCity ()) { // lost in city
-				mode = Mode.lostInCity;
+			} else if (TargetAtCity ()) { // lost in city
+				mode = Mode.LostInCity;
 				this.patrolTime = 15.0f;
-				moveToTarget ();
+				MoveToTarget ();
 				target = PickCity ();
 			}
 			break;
-		case Mode.captureUnit:
+		case Mode.CaptureUnit:
 			if (patrolTime < 0.0f) {
 				target = home;
-				moveToTarget();
-				mode = Mode.goHome;
+				MoveToTarget();
+				mode = Mode.GoHome;
 			}
 			break;
-		case Mode.lostInCity:
+		case Mode.LostInCity:
 			if (patrolTime < 0.0f) {
-				mode = Mode.patrol;
+				mode = Mode.Patrol;
 				patrolTime = timeInDay;
-			} else if ((target = seeUnit ()) != null && !targetAtCity ()) {
-				moveToTarget ();
-				mode = Mode.chase;
+			} else if ((target = SeeUnit ()) != null && !TargetAtCity ()) {
+				MoveToTarget ();
+				mode = Mode.Chase;
 				this.patrolTime = timeInDay * 3.0f;
 				AudioManager.Instance.Play ("OhShit");
 			}
 			break;
-		case Mode.lostUnit:
+		case Mode.LostUnit:
 			if (patrolTime < 0.0f) {
-				mode = Mode.patrol;
+				mode = Mode.Patrol;
 				patrolTime = timeInDay;
 				target = PickCity ();
-				moveToTarget ();
-			} else if ((target = seeUnit ()) != null) {
-				mode = Mode.chase;
+				MoveToTarget ();
+			} else if ((target = SeeUnit ()) != null) {
+				mode = Mode.Chase;
 				patrolTime = timeInDay;
-				moveToTarget ();
+				MoveToTarget ();
 				AudioManager.Instance.Play ("OhShit");
 			}
 			break;
-		case Mode.goHome:
-			if ((target = seeUnit ()) != null) {
-				moveToTarget ();
-				mode = Mode.chase;
+		case Mode.GoHome:
+			if ((target = SeeUnit ()) != null) {
+				MoveToTarget ();
+				mode = Mode.Chase;
 				this.patrolTime = timeInDay * 3.0f;
 				AudioManager.Instance.Play ("OhShit");
 			} else if (Vector2.Distance(transform.position,home.transform.position) < 0.5f) {
@@ -210,8 +211,9 @@ public class PatrolAI : MonoBehaviour {
 	}
 
 	// reassign the destination to the target
-	private void moveToTarget() {
-		if (mode == Mode.chase && (target = seeUnit()) == null) {
+	private void MoveToTarget()
+    {
+		if (mode == Mode.Chase && (target = SeeUnit()) == null) {
 			return;
 		}
 		Vector3 temp;
@@ -225,38 +227,40 @@ public class PatrolAI : MonoBehaviour {
 		this.deploy.StartMove (moveList,baseSpeed);
 	}
 
-	void ProcessMode() {
+	void ProcessMode()
+    {
 		switch (mode) {
-		case Mode.init:
+		case Mode.Init:
 			break;
-		case Mode.patrol:
+		case Mode.Patrol:
 			if (!deploy.isDeployed ()) {
 				// choose new city to go to
 				target = PickCity ();
-				moveToTarget ();
+				MoveToTarget ();
 			}
 			break;
-		case Mode.chase:
+		case Mode.Chase:
 			// may be moving so reassign as we go
-			moveToTarget();
+			MoveToTarget();
 			break;
-		case Mode.captureUnit:
+		case Mode.CaptureUnit:
 			// Do nothing
 			break;
-		case Mode.lostInCity:
+		case Mode.LostInCity:
 			// Not implemented
 			break;
-		case Mode.lostUnit:
+		case Mode.LostUnit:
 			// Not implemented
 			break;
-		case Mode.goHome:
+		case Mode.GoHome:
 			// Do nothing
 			break;
 		}
 		patrolTime -= Time.deltaTime;
 	}
 
-	private void drawLineOfSight () {
+	private void DrawLineOfSight ()
+    {
 		if (!deploy.isDeployed ()) {
 			linerenderer.enabled = false;
 		}
@@ -280,6 +284,6 @@ public class PatrolAI : MonoBehaviour {
 	void Update () {
 		ChangeMode ();
 		ProcessMode ();
-		drawLineOfSight ();
+		DrawLineOfSight ();
 	}
 }

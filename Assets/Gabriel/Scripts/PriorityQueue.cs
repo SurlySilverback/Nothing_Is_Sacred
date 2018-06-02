@@ -36,6 +36,12 @@ public class PriorityQueue<T> : IEnumerable {
 		return list.Count - 1;
 	}
 
+    public void Clear()
+    {
+        list.Clear();
+        priority.Clear();
+    }
+
 	public T Dequeue()
 	{
 		T item = list [0];

@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(VerticalLayoutGroup))]
-public class ShowAlert : MonoBehaviour
+public class AlertSystem : MonoBehaviour
 {
 	[SerializeField]
 	private GameObject alert;

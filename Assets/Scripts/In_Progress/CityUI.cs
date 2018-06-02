@@ -7,11 +7,11 @@ public class CityUI : MonoBehaviour
 {
     [Header("Inventories")]
     [SerializeField]
-    private InventoryViewModel peopleInventory;
+    private InventoryUI peopleInventory;
     [SerializeField]
-    private InventoryViewModel govInventory;
+    private InventoryUI govInventory;
     [SerializeField]
-    private InventoryViewModel storeHouseInventory;
+    private InventoryUI storeHouseInventory;
     [Space(10)]
 
     [Header("City Stats")]

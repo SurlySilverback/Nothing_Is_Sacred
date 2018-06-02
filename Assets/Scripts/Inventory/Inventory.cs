@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using UnityEngine.Assertions;
 
-public class InventoryModel
+public class Inventory
 {
     public bool IsPlayerOwned { get; private set; }
     public bool IsTradeEnabled { get; set; }
@@ -12,7 +12,7 @@ public class InventoryModel
     private Good[] inventory;
     public UnityEvent OnInventoryChange { get; private set; }
 
-    public InventoryModel(int size, float weightCap, bool isPlayerOwned)
+    public Inventory(int size, float weightCap, bool isPlayerOwned)
     {
         IsTradeEnabled = true;
         IsPlayerOwned = isPlayerOwned;
@@ -23,7 +23,7 @@ public class InventoryModel
         OnInventoryChange = new UnityEvent();
     }
 
-    public Good[] GetEntireInventory()
+    public IList<Good> GetEntireInventory()
     {
         return this.inventory;
     }
@@ -37,6 +37,17 @@ public class InventoryModel
                 yield return g;
             }
         }
+    }
+
+    // TODO, Needs error checking
+    public void SetInventory(IList<Good> newInventory)
+    {
+        Assert.IsTrue(newInventory.Count == inventory.Length);
+        for (int i = 0; i < newInventory.Count; i++)
+        {
+            this.inventory[i] = newInventory[i];
+        }
+        OnInventoryChange.Invoke();
     }
 
     public Good GetGood(int position)
@@ -73,7 +84,7 @@ public class InventoryModel
         return -1;
     }
 
-    public bool CanPlayerTrade(InventoryModel items)
+    public bool CanPlayerTrade(Inventory items)
     {
         if (IsPlayerOwned)
         {
@@ -89,7 +100,7 @@ public class InventoryModel
         }
     }
 
-    public void TradeGoodFrom(InventoryModel seller, int sellerIndex, int buyerIndex)
+    public void TradeGoodFrom(Inventory seller, int sellerIndex, int buyerIndex)
     {
         if (this == seller)
         {
@@ -110,7 +121,7 @@ public class InventoryModel
         } 
     }
 
-    public void TradeGoodTo(InventoryModel buyer, int sellerIndex, int buyerIndex)
+    public void TradeGoodTo(Inventory buyer, int sellerIndex, int buyerIndex)
     {
         if (this == buyer)
         {

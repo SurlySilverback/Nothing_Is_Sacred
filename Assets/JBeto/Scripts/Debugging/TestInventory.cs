@@ -8,16 +8,16 @@ public class TestInventory : MonoBehaviour
     private int size;
     [SerializeField]
     private float weight;
-    public InventoryModel inventory;
-    public InventoryModel inventory1;
-    public InventoryModel inventory2;
+    public Inventory inventory;
+    public Inventory inventory1;
+    public Inventory inventory2;
     public List<Good> goods;
 
     private void Awake()
     {
-        this.inventory = new InventoryModel(size, weight, false);
-        this.inventory1 = new InventoryModel(size, weight, false);
-        this.inventory2 = new InventoryModel(size, weight, true);
+        this.inventory = new Inventory(size, weight, false);
+        this.inventory1 = new Inventory(size, weight, false);
+        this.inventory2 = new Inventory(size, weight, true);
 
         foreach (Good g in goods)
         {

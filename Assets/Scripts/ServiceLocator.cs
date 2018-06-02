@@ -10,6 +10,7 @@ public class ServiceLocator : Singleton<ServiceLocator>
     private MainGovernment mainGov;
     private InGameTime clock;
     private List<City> cities;
+    private AlertSystem alertSystem;
 
     private void Awake()
     {
@@ -18,7 +19,13 @@ public class ServiceLocator : Singleton<ServiceLocator>
         mapGraph = FindObjectOfType<MapGraph>();
         mainGov = FindObjectOfType<MainGovernment>();
         clock = FindObjectOfType<InGameTime>();
+        alertSystem = FindObjectOfType<AlertSystem>();
         cities = new List<City>(FindObjectsOfType<City>());
+    }
+
+    public AlertSystem GetAlertSystem()
+    {
+        return alertSystem;
     }
 
     public InGameTime GetClock()

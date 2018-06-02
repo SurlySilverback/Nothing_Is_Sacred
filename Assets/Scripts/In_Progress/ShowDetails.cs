@@ -14,13 +14,13 @@ public class ShowDetails : MonoBehaviour
     public IMarket SelectedMarket { get; private set; }
 
 	[Header("City View")]
-	[SerializeField] private InventoryViewModel peopleInventory; 
-	[SerializeField] private InventoryViewModel govInventory; 
-	[SerializeField] private InventoryViewModel storeHouseInventory; 
+	[SerializeField] private InventoryUI peopleInventory; 
+	[SerializeField] private InventoryUI govInventory; 
+	[SerializeField] private InventoryUI storeHouseInventory; 
 	[Space(10)]
 
 	[Header("Unit View")]
-	[SerializeField] private InventoryView unitInventory;
+	[SerializeField] private InventoryUI unitInventory;
 
     private void Awake()
     {

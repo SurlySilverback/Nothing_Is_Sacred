@@ -15,7 +15,7 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private float weightCap;
 
-    public InventoryModel Items { get; private set; }
+    public Inventory Items { get; private set; }
     public int Heat { get; set; }                   // Determines how aggressively the government will chase after this unit.
     public int Subtlety { get; set; }               // Determines how effective the unit is at avoiding detection.
     private Deploy deploy;
@@ -24,7 +24,7 @@ public class Unit : MonoBehaviour
 
     private void Awake()
     {
-        Items = new InventoryModel(inventorySize, weightCap, true);
+        Items = new Inventory(inventorySize, weightCap, true);
         this.deploy = GetComponent<Deploy>();
 		this.drawCurve = GetComponent<DrawCurve>();
 		this.linerenderer = GetComponent<LineRenderer>();
