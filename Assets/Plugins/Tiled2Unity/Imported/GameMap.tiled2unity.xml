@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 5/31/2018 4:09:41 AM-->
+<!--Last exported: 6/1/2018 9:53:19 PM-->
 <Tiled2Unity version="1.0.13.2">
   <AssignMaterial mesh="GameMap_mesh_0001" material="grass1" />
   <AssignMaterial mesh="GameMap_mesh_0002" material="blankgrass" />
@@ -681,7 +681,7 @@
   <InternalTexture assetPath="Assets/Art/Tileset/snowblank.png" materialName="snowblank" />
   <InternalTexture assetPath="Assets/Art/Tileset/trundra6.png" materialName="trundra6" />
   <InternalTexture assetPath="Assets/Art/Tileset/tundra7.png" materialName="tundra7" />
-  <InternalTexture assetPath="Assets/wli025/UI_Images/mapImages/snowyCity.png" materialName="snowyCity" />
-  <InternalTexture assetPath="Assets/wli025/UI_Images/mapImages/city.png" materialName="city" />
-  <InternalTexture assetPath="Assets/wli025/UI_Images/mapImages/capital.png" materialName="capital" />
+  <InternalTexture assetPath="Assets/Art/Tileset/Cities/snowyCity.png" materialName="snowyCity" />
+  <InternalTexture assetPath="Assets/Art/Tileset/Cities/city.png" materialName="city" />
+  <InternalTexture assetPath="Assets/Art/Tileset/Cities/capital.png" materialName="capital" />
 </Tiled2Unity>
