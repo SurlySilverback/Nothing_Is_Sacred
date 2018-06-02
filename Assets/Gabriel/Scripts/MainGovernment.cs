@@ -89,6 +89,7 @@ public class MainGovernment : MonoBehaviour
     // If a city is in an undesirable state, perform a action
     private void Strategy()
 	{
+		Debug.Log ("Daily strategy call");
 		// Employ new strategy system using single TaskList. Foreach city in TaskList, switch statement based on city's state
 		foreach (City city in prioritizedCities) 
 		{
