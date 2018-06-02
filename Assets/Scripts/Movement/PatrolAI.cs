@@ -148,12 +148,12 @@ public class PatrolAI : MonoBehaviour {
 				this.patrolTime = 15.0f;
 				mode = Mode.CaptureUnit;
 				Destroy (target.gameObject);
-				Camera.main.GetComponent<AudioListener> ().enabled = true;
+				//Camera.main.GetComponent<AudioListener> ().enabled = true;
 				OnCapture.Invoke ();
 				deploy.StopMove ();
 				target = home;
 			} else if ((target = SeeUnit ()) == null) { // lost unit
-				Debug.Log("Lost");
+				//Debug.Log("Lost");
 				mode = Mode.LostUnit;
 				patrolTime = 20.0f;
 			} else if (TargetAtCity ()) { // lost in city
