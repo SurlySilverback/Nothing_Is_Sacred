@@ -2,17 +2,23 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Assertions;
+using TMPro;
 
 public class InventoryUI : MonoBehaviour
 {
+    #region Inspector
     [SerializeField]
     private InventorySlot inventorySlot;
     [SerializeField]
     private Transform gridTransform;
-    
+    [SerializeField]
+    private TextMeshProUGUI currentWeight;
+    [SerializeField]
+    private TextMeshProUGUI maxWeight;
     public UnityEvent OnMoveGood;
+    #endregion Inspector
+
     private Inventory inventory;
-    // Keeps track of whether UI should update(relative with Inventory) or not
     private bool shouldUpdate;
 
     private void Awake()
@@ -23,24 +29,11 @@ public class InventoryUI : MonoBehaviour
             OnMoveGood = new UnityEvent();
         }
     }
-
-    private void InitInventory(IList<Good> inventory)
-    {
-        UnityUtility.DestroyChildren(gridTransform);
-        for (int i = 0; i < inventory.Count; ++i)
-        {
-            GameObject slot = Instantiate(inventorySlot.gameObject, gridTransform);
-            slot.GetComponent<InventorySlot>().UI = this;
-            Good good = inventory[i];
-            if (good != null)
-            {
-                Instantiate(good.visual, slot.transform);
-            }
-        }
-    }
-
+    
+    // Sets the inventory UI to the specified inventory
     public void SetInventory(Inventory inventory)
     {
+        // Setup inventory(logic component) and add listener to detect changes
         Assert.IsNotNull(inventory);
         if (this.inventory != null)
         {
@@ -48,7 +41,22 @@ public class InventoryUI : MonoBehaviour
         }
         this.inventory = inventory;
         this.inventory.OnInventoryChange.AddListener(UpdateView);
-        InitInventory(inventory.GetEntireInventory());
+
+        // Setup UI elements and add listener to detect changes
+        IList<Good> goods = inventory.GetEntireInventory();
+        UnityUtility.DestroyChildren(gridTransform);
+        for (int i = 0; i < goods.Count; ++i)
+        {
+            GameObject slotObject = Instantiate(inventorySlot.gameObject, gridTransform);
+            InventorySlot slot = slotObject.GetComponent<InventorySlot>();
+            slot.GetComponent<InventorySlot>().Items = inventory;
+            slot.OnChangeItem.AddListener(delegate { this.shouldUpdate = false; });
+            Good good = goods[i];
+            if (good != null)
+            {
+                Instantiate(good.visual, slot.transform);
+            }
+        }
     }
 
     // Conditional Update
@@ -78,6 +86,7 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+<<<<<<< HEAD
     
     public bool TryDropItem(InventoryUI source, int sourceIndex, int destinationIndex)
     {
@@ -117,4 +126,6 @@ public class InventoryUI : MonoBehaviour
         }
         return false;
     }
+=======
+>>>>>>> master
 }
