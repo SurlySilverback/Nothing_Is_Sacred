@@ -10,6 +10,11 @@ public class MinimizeUI : MonoBehaviour
     private Transform minimizeButton;
     [SerializeField]
     private AnimationCurve animationCurve;
+    [SerializeField]
+    private Transform maximizedTransform;
+    [SerializeField]
+    private Transform minimizedTransform;
+
     // Total time of animation
     private float timeFrame;
     // Total time passed in animation
@@ -23,10 +28,9 @@ public class MinimizeUI : MonoBehaviour
 
     private void Awake()
     {
+        this.maximizedPosition = maximizedTransform.position;
+        this.minimizedPosition = minimizedTransform.position;
         this.timeFrame = animationCurve[animationCurve.length - 1].time;
-        float uiHeight = GetComponent<RectTransform>().rect.height;
-        this.maximizedPosition = transform.localPosition;
-        this.minimizedPosition = new Vector3(this.maximizedPosition.x, this.maximizedPosition.y - uiHeight, this.maximizedPosition.z);
         this.state = UIState.Stationary;
         this.timePassed = 0;
     }
@@ -43,7 +47,7 @@ public class MinimizeUI : MonoBehaviour
     private void UpdateAnimation(float t)
     {
         this.timePassed += Time.unscaledDeltaTime;
-        transform.localPosition = Vector3.Lerp(maximizedPosition, minimizedPosition, animationCurve.Evaluate(t));
+        transform.position = Vector3.Lerp(maximizedPosition, minimizedPosition, animationCurve.Evaluate(t));
         if (this.timePassed >= this.timeFrame)
         {
             this.state = UIState.Stationary;
