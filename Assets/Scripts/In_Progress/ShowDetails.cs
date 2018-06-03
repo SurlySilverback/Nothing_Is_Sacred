@@ -1,34 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class PlainMarket : IMarket
-{
-    public float GetPrice(Good g)
-    {
-        return 10f;
-    }
-}
-
 public class ShowDetails : MonoBehaviour
 {
     public IMarket SelectedMarket { get; private set; }
 
-	[Header("City View")]
-	[SerializeField] private InventoryUI peopleInventory; 
-	[SerializeField] private InventoryUI govInventory; 
-	[SerializeField] private InventoryUI storeHouseInventory; 
-	[Space(10)]
+    [Header("City View")]
+    [SerializeField]
+    private CityUI cityUI;
+    [Space(10)]
 
-	[Header("Unit View")]
-	[SerializeField] private InventoryUI unitInventory;
-
-    private void Awake()
-    {
-        SelectedMarket = new PlainMarket();
-    }
-
-    // Update is called once per frame
-    void Update () 
+    [Header("Unit View")]
+    [SerializeField]
+    private UnitUI unitUI;
+    
+    private void Update () 
 	{
 		//If the left mouse button is clicked.
         if (!EventSystem.current.IsPointerOverGameObject() && Input.GetMouseButtonDown(0))
@@ -42,17 +28,16 @@ public class ShowDetails : MonoBehaviour
 			{ 
 				foreach (RaycastHit2D i in hit) 
 				{
-                    if (i.transform.gameObject.layer == LayerMask.NameToLayer("City")) {
-                        // TODO
-                        unitInventory.gameObject.SetActive(false);
-                        TestInventory c = UnityUtility.GetSafeComponent<TestInventory>(i.transform.parent.parent.gameObject);
-                        peopleInventory.SetInventory(c.inventory);
-                        govInventory.SetInventory(c.inventory1);
-                        storeHouseInventory.SetInventory(c.inventory2);
+                    if (i.transform.gameObject.layer == LayerMask.NameToLayer("City"))
+                    {
+                        City city = UnityUtility.GetSafeComponent<City>(i.transform.parent.parent.gameObject);
+                        cityUI.SetCity(city);
+                        SelectedMarket = city;
 					}
-					if (i.transform.gameObject.layer == LayerMask.NameToLayer("Unit")) {
-                        unitInventory.gameObject.SetActive(true);
-						Debug.Log("FOUND Unit");
+					if (i.transform.gameObject.layer == LayerMask.NameToLayer("Unit"))
+                    {
+                        Unit unit = UnityUtility.GetSafeComponent<Unit>(i.transform.gameObject);
+                        unitUI.SetUnit(unit);
 					}
 				}
 			}

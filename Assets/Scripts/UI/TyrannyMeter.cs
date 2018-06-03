@@ -4,10 +4,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class TyrannyMeter : MonoBehaviour
 {
-    [SerializeField]
     private Slider complicitySlider;
 
-    private void Awake()
+    private void Start()
     {
         complicitySlider = GetComponent<Slider>();
         ServiceLocator.Instance.GetMainGovernment().OnChangeTyranny.AddListener(UpdateTyranny);
