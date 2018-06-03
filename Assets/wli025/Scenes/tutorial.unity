@@ -639,7 +639,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'HIGH LEVELS OF TYRANNY WILL EFFECT '
+  m_text: Tyranny is the government's power. Higher Tyranny results in higher opposition.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -707,12 +707,12 @@ MonoBehaviour:
   m_margin: {x: -8.58905, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 816181675}
-    characterCount: 35
+    characterCount: 79
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 6
+    spaceCount: 10
+    wordCount: 11
     linkCount: 0
-    lineCount: 2
+    lineCount: 3
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -793,7 +793,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 'HIGH LEVELS OF COMPLICITY WILL EFFECT '
+  m_text: Complicity measures your cooperation with the gov't. Higher Complicity means
+    less gov't interference.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -838,7 +839,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 88
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -861,12 +862,12 @@ MonoBehaviour:
   m_margin: {x: -8.58905, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 871367267}
-    characterCount: 38
+    characterCount: 101
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 6
+    spaceCount: 12
+    wordCount: 13
     linkCount: 0
-    lineCount: 2
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0
@@ -1661,7 +1662,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: "MOVE AROUND \nTHE MAP"
+  m_text: Move around the map.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -1731,7 +1732,7 @@ MonoBehaviour:
     textComponent: {fileID: 1427051684}
     characterCount: 20
     spriteCount: 0
-    spaceCount: 4
+    spaceCount: 3
     wordCount: 4
     linkCount: 0
     lineCount: 2
@@ -1815,7 +1816,14 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: SCROLL TO ZOOM
+  m_text: 'Scroll wheel to change map zoom.
+
+
+    Left click to select a Unit or City.
+
+
+    Press and hold left click to draw a Unit''s movement path. Right click while holding
+    left click to place pivot points. Release left click to send Unit moving.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 715b80e429c437e40867928a4e1fc975, type: 2}
@@ -1860,7 +1868,7 @@ MonoBehaviour:
   m_enableWordWrapping: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
-  m_firstOverflowCharacterIndex: -1
+  m_firstOverflowCharacterIndex: 33
   m_linkedTextComponent: {fileID: 0}
   m_isLinkedTextComponent: 0
   m_isTextTruncated: 0
@@ -1883,12 +1891,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1621304955}
-    characterCount: 14
+    characterCount: 229
     spriteCount: 0
-    spaceCount: 2
-    wordCount: 3
+    spaceCount: 43
+    wordCount: 42
     linkCount: 0
-    lineCount: 2
+    lineCount: 20
     pageCount: 1
     materialCount: 1
   m_havePropertiesChanged: 0

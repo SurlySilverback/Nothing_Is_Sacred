@@ -17,6 +17,6 @@ MonoBehaviour:
   Weight: 1
   MaslowIndex: 1
   Scarcity: 1
-  basePrice: 1
+  basePrice: 100
   baseHeat: 1
   Tyranny: 1
