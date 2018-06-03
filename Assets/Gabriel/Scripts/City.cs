@@ -52,23 +52,23 @@ public class City : MonoBehaviour, IMarket
     [Header("Goods")]
     public float Population;
     [SerializeField]
-    private float foodProductionRate; 
+    private float ProduceFood; 
 	[SerializeField]
-    private float waterProductionRate; 
+    private float ProduceWater; 
     [SerializeField]
-    private float drugsProductionRate;
+    private float ProduceDrugs;
     [SerializeField]
-    private float exoticsProductionRate;
+    private float ProduceExotics;
     [SerializeField]
-    private float fuelProductionRate;
+    private float ProduceFuel;
     [SerializeField]
-    private float ideasProductionRate;    
+    private float ProduceIdeas;    
     [SerializeField]
-    private float medicineProductionRate;
+    private float ProduceMedicine;
     [SerializeField]
-    private float textilesProductionRate;
+    private float ProduceTextiles;
     [SerializeField]
-    private float weaponsProductionRate;
+    private float ProduceWeapons;
 
 
 	// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
@@ -339,6 +339,20 @@ public class City : MonoBehaviour, IMarket
     #endregion
 
     #region Helper
+    
+    // Call each Good type in the Supply dictionary and increase its supply by one in-game hour's worth.
+    private void ProduceGoods()
+    {
+        goodsToSupply[Good.GoodType.Drugs] += ProduceDrugs;
+        goodsToSupply[Good.GoodType.Exotics] += ProduceExotics;
+        goodsToSupply[Good.GoodType.Food] += ProduceFood;
+        goodsToSupply[Good.GoodType.Fuel] += ProduceFuel;
+        goodsToSupply[Good.GoodType.Medicine] += ProduceMedicine;
+        goodsToSupply[Good.GoodType.Textiles] += ProduceTextiles;
+        goodsToSupply[Good.GoodType.Water] += ProduceWater;
+        goodsToSupply[Good.GoodType.Weapons] += ProduceWeapons;
+    }
+    
     // Call each Good type in the Supply dictionary and reduce its supply by one in-game hour's worth.
     private void ConsumeGoods()
     {
