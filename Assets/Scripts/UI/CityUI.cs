@@ -29,6 +29,8 @@ public class CityUI : MonoBehaviour
     [SerializeField]
     private Slider foodMeter;
     [SerializeField]
+    private Slider fuelMeter;
+    [SerializeField]
     private Slider ideasMeter;
     [SerializeField]
     private Slider medicineMeter;
@@ -59,6 +61,7 @@ public class CityUI : MonoBehaviour
             drugsMeter.value = city.GetSupply(Good.GoodType.Drugs);
             exoticsMeter.value = city.GetSupply(Good.GoodType.Exotics);
             foodMeter.value = city.GetSupply(Good.GoodType.Food);
+            fuelMeter.value = city.GetSupply(Good.GoodType.Fuel);
             ideasMeter.value = city.GetSupply(Good.GoodType.Ideas);
             medicineMeter.value = city.GetSupply(Good.GoodType.Medicine);
             textilesMeter.value = city.GetSupply(Good.GoodType.Textiles);
@@ -82,6 +85,7 @@ public class CityUI : MonoBehaviour
         drugsMeter.maxValue = city.MaxDrugsSupply;
         exoticsMeter.maxValue = city.MaxExoticsSupply;
         foodMeter.maxValue = city.MaxFoodSupply;
+        fuelMeter.maxValue = city.MaxFuelSupply;
         ideasMeter.maxValue = city.MaxIdeasSupply;
         medicineMeter.maxValue = city.MaxMedicineSupply;
         textilesMeter.maxValue = city.MaxTextilesSupply;
