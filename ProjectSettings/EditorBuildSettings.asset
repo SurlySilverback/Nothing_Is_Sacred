@@ -11,3 +11,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: fc4db590e27847a44858a43f84f2128d
+  - enabled: 1
+    path: Assets/wli025/Scenes/gameScene.unity
+    guid: 9457271ada3974d4c97c970aabb93ee6
+  - enabled: 1
+    path: Assets/wli025/Scenes/tutorial.unity
+    guid: 93380aa4180f241ffbfa14c69f192c87
