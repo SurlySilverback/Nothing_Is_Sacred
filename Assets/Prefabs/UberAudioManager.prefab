@@ -53,6 +53,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LogMissingEvents: 0
   LogAllEvents: 0
-  LogLookups: 0
+  LogLookups: 1
   LogBankLoads: 1
   LogBankRefCounts: 0

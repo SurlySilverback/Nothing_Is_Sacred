@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler
 {
 	private Transform canvasTransform;
 	private Vector3 startPosition;
@@ -13,6 +13,11 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         // I know, this is insanity
         canvasTransform = transform.parent.parent.parent.parent.parent.parent.parent;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        ItemUI.SetGood(transform.parent.GetComponent<InventorySlot>().Items.GetGood(transform.parent.GetSiblingIndex()));
     }
 
     public void OnBeginDrag (PointerEventData eventData)
@@ -45,6 +50,6 @@ public class DragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		    transform.position = startPosition;
 	    }
 	}
-	
-	#endregion
+
+    #endregion
 }

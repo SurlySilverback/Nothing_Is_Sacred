@@ -69,7 +69,6 @@ public class InGameTime : MonoBehaviour
 
 		string timeStr = moment.Year.ToString() + ", " + monthStr + " " + moment.Day.ToString() + ", " + hourStr + ":" + minuteStr;
 		displayDate.text = timeStr;
-		Debug.Log("CALLING: " + moment.Date.ToString()); 
 	}
     
     private void Update() 

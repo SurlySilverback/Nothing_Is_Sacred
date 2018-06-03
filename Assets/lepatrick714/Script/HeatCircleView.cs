@@ -5,6 +5,8 @@ public class HeatCircleView : MonoBehaviour
 {
 	[SerializeField]
 	private City city; 
+	[SerializeField]
+	private float heatCircleMultiplier;
 	private SpriteRenderer spriteRenderer; 
 
 	void Awake()
@@ -20,7 +22,8 @@ public class HeatCircleView : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-		float circleSize = city.Heat / city.MaxHeat;  
-		transform.localScale = new Vector3(circleSize, circleSize, 1);
+		float circleSize = city.Heat * heatCircleMultiplier / city.MaxHeat;  
+		transform.localScale = new Vector3(circleSize * (7/4.0f), circleSize, 1);
+		// Debug.Log(circleSize);
 	}
 }
