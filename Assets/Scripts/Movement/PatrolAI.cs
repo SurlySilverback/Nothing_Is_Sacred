@@ -123,8 +123,6 @@ public class PatrolAI : MonoBehaviour {
     {
 		switch (mode) {
 		case Mode.Init:
-			AudioManager.Instance.Play ("IScream", this.gameObject);
-			//AudioManager.Instance.Play ("blackflagblues");
 			if (home == null) {
 				SetHome (PickCity ());
 			}
@@ -137,7 +135,7 @@ public class PatrolAI : MonoBehaviour {
 				MoveToTarget ();
 				mode = Mode.Chase;
 				this.patrolTime = timeInDay * 3.0f;
-				AudioManager.Instance.Play ("OhShit");
+				//AudioManager.Instance.Play ("OhShit");
 			} else if (patrolTime < 0) {
 				target = home;
 				MoveToTarget ();
@@ -182,7 +180,7 @@ public class PatrolAI : MonoBehaviour {
 				MoveToTarget ();
 				mode = Mode.Chase;
 				this.patrolTime = timeInDay * 3.0f;
-				AudioManager.Instance.Play ("OhShit");
+				//AudioManager.Instance.Play ("OhShit");
 			}
 			break;
 		case Mode.LostUnit:
@@ -195,7 +193,7 @@ public class PatrolAI : MonoBehaviour {
 				mode = Mode.Chase;
 				patrolTime = timeInDay;
 				MoveToTarget ();
-				AudioManager.Instance.Play ("OhShit");
+				//AudioManager.Instance.Play ("OhShit");
 			}
 			break;
 		case Mode.GoHome:
@@ -203,7 +201,7 @@ public class PatrolAI : MonoBehaviour {
 				MoveToTarget ();
 				mode = Mode.Chase;
 				this.patrolTime = timeInDay * 3.0f;
-				AudioManager.Instance.Play ("OhShit");
+				//AudioManager.Instance.Play ("OhShit");
 			} else if (Vector2.Distance(transform.position,home.transform.position) < 0.5f) {
 				// got home, so despawn
 				/////////////////////FIXFORSETTINGTYRANNY();

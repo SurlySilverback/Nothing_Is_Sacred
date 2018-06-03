@@ -42,7 +42,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     SpatialBlend: 0
     ReverbZoneMix: 1
-  - EventName: IScream
+  - EventName: Scream
     RandomWeight: 1
     Volume: 1
     AudioClip: {fileID: 8300000, guid: 7d3746f21934aa6489d89445b09b29d5, type: 3}
