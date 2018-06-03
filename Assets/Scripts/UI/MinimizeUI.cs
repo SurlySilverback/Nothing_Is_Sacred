@@ -7,6 +7,8 @@
 public class MinimizeUI : MonoBehaviour
 {
     [SerializeField]
+    private Transform minimizeButton;
+    [SerializeField]
     private AnimationCurve animationCurve;
     // Total time of animation
     private float timeFrame;
@@ -32,6 +34,8 @@ public class MinimizeUI : MonoBehaviour
     // Toggles which direction to move the UI - Minimize or Maximize
     public void ToggleView(bool isVisible)
     {
+        int direction = isVisible ? 1 : -1;
+        minimizeButton.localScale = new Vector3(1, direction, 1);
         this.timePassed = (state == UIState.Stationary) ? 0 : this.timeFrame - this.timePassed;
         this.state = isVisible ? UIState.MovingUp : UIState.MovingDown;
     }

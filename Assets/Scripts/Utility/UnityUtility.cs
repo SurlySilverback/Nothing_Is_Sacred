@@ -27,27 +27,6 @@ public static class UnityUtility
             GameObject.Destroy(transform.gameObject);
         }
     }
-
-    public static void ChangeVector3X(ref Vector3 vec3, float x)
-    {
-        Vector3 newVec3 = vec3;
-        newVec3.x = x;
-        vec3 = newVec3;
-    }
-    
-    public static void ChangeVector3Y(ref Vector3 vec3, float y)
-    {
-        Vector3 newVec3 = vec3;
-        newVec3.y = y;
-        vec3 = newVec3;
-    }
-
-    public static void ChangeVector3Z(ref Vector3 vec3, float z)
-    {
-        Vector3 newVec3 = vec3;
-        newVec3.z = z;
-        vec3 = newVec3;
-    }
     
     public static string GetGameObjectPath(GameObject obj)
     {
