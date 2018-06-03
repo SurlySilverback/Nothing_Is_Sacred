@@ -66,6 +66,7 @@ public class MainGovernment : MonoBehaviour
             Strategy();
             EndSurvey();
         });
+        currentTyranny = TotalTyranny;
     }
     
     private void RestoreTyranny(float amount)
@@ -101,6 +102,7 @@ public class MainGovernment : MonoBehaviour
                     // 		  then begin preparing for a raid. Give player time to cool down Heat meter.
 
                     // FIXME: Include a timer parameter in this conditional so that a raid is only launched if the timer has elapsed.
+                    Debug.Log("This city is troublesome");
                     this.alertSystem.AlertPlayer("Government has detected black market activity, deploying patrols");
                     if (CurrentTyranny >= 80)
                     {

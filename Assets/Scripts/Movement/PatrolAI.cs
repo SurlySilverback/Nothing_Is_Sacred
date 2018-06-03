@@ -87,12 +87,16 @@ public class PatrolAI : MonoBehaviour {
 
 		// calc the field of view in whatever conditions are present
 		float currFieldOfView = this.fieldOfView;
-		RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up);
-		if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Deep Forest") {
-			currFieldOfView *= 0.4f;
-		} else if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Forest") {
-			currFieldOfView *= 0.7f;
+		RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 0.1f);
+		if (hit.collider != null) {
+			if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Deep Forest") {
+				currFieldOfView *= 0.4f;
+			} else if (LayerMask.LayerToName (hit.transform.gameObject.layer) == "Forest") {
+				currFieldOfView *= 0.7f;
+			}
 		}
+		
+		
 		// actual collider using that fieldOfView as radius of visibility circle
 		Collider2D[] colliders = Physics2D.OverlapCircleAll (transform.position, fieldOfView + 2.0f, unitmask);
 		Vector2 sight = deploy.direction ();

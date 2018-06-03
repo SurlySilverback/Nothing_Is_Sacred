@@ -55,6 +55,21 @@ public class City : MonoBehaviour, IMarket
     private float foodProductionRate; 
 	[SerializeField]
     private float waterProductionRate; 
+    [SerializeField]
+    private float drugsProductionRate;
+    [SerializeField]
+    private float exoticsProductionRate;
+    [SerializeField]
+    private float fuelProductionRate;
+    [SerializeField]
+    private float ideasProductionRate;    
+    [SerializeField]
+    private float medicineProductionRate;
+    [SerializeField]
+    private float textilesProductionRate;
+    [SerializeField]
+    private float weaponsProductionRate;
+
 
 	// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
 	public float MaxDrugsSupply = 2160f;
@@ -124,6 +139,9 @@ public class City : MonoBehaviour, IMarket
     [SerializeField]
     private int govtWeight;
 
+    [SerializeField]
+    private List<Good> goods;
+
     public Inventory PlayerInventory { get; private set; }
     public Inventory PeoplesInventory { get; private set; }
 	public Inventory GovtInventory { get; private set; }
@@ -182,6 +200,17 @@ public class City : MonoBehaviour, IMarket
         };
         this.hoursInState = 0;
         State = CityState.Normal;
+
+        PlayerInventory = new Inventory(storeHouseSize, storeHouseWeight, true);
+        PeoplesInventory = new Inventory(peopleSize, peopleWeight, false);
+        GovtInventory = new Inventory(govtSize, govtWeight, false);
+
+        foreach(Good g in goods)
+        {
+            PlayerInventory.AddGood(g);
+            PeoplesInventory.AddGood(g);
+            GovtInventory.AddGood(g);
+        }
     }
 
     private void Start()
