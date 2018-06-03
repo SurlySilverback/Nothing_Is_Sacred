@@ -1,0 +1,25 @@
+fileFormatVersion: 2
+guid: f1ab44c00698d3c44ab7af17db285c04
+timeCreated: 1527802550
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Politik
+  fontNames:
+  - Politik
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 00ccd1886df832e4db0e3964ac2597a6, type: 3}
+  - {fileID: 12800000, guid: bce69b3bb181b684eac3ca9b736897ab, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
