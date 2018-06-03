@@ -73,8 +73,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: a
   baseSpeed: 10
-  inventorySize: 0
-  weightCap: 0
+  inventorySize: 10
+  weightCap: 100
 --- !u!114 &114935935805912106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -241,5 +241,5 @@ SpriteRenderer:
   m_Size: {x: 2.56, y: 3.51}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0

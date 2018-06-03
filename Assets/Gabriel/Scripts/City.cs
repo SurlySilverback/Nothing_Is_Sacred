@@ -5,7 +5,7 @@ using System.Linq;
 using System;
 using MonsterLove.StateMachine;
 
-public class City : MonoBehaviour
+public class City : MonoBehaviour, IMarket
 {
     #region Events
     // Unity Events for Observer Pattern: Calls MainGovernment script to restore spent Tyranny when strategy actions are complete.
@@ -134,6 +134,9 @@ public class City : MonoBehaviour
     [SerializeField]
     private int govtWeight;
 
+    [SerializeField]
+    private List<Good> goods;
+
     public Inventory PlayerInventory { get; private set; }
     public Inventory PeoplesInventory { get; private set; }
 	public Inventory GovtInventory { get; private set; }
@@ -187,6 +190,17 @@ public class City : MonoBehaviour
         };
         this.hoursInState = 0;
         State = CityState.Normal;
+
+        PlayerInventory = new Inventory(storeHouseSize, storeHouseWeight, true);
+        PeoplesInventory = new Inventory(peopleSize, peopleWeight, false);
+        GovtInventory = new Inventory(govtSize, govtWeight, false);
+
+        foreach(Good g in goods)
+        {
+            PlayerInventory.AddGood(g);
+            PeoplesInventory.AddGood(g);
+            GovtInventory.AddGood(g);
+        }
     }
 
     private void Start()

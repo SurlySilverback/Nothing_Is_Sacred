@@ -45,13 +45,16 @@ public class ShowDetails : MonoBehaviour
                     if (i.transform.gameObject.layer == LayerMask.NameToLayer("City")) {
                         // TODO
                         unitInventory.gameObject.SetActive(false);
-                        TestInventory c = UnityUtility.GetSafeComponent<TestInventory>(i.transform.parent.parent.gameObject);
-                        peopleInventory.SetInventory(c.inventory);
-                        govInventory.SetInventory(c.inventory1);
-                        storeHouseInventory.SetInventory(c.inventory2);
+                        City c = UnityUtility.GetSafeComponent<City>(i.transform.parent.parent.gameObject);
+                        peopleInventory.SetInventory(c.PeoplesInventory);
+                        govInventory.SetInventory(c.GovtInventory);
+                        storeHouseInventory.SetInventory(c.PlayerInventory);
+                        SelectedMarket = c;
 					}
 					if (i.transform.gameObject.layer == LayerMask.NameToLayer("Unit")) {
                         unitInventory.gameObject.SetActive(true);
+                        Unit u = UnityUtility.GetSafeComponent<Unit>(i.transform.gameObject);
+                        unitInventory.SetInventory(u.Items);
 						Debug.Log("FOUND Unit");
 					}
 				}

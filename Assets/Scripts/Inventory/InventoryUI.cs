@@ -96,6 +96,7 @@ public class InventoryUI : MonoBehaviour
             // player is the buyer
             if (inventory.IsPlayerOwned)
             {
+// TODO
                 if (!player.CanBuyGood(item))
                 {
                     return false;
