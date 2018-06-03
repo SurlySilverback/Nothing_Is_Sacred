@@ -5,11 +5,11 @@ public class MoneyUI : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI moneyUI;
-    [SerializeField]
     private Player player;
     
 	private void Start()
     {
+        player = ServiceLocator.Instance.GetPlayer();
         player.OnMoneyChanged.AddListener(UpdateMoneyUI);
 	}
 	

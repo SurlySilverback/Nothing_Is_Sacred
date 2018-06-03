@@ -2,6 +2,11 @@
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
+using TMPro;
+using System;
+using System.Linq;
+using System.Collections;
+using System.Collections.Generic;
 
 public class InGameTime : MonoBehaviour 
 {
@@ -14,7 +19,7 @@ public class InGameTime : MonoBehaviour
 	private float timePassed;
 
     [SerializeField]
-    private Text displayDate;
+    private TextMeshProUGUI displayDate;
     public UnityEvent OnHour;
     public UnityEvent OnDay;   // 6AM 
 	public UnityEvent OnNight; // 6PM 
@@ -47,10 +52,25 @@ public class InGameTime : MonoBehaviour
         SetClockOnScreen();
     }
 
-    private void SetClockOnScreen()
-    {
-        displayDate.text = "Time: " + moment.Year.ToString() + " " + moment.Month.ToString() + " " + moment.Day.ToString() + " " + moment.Hour.ToString() + " : " + moment.Minute.ToString();
-    }
+    void SetClockOnScreen() 
+	{ 
+		List<string> monthNames = new List<string>(new string[]{"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"});
+		string hourStr = moment.Hour.ToString();
+		if(hourStr.Length == 1){
+			hourStr = "0" + hourStr;
+		}
+		string minuteStr = moment.Minute.ToString();
+		if(minuteStr.Length == 1){
+			minuteStr = "0" + minuteStr;
+		}
+		int temp;
+		Int32.TryParse(moment.Month.ToString(), out temp);
+		string monthStr = monthNames[temp];
+
+		string timeStr = moment.Year.ToString() + ", " + monthStr + " " + moment.Day.ToString() + ", " + hourStr + ":" + minuteStr;
+		displayDate.text = timeStr;
+		Debug.Log("CALLING: " + moment.Date.ToString()); 
+	}
     
     private void Update() 
 	{	
