@@ -4,6 +4,17 @@ using System.Collections.Generic;
 
 public class ServiceLocator : Singleton<ServiceLocator>
 {
+	// our garbage implementation for adding icons to inventory when a city produces a good
+	public Good weapons;
+	public Good drugs;
+	public Good exotics;
+	public Good food;
+	public Good fuel;
+	public Good ideas;
+	public Good medicine;
+	public Good textiles;
+	public Good water;
+
     private Player player;
     private ShowDetails viewInfo;
     private MainGovernment mainGov;
