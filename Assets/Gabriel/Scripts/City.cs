@@ -5,7 +5,7 @@ using System.Linq;
 using System;
 using MonsterLove.StateMachine;
 
-public class City : MonoBehaviour
+public class City : MonoBehaviour, IMarket
 {
     #region Events
     // Unity Events for Observer Pattern: Calls MainGovernment script to restore spent Tyranny when strategy actions are complete.
@@ -50,32 +50,22 @@ public class City : MonoBehaviour
     #region Goods
     [Space(10)]
     [Header("Goods")]
-    [SerializeField]
-    private float population;
+    public float Population;
     [SerializeField]
     private float foodProductionRate; 
 	[SerializeField]
     private float waterProductionRate; 
 
 	// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
-	[SerializeField]
-    private float MaxDrugsSupply = 2160f;
-	[SerializeField]
-    private float MaxExoticsSupply = 2160f;
-	[SerializeField]
-    private float MaxFoodSupply = 2160f;
-	[SerializeField]
-    private float MaxFuelSupply = 2160f;
-	[SerializeField]
-    private float MaxIdeasSupply = 1000f;
-	[SerializeField]
-    private float MaxMedicineSupply = 2160f;
-	[SerializeField]
-    private float MaxTextilesSupply = 2160f;
-	[SerializeField]
-    private float MaxWaterSupply = 2160f;
-	[SerializeField]
-    private float MaxWeaponsSupply = 2160f;
+	public float MaxDrugsSupply = 2160f;
+	public float MaxExoticsSupply = 2160f;
+	public float MaxFoodSupply = 2160f;
+	public float MaxFuelSupply = 2160f;
+	public float MaxIdeasSupply = 1000f;
+	public float MaxMedicineSupply = 2160f;
+	public float MaxTextilesSupply = 2160f;
+	public float MaxWaterSupply = 2160f;
+	public float MaxWeaponsSupply = 2160f;
 
 	// CONSUMPTION RATES
 	[SerializeField]
@@ -172,6 +162,11 @@ public class City : MonoBehaviour
     #region Unity Callbacks
     private void Awake()
     {
+        // Inventory setup
+        this.PlayerInventory = new Inventory(storeHouseSize, storeHouseWeight, true);
+        this.GovtInventory = new Inventory(govtSize, govtWeight, false);
+        this.PeoplesInventory = new Inventory(peopleSize, peopleWeight, false);
+
         this.goodsToSupply = new Dictionary<Good.GoodType, float>
         {
             { Good.GoodType.Drugs, 10 },

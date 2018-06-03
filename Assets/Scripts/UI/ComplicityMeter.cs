@@ -4,7 +4,6 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Slider))]
 public class ComplicityMeter : MonoBehaviour
 {
-    [SerializeField]
     private Slider complicitySlider;
 
     private void Awake()
