@@ -55,6 +55,21 @@ public class City : MonoBehaviour, IMarket
     private float foodProductionRate; 
 	[SerializeField]
     private float waterProductionRate; 
+    [SerializeField]
+    private float drugsProductionRate;
+    [SerializeField]
+    private float exoticsProductionRate;
+    [SerializeField]
+    private float fuelProductionRate;
+    [SerializeField]
+    private float ideasProductionRate;    
+    [SerializeField]
+    private float medicineProductionRate;
+    [SerializeField]
+    private float textilesProductionRate;
+    [SerializeField]
+    private float weaponsProductionRate;
+
 
 	// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
 	public float MaxDrugsSupply = 2160f;

@@ -28,22 +28,6 @@ public class ShowDetails : MonoBehaviour
 			{ 
 				foreach (RaycastHit2D i in hit) 
 				{
-<<<<<<< HEAD
-                    if (i.transform.gameObject.layer == LayerMask.NameToLayer("City")) {
-                        // TODO
-                        unitInventory.gameObject.SetActive(false);
-                        City c = UnityUtility.GetSafeComponent<City>(i.transform.parent.parent.gameObject);
-                        peopleInventory.SetInventory(c.PeoplesInventory);
-                        govInventory.SetInventory(c.GovtInventory);
-                        storeHouseInventory.SetInventory(c.PlayerInventory);
-                        SelectedMarket = c;
-					}
-					if (i.transform.gameObject.layer == LayerMask.NameToLayer("Unit")) {
-                        unitInventory.gameObject.SetActive(true);
-                        Unit u = UnityUtility.GetSafeComponent<Unit>(i.transform.gameObject);
-                        unitInventory.SetInventory(u.Items);
-						Debug.Log("FOUND Unit");
-=======
                     if (i.transform.gameObject.layer == LayerMask.NameToLayer("City"))
                     {
                         City city = UnityUtility.GetSafeComponent<City>(i.transform.parent.parent.gameObject);
@@ -54,7 +38,6 @@ public class ShowDetails : MonoBehaviour
                     {
                         Unit unit = UnityUtility.GetSafeComponent<Unit>(i.transform.gameObject);
                         unitUI.SetUnit(unit);
->>>>>>> master
 					}
 				}
 			}

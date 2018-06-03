@@ -86,46 +86,4 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
-<<<<<<< HEAD
-    
-    public bool TryDropItem(InventoryUI source, int sourceIndex, int destinationIndex)
-    {
-        if (source == this)
-        {
-            shouldUpdate = false;
-            inventory.SwapGood(sourceIndex, destinationIndex);
-            return true;
-        }
-        Inventory seller = source.inventory;
-        Good item = seller.GetGood(sourceIndex);
-        Assert.IsNotNull(item);
-        if (seller.CanPlayerTrade(inventory) && inventory.CanAddGood(item, destinationIndex))
-        {
-            Player player = ServiceLocator.Instance.GetPlayer();
-            // player is the buyer
-            if (inventory.IsPlayerOwned)
-            {
-// TODO
-                if (!player.CanBuyGood(item))
-                {
-                    return false;
-                }
-                else
-                {
-                    player.BuyGood(item);
-                }
-            }
-            else
-            {
-                player.SellGood(item);
-            }
-            shouldUpdate = false;
-            source.shouldUpdate = false;
-            seller.TradeGoodTo(inventory, sourceIndex, destinationIndex);
-            return true;
-        }
-        return false;
-    }
-=======
->>>>>>> master
 }
