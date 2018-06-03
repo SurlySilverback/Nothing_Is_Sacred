@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 /// <summary>
 /// This is crunch time code, refactor this later
@@ -31,9 +32,9 @@ public class ItemUI : MonoBehaviour
 
     public static void SetGood(Good g)
     {
-        instance.goodType.text = g.type.ToString();
-        instance.price.text = "$ " + ServiceLocator.Instance.GetViewInfo().SelectedMarket.GetPrice(g);
-        instance.heat.text = "Heat: " + Mathf.FloorToInt(g.Heat);
-        instance.weight.text = "Weight: " + g.Weight;
+        instance.goodType.text = g.type.ToString().ToUpper();
+        instance.price.text = "PRICE: $" + Math.Round(ServiceLocator.Instance.GetViewInfo().SelectedMarket.GetPrice(g), 2);
+        instance.heat.text = "HEAT: " + Mathf.FloorToInt(g.Heat);
+        instance.weight.text = "WEIGHT: " + g.Weight;
     }
 }

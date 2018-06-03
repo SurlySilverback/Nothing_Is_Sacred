@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float unitPrice;
 
+    [SerializeField]
+    Transform capitalCity;
+
     // Stores the running total of the Player's money.
     public float Money
     {
@@ -104,7 +107,7 @@ public class Player : MonoBehaviour
         if (Money >= unitPrice)
         {
             Money -= unitPrice;
-            Instantiate(unit);
+            GameObject u = Instantiate(unit, new Vector3(capitalCity.position.x, capitalCity.position.y, -5), Quaternion.identity);
         }
     }
 }

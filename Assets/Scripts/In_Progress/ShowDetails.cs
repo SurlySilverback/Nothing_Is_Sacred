@@ -26,8 +26,9 @@ public class ShowDetails : MonoBehaviour
             //If something was hit, the RaycastHit2D.collider will not be null.
 			if (hit.Length > 0)
 			{ 
-				foreach (RaycastHit2D i in hit) 
+				for(int j = hit.Length - 1; j >= 0; j--)
 				{
+                    RaycastHit2D i = hit[j];
                     if (i.transform.gameObject.layer == LayerMask.NameToLayer("City"))
                     {
                         City city = UnityUtility.GetSafeComponent<City>(i.transform.parent.parent.gameObject);

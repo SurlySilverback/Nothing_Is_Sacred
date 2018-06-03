@@ -50,7 +50,7 @@ public class InventoryUI : MonoBehaviour
             GameObject slotObject = Instantiate(inventorySlot.gameObject, gridTransform);
             InventorySlot slot = slotObject.GetComponent<InventorySlot>();
             slot.GetComponent<InventorySlot>().Items = inventory;
-            slot.OnChangeItem.AddListener(delegate { this.shouldUpdate = false; });
+            slot.BeforeChangeItem.AddListener(delegate { this.shouldUpdate = false; });
             Good good = goods[i];
             if (good != null)
             {
@@ -64,6 +64,14 @@ public class InventoryUI : MonoBehaviour
     // If inventory was changed through logic, update the view
     private void UpdateView()
     {
+        if (currentWeight != null)
+        {
+            currentWeight.text = "Weight: " +  inventory.CurrentWeight.ToString();
+        }
+        if (maxWeight != null)
+        {
+            maxWeight.text = "Cap.: " + inventory.WeightCapacity.ToString();
+        }
         if (!shouldUpdate)
         {
             shouldUpdate = true;

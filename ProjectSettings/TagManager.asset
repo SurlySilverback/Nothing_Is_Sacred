@@ -55,6 +55,9 @@ TagManager:
   - name: Path
     uniqueID: 3461081907
     locked: 0
+  - name: Red Circle
+    uniqueID: 7362103
+    locked: 0
   - name: City
     uniqueID: 1095933603
     locked: 0

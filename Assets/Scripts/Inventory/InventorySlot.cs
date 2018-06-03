@@ -5,14 +5,14 @@ using UnityEngine.Assertions;
 
 public class InventorySlot : MonoBehaviour, IDropHandler
 {
-    public UnityEvent OnChangeItem;
+    public UnityEvent BeforeChangeItem;
     public Inventory Items { get; set; }
 
     private void Awake()
     {
-        if (OnChangeItem == null)
+        if (BeforeChangeItem == null)
         {
-            OnChangeItem = new UnityEvent();
+            BeforeChangeItem = new UnityEvent();
         }
     }
 
@@ -32,31 +32,32 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         }
         InventorySlot originalSlot = item.CurrentSlot.GetComponent<InventorySlot>();
         // If item can be dropped to current slot
-        if (TryDropItem(originalSlot.Items, originalSlot.transform.GetSiblingIndex(), transform.GetSiblingIndex()))
+        if (TryDropItem(originalSlot, originalSlot.transform.GetSiblingIndex(), transform.GetSiblingIndex()))
         {
             if (!IsEmpty())
             {
                 // Then swap item
                 transform.GetChild(0).SetParent(originalSlot.transform);
             }
-            OnChangeItem.Invoke();
-            originalSlot.OnChangeItem.Invoke();
             item.transform.SetParent(transform);
         }
     }
     #endregion
 
     // Changes the local representation of inventory to correspond to visual representation
-    public bool TryDropItem(Inventory source, int sourceIndex, int destinationIndex)
+    public bool TryDropItem(InventorySlot originalSlot, int sourceIndex, int destinationIndex)
     {
-        if (source == Items)
+        Inventory inventory = originalSlot.Items;
+        if (inventory == Items)
         {
+            BeforeChangeItem.Invoke();
+            originalSlot.BeforeChangeItem.Invoke();
             Items.SwapGood(sourceIndex, destinationIndex);
             return true;
         }
-        Good item = source.GetGood(sourceIndex);
+        Good item = inventory.GetGood(sourceIndex);
         Assert.IsNotNull(item);
-        if (source.CanPlayerTrade(Items) && Items.CanAddGood(item, destinationIndex))
+        if (inventory.CanPlayerTrade(Items) && Items.CanAddGood(item, destinationIndex))
         {
             Player player = ServiceLocator.Instance.GetPlayer();
             // player is the buyer
@@ -66,7 +67,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 {
                     return false;
                 }
-                else if (!source.IsPlayerOwned)
+                else if (!inventory.IsPlayerOwned)
                 {
                     player.BuyGood(item);
                 }
@@ -75,7 +76,9 @@ public class InventorySlot : MonoBehaviour, IDropHandler
             {
                 player.SellGood(item);
             }
-            source.TradeGoodTo(Items, sourceIndex, destinationIndex);
+            BeforeChangeItem.Invoke();
+            originalSlot.BeforeChangeItem.Invoke();
+            inventory.TradeGoodTo(Items, sourceIndex, destinationIndex);
             return true;
         }
         return false;
