@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using TMPro;
+using System;
 
 public class MoneyUI : MonoBehaviour
 {
@@ -11,10 +12,11 @@ public class MoneyUI : MonoBehaviour
     {
         player = ServiceLocator.Instance.GetPlayer();
         player.OnMoneyChanged.AddListener(UpdateMoneyUI);
+        moneyUI.text = "MONEY: $" + Math.Round(player.Money, 2);
 	}
 	
     public void UpdateMoneyUI()
     {
-        moneyUI.text = player.Money.ToString();
+        moneyUI.text = "MONEY: $" + Math.Round(player.Money, 2);
     }
 }

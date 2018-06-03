@@ -21,16 +21,16 @@ public class UnitUI : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        SetUnit(ServiceLocator.Instance.GetPlayer().GetComponent<Unit>());
+    }
+
     public void SetUnit(Unit current)
     {
-        if (this.unit == current)
-        {
-            return;
-        }
-
+        if (this.unit != current) OnChangeUnit.Invoke();
         this.unit = current;
         unitToggle.isOn = true;
         unitInventory.SetInventory(this.unit.Items);
-        OnChangeUnit.Invoke();
     }
 }

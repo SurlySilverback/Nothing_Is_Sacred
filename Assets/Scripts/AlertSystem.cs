@@ -19,9 +19,9 @@ public class AlertSystem : MonoBehaviour
 	private IEnumerator AppearThenDelete(string message)
     {
 		GameObject go = Instantiate(alert, transform);
-        TextMeshProUGUI alertText = UnityUtility.GetSafeComponent<TextMeshProUGUI>(go.transform.GetChild(0).gameObject);
+        TextMeshProUGUI alertText = UnityUtility.GetSafeComponent<TextMeshProUGUI>(go.transform.GetChild(1).gameObject);
         alertText.text = message;
-		yield return new WaitForSeconds(timeAlertShown);
+		yield return new WaitForSecondsRealtime(timeAlertShown);
 		Destroy(go);
 	}
 }

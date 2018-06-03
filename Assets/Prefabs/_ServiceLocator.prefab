@@ -51,3 +51,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f077b3b335c073c42983d4b29a5cca41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weapons: {fileID: 11400000, guid: f40e54cf579291b44b680c1ece2ca6b2, type: 2}
+  drugs: {fileID: 11400000, guid: 01b2d110329cf1f48b1ab25bfb9c481b, type: 2}
+  exotics: {fileID: 11400000, guid: 76285e9232ed108469c6c25d9a20416e, type: 2}
+  food: {fileID: 11400000, guid: 6fa040c0012c6f44dbe5b9ca757216a4, type: 2}
+  fuel: {fileID: 11400000, guid: 53218f6b1fcb8e34fb885cece6f8e7cc, type: 2}
+  ideas: {fileID: 11400000, guid: 803c73dc45391934183770d071355f8c, type: 2}
+  medicine: {fileID: 11400000, guid: 523d8cdcfef8d5941a2a0f91de5ce00f, type: 2}
+  textiles: {fileID: 11400000, guid: c0d196f36ac5a174d8cdcf49db97c95e, type: 2}
+  water: {fileID: 11400000, guid: 9edbc764061ff2a428c850589fda4255, type: 2}

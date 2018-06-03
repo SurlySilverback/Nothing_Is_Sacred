@@ -67,20 +67,18 @@ public class CityUI : MonoBehaviour
             textilesMeter.value = city.GetSupply(Good.GoodType.Textiles);
             waterMeter.value = city.GetSupply(Good.GoodType.Water);
             weaponsMeter.value = city.GetSupply(Good.GoodType.Weapons);
-            cityPopulation.text = "Pop.: " + city.Population;
+            cityPopulation.text = "POPULATION: " + city.Population;
         }
     }
 
     public void SetCity(City current)
     {
-        if (city == current)
-        {
-            return;
-        }
+        if (this.city != current)
+            OnChangeCityView.Invoke();
         this.city = current;
         // Text
         cityName.text = current.CityName;
-        cityPopulation.text = "Pop.: " + city.Population;
+        cityPopulation.text = "POPULATION: " + city.Population;
         // Meters
         drugsMeter.maxValue = city.MaxDrugsSupply;
         exoticsMeter.maxValue = city.MaxExoticsSupply;
@@ -97,6 +95,5 @@ public class CityUI : MonoBehaviour
         storeHouseInventory.SetInventory(city.PlayerInventory);
         // Event
         cityToggle.isOn = true;
-        OnChangeCityView.Invoke();
     }
 }

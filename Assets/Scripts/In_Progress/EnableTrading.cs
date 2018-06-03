@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnableTrading : MonoBehaviour
 {
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D()
     {
         Debug.Log("Ahhh");
     }
