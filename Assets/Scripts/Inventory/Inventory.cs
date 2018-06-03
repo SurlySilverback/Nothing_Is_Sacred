@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.Events;
 using UnityEngine.Assertions;
+using System.Linq;
+using System;
 
 public class Inventory
 {
@@ -198,4 +200,14 @@ public class Inventory
 		CurrentWeight = 0;
         OnInventoryChange.Invoke();
     }
+
+	public List<int> GetGoodsOfType (Good.GoodType type) {
+		List<int> result = new List<int> ();
+		for (int i = 0; i < inventory.Length; i++) {
+			if (inventory[i] != null && type == inventory[i].type) {
+				result.Add (i);
+			}
+		}
+		return result;
+	}
 }

@@ -52,23 +52,23 @@ public class City : MonoBehaviour, IMarket
     [Header("Goods")]
     public float Population;
     [SerializeField]
-    private float foodProductionRate; 
+    private float ProduceFood; 
 	[SerializeField]
-    private float waterProductionRate; 
+    private float ProduceWater; 
     [SerializeField]
-    private float drugsProductionRate;
+    private float ProduceDrugs;
     [SerializeField]
-    private float exoticsProductionRate;
+    private float ProduceExotics;
     [SerializeField]
-    private float fuelProductionRate;
+    private float ProduceFuel;
     [SerializeField]
-    private float ideasProductionRate;    
+    private float ProduceIdeas;    
     [SerializeField]
-    private float medicineProductionRate;
+    private float ProduceMedicine;
     [SerializeField]
-    private float textilesProductionRate;
+    private float ProduceTextiles;
     [SerializeField]
-    private float weaponsProductionRate;
+    private float ProduceWeapons;
 
 
 	// STOREHOUSE SIZES -- represents three months worth of storage for food and water at max capacity.
@@ -225,6 +225,8 @@ public class City : MonoBehaviour, IMarket
     private void DetermineState()
     {
         ConsumeGoods();
+		ProduceGoods ();
+		UpdateInventory ();
         CalculateChaos();
         switch (State)
         {
@@ -339,17 +341,169 @@ public class City : MonoBehaviour, IMarket
     #endregion
 
     #region Helper
+	// called upon Trade with People
+	private void UpdateSupplyOnTradeWithPeople() {
+		foreach (Good.GoodType type in goodsToSupply.Keys) {
+			// store number of icons in inventory being displayed
+			int countInInventory = GovtInventory.GetGoodsOfType (type).Count + PeoplesInventory.GetGoodsOfType (type).Count;
+			// calculate how much was there before
+			float currentSupply = goodsToSupply [type];
+			float max = (type == Good.GoodType.Ideas) ? MaxIdeasSupply : MaxDrugsSupply;
+			int projectedNum = ((currentSupply / max) < 0.5f) ? 0 : Mathf.FloorToInt ((currentSupply - (max * 0.5f)) / 100);
+			float diff = 100.0f * (projectedNum - countInInventory); // 100 is value of single icon
+			goodsToSupply [type] += diff;
+		}
+	}
+
+	// called upon DetermineState(), alters number of icons in government inventory based on city's supply of good
+	private void UpdateInventory() {
+		foreach (Good.GoodType type in goodsToSupply.Keys) {
+			float currentSupply = goodsToSupply [type];
+			float max = (type == Good.GoodType.Ideas) ? MaxIdeasSupply : MaxDrugsSupply;
+			int projectedNum = ((currentSupply / max) < 0.5f) ? 0 : Mathf.FloorToInt ((currentSupply - (max * 0.5f)) / 100);
+			// projectedNum should be between 0 and 10 for most goods and max of 5 for ideas
+			List<int> govtInventoryGoods = GovtInventory.GetGoodsOfType(type);
+			List<int> peopleInventoryGoods = PeoplesInventory.GetGoodsOfType (type);
+			if (projectedNum < govtInventoryGoods.Count + peopleInventoryGoods.Count) {
+				// consumed
+				int numToRemove = govtInventoryGoods.Count + peopleInventoryGoods.Count - projectedNum;
+				// take from people first
+				for (int i = peopleInventoryGoods.Count - 1; i > 0 && numToRemove > 0; i--) {
+					PeoplesInventory.RemoveGoodIfAny (i);
+					numToRemove--;
+				}
+				for (int i = govtInventoryGoods.Count - 1; i > 0 && numToRemove > 0; i--) {
+					GovtInventory.RemoveGoodIfAny (i);
+					numToRemove--;
+				}
+			} else if (projectedNum > govtInventoryGoods.Count + peopleInventoryGoods.Count) {
+				// produced
+				int numToAdd = projectedNum - govtInventoryGoods.Count - peopleInventoryGoods.Count;
+				for (int i = 0; i < numToAdd; i++) {
+					switch(type) {
+					case Good.GoodType.Food:
+						GovtInventory.AddGood (ServiceLocator.Instance.food);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.food);
+						break;
+					case Good.GoodType.Drugs:
+						GovtInventory.AddGood (ServiceLocator.Instance.drugs);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.drugs);
+						break;
+					case Good.GoodType.Exotics:
+						GovtInventory.AddGood (ServiceLocator.Instance.exotics);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.exotics);
+						break;
+					case Good.GoodType.Fuel:
+						GovtInventory.AddGood (ServiceLocator.Instance.fuel);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.fuel);
+						break;
+					case Good.GoodType.Ideas:
+						GovtInventory.AddGood (ServiceLocator.Instance.ideas);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.ideas);
+						break;
+					case Good.GoodType.Medicine:
+						GovtInventory.AddGood (ServiceLocator.Instance.medicine);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.medicine);
+						break;
+					case Good.GoodType.Textiles:
+						GovtInventory.AddGood (ServiceLocator.Instance.textiles);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.textiles);
+						break;
+					case Good.GoodType.Water:
+						GovtInventory.AddGood (ServiceLocator.Instance.water);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.water);
+						break;
+					case Good.GoodType.Weapons:
+						GovtInventory.AddGood (ServiceLocator.Instance.weapons);
+						if (i + 1 >= numToAdd) {
+							break;
+						}
+						i++;
+						PeoplesInventory.AddGood (ServiceLocator.Instance.weapons);
+						break;
+					default:
+						break;
+					}
+				}
+			}
+		}
+	}
+
+	// Call each Good type in the Supply dictionary and increase its supply by one in-game hour's worth.
+	// Supply is set to MaxSupply for Good type if consumption leads to > MaxSupply. 
+	private void ProduceGoods() {
+		goodsToSupply[Good.GoodType.Drugs] = ((goodsToSupply[Good.GoodType.Drugs] + ProduceDrugs) > MaxDrugsSupply) ? 
+			MaxDrugsSupply : goodsToSupply[Good.GoodType.Drugs] + ProduceDrugs;
+		goodsToSupply[Good.GoodType.Exotics] = ((goodsToSupply[Good.GoodType.Exotics] + ProduceExotics) > MaxExoticsSupply) ? 
+			MaxExoticsSupply : goodsToSupply[Good.GoodType.Exotics] + ProduceExotics;
+		goodsToSupply[Good.GoodType.Food] = ((goodsToSupply[Good.GoodType.Food] + ProduceFood) > MaxFoodSupply) ? 
+			MaxFoodSupply : goodsToSupply[Good.GoodType.Food] + ProduceFood;
+		goodsToSupply[Good.GoodType.Fuel] = ((goodsToSupply[Good.GoodType.Fuel] + ProduceFuel) > MaxFuelSupply) ? 
+			MaxFuelSupply : goodsToSupply[Good.GoodType.Fuel] + ProduceFuel;
+		goodsToSupply[Good.GoodType.Medicine] = ((goodsToSupply[Good.GoodType.Medicine] + ProduceMedicine) > MaxMedicineSupply) ? 
+			MaxMedicineSupply : goodsToSupply[Good.GoodType.Medicine] + ProduceMedicine;
+		goodsToSupply[Good.GoodType.Textiles] = ((goodsToSupply[Good.GoodType.Textiles] + ProduceTextiles) > MaxTextilesSupply) ? 
+			MaxTextilesSupply : goodsToSupply[Good.GoodType.Textiles] + ProduceTextiles;
+		goodsToSupply[Good.GoodType.Water] = ((goodsToSupply[Good.GoodType.Water] + ProduceWater) > MaxWaterSupply) ? 
+			MaxWaterSupply : goodsToSupply[Good.GoodType.Water] + ProduceWater;
+		goodsToSupply[Good.GoodType.Weapons] = ((goodsToSupply[Good.GoodType.Weapons] + ProduceWeapons) > MaxWeaponsSupply) ? 
+			MaxWeaponsSupply : goodsToSupply[Good.GoodType.Weapons] + ProduceWeapons;
+		goodsToSupply[Good.GoodType.Ideas] = ((goodsToSupply[Good.GoodType.Ideas] + ProduceIdeas) > MaxIdeasSupply) ? 
+			MaxIdeasSupply : goodsToSupply[Good.GoodType.Ideas] + ProduceIdeas;
+	}
+
     // Call each Good type in the Supply dictionary and reduce its supply by one in-game hour's worth.
+	// Supply is set to zero if consumption leads to < 0.
     private void ConsumeGoods()
     {
-        goodsToSupply[Good.GoodType.Drugs] -= ConsumeDrugs;
-        goodsToSupply[Good.GoodType.Exotics] -= ConsumeExotics;
-        goodsToSupply[Good.GoodType.Food] -= ConsumeFood;
-        goodsToSupply[Good.GoodType.Fuel] -= ConsumeFuel;
-        goodsToSupply[Good.GoodType.Medicine] -= ConsumeMedicine;
-        goodsToSupply[Good.GoodType.Textiles] -= ConsumeTextiles;
-        goodsToSupply[Good.GoodType.Water] -= ConsumeWater;
-        goodsToSupply[Good.GoodType.Weapons] -= ConsumeWeapons;
+		goodsToSupply[Good.GoodType.Drugs] = ((goodsToSupply[Good.GoodType.Drugs] - ConsumeDrugs) < 0.0f) ? 
+			0.0f : goodsToSupply[Good.GoodType.Drugs] - ConsumeDrugs;
+		goodsToSupply[Good.GoodType.Exotics] = ((goodsToSupply[Good.GoodType.Exotics] - ConsumeExotics) < 0.0f) ? 
+			0.0f : goodsToSupply[Good.GoodType.Exotics] - ConsumeExotics;
+		goodsToSupply[Good.GoodType.Food] = ((goodsToSupply[Good.GoodType.Food] - ConsumeFood) < 0.0f) ? 
+			0.0f : goodsToSupply[Good.GoodType.Food] - ConsumeFood;
+		goodsToSupply[Good.GoodType.Fuel] = ((goodsToSupply[Good.GoodType.Fuel] - ConsumeFuel) < 0.0f) ? 
+			0.0f : goodsToSupply[Good.GoodType.Fuel] - ConsumeFuel;
+		goodsToSupply[Good.GoodType.Medicine] = ((goodsToSupply[Good.GoodType.Medicine] - ConsumeMedicine) < 0.0f) ? 
+			0.0f : goodsToSupply[Good.GoodType.Medicine] - ConsumeMedicine;
+		goodsToSupply[Good.GoodType.Textiles] = ((goodsToSupply[Good.GoodType.Textiles] - ConsumeTextiles) < 0.0f) ? 
+			0.0f : goodsToSupply[Good.GoodType.Drugs] - ConsumeDrugs;
+		goodsToSupply[Good.GoodType.Water] = ((goodsToSupply[Good.GoodType.Water] - ConsumeWater) < 0.0f) ? 
+			0.0f : goodsToSupply[Good.GoodType.Water] - ConsumeWater;
+		goodsToSupply[Good.GoodType.Weapons] = ((goodsToSupply[Good.GoodType.Weapons] - ConsumeWeapons) < 0.0f) ? 
+			0.0f : goodsToSupply[Good.GoodType.Weapons] - ConsumeWeapons;
     }
 
     private void CalculateChaos()
