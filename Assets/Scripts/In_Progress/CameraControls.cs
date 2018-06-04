@@ -25,8 +25,11 @@ public class CameraControls : MonoBehaviour
     [SerializeField] 
     private float panSpeed = 4000;
 
-    [SerializeField] 
-    float boundingBoxPadding = 2f;
+    public float minX;
+    public float maxX;
+    public float minY;
+    public float maxY;
+
     private Camera myCamera;
     private float originalZoomSize;
 
@@ -54,11 +57,6 @@ public class CameraControls : MonoBehaviour
         // Panning
         Vector3 position = this.transform.localPosition;
         float panChange = Time.unscaledDeltaTime * panSpeed * (this.myCamera.orthographicSize / originalZoomSize);
-
-        const float minX = -16940;
-        const float maxX = 16940;
-        const float minY = -14014;
-        const float maxY = 14014;
 
         Rect boundingBox = Rect.MinMaxRect(minX, minY, maxX, maxY);
         
