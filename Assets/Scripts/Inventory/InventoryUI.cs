@@ -33,6 +33,8 @@ public class InventoryUI : MonoBehaviour
     // Sets the inventory UI to the specified inventory
     public void SetInventory(Inventory inventory)
     {
+        if (this.inventory == inventory) return;
+
         // Setup inventory(logic component) and add listener to detect changes
         Assert.IsNotNull(inventory);
         if (this.inventory != null)
@@ -41,6 +43,15 @@ public class InventoryUI : MonoBehaviour
         }
         this.inventory = inventory;
         this.inventory.OnInventoryChange.AddListener(UpdateView);
+
+        if (currentWeight != null)
+        {
+            currentWeight.text = "WEIGHT: " + inventory.CurrentWeight.ToString();
+        }
+        if (maxWeight != null)
+        {
+            maxWeight.text = "CAPACITY: " + inventory.WeightCapacity.ToString();
+        }
 
         // Setup UI elements and add listener to detect changes
         IList<Good> goods = inventory.GetEntireInventory();

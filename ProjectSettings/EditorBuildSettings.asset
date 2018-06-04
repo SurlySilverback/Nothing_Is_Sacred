@@ -17,3 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/wli025/Scenes/tutorial.unity
     guid: 93380aa4180f241ffbfa14c69f192c87
+  - enabled: 1
+    path: Assets/JBeto/Scenes/Everything.unity
+    guid: 562a97579cfa0fb4897adcb0ef9995f4

@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tension: 1
-  clickRadius: 1
   OnEndDrawing:
     m_PersistentCalls:
       m_Calls: []

@@ -102,3 +102,33 @@ MonoBehaviour:
       m_RotationOrder: 4
     SpatialBlend: 0
     ReverbZoneMix: 1
+  - EventName: OST
+    RandomWeight: 1
+    Volume: 1
+    AudioClip: {fileID: 8300000, guid: 4f764e60755aa3d4d914ba1e6e9c24a1, type: 3}
+    Priority: 128
+    GroupID: 0
+    Loop: 1
+    StopWhenSourceDies: 1
+    KeepLoopingWhenSourceDies: 0
+    DoNotTrackSourceMovement: 0
+    BypassEffects: 0
+    BypassListenerEffects: 0
+    BypassReverbZones: 0
+    DopplerLevel: 1
+    MaxDistance: 500
+    MinDistance: 1
+    Mute: 0
+    OutputAudioMixerGroup: {fileID: 0}
+    PanStereo: 0
+    Pitch: 1
+    Spatialize: 0
+    RolloffMode: 0
+    CustomRolloffCurve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    SpatialBlend: 0
+    ReverbZoneMix: 1

@@ -12,8 +12,7 @@ public class UnitController : MonoBehaviour
 {
 	enum State { Start, DrawMode, MakePoint, StillHeld, LastNode };
     private State state = State.Start;
-
-    private Unit unit;
+    
     [SerializeField]
 	private float tension = 1.0f;
     [SerializeField]
@@ -30,7 +29,6 @@ public class UnitController : MonoBehaviour
 	// Use this for initialization of linerenderer and tension
 	void Start()
     {
-        unit = GetComponent<Unit>();
 		state = State.Start;
 		controlPoints = new List<Vector3>();
 		lr = GetComponent<LineRenderer>();
