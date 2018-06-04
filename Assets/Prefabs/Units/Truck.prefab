@@ -73,7 +73,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnitName: a
   baseSpeed: 10
-  inventorySize: 10
+  inventorySize: 12
   weightCap: 100
 --- !u!114 &114935935805912106
 MonoBehaviour:
