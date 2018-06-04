@@ -13,7 +13,6 @@ public class Inventory
     public float CurrentWeight { get; private set; }
     private Good[] inventory;
     public UnityEvent OnInventoryChange { get; private set; }
-    private Player player;
 
     public Inventory(int size, float weightCap, bool isPlayerOwned)
     {
@@ -23,7 +22,6 @@ public class Inventory
         WeightCapacity = weightCap;
         CurrentWeight = 0;
         this.inventory = new Good[Size];
-        this.player = ServiceLocator.Instance.GetPlayer();
         OnInventoryChange = new UnityEvent();
     }
 

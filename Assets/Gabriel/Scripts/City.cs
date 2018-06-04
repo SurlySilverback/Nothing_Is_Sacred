@@ -349,7 +349,7 @@ public class City : MonoBehaviour, IMarket
 			// calculate how much was there before
 			float currentSupply = goodsToSupply [type];
 			float max = (type == Good.GoodType.Ideas) ? MaxIdeasSupply : MaxDrugsSupply;
-			int projectedNum = ((currentSupply / max) < 0.5f) ? 0 : Mathf.FloorToInt ((currentSupply - (max * 0.5f)) / 100);
+			int projectedNum = ((currentSupply / max) < 0.3f) ? 0 : Mathf.FloorToInt ((currentSupply - (max * 0.3f)) / 100);
 			float diff = 100.0f * (projectedNum - countInInventory); // 100 is value of single icon
 			goodsToSupply [type] += diff;
 		}
@@ -360,7 +360,7 @@ public class City : MonoBehaviour, IMarket
 		foreach (Good.GoodType type in goodsToSupply.Keys) {
 			float currentSupply = goodsToSupply [type];
 			float max = (type == Good.GoodType.Ideas) ? MaxIdeasSupply : MaxDrugsSupply;
-			int projectedNum = ((currentSupply / max) < 0.5f) ? 0 : Mathf.FloorToInt ((currentSupply - (max * 0.5f)) / 100);
+			int projectedNum = ((currentSupply / max) < 0.3f) ? 0 : Mathf.FloorToInt ((currentSupply - (max * 0.3f)) / 100);
 			// projectedNum should be between 0 and 10 for most goods and max of 5 for ideas
 			List<int> govtInventoryGoods = GovtInventory.GetGoodsOfType(type);
 			List<int> peopleInventoryGoods = PeoplesInventory.GetGoodsOfType (type);

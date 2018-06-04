@@ -11,8 +11,8 @@ public class DrawCurve : MonoBehaviour {
 
 	[SerializeField]
 	private float tension = 1.0f;
-	[SerializeField]
-	private float clickRadius = 1.0f;
+	// [SerializeField]
+	// private float clickRadius = 1.0f;
 
 	private int ptsInBetween = 40;
 	private const float CONST_Z = -5.0f;

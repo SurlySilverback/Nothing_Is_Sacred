@@ -4,8 +4,24 @@ using UnityEngine;
 
 public class EnableTrading : MonoBehaviour
 {
-    void OnTriggerEnter2D()
+    private City city;
+    private ShowDetails details;
+    /*
+    private void Start()
     {
-        Debug.Log("Ahhh");
+        city = transform.parent.parent.GetComponent<City>();
+        details = ServiceLocator.Instance.GetViewInfo();
     }
+    
+    private void OnTriggerEnter2D()
+    {
+        city.PeoplesInventory.IsTradeEnabled = true;
+        city.GovtInventory.IsTradeEnabled = true;
+    }
+
+    private void OnTriggerExit2D()
+    {
+        city.PeoplesInventory.IsTradeEnabled = false;
+        city.GovtInventory.IsTradeEnabled = false;
+    } */
 }
