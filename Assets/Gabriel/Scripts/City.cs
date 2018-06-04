@@ -9,7 +9,7 @@ public class City : MonoBehaviour, IMarket
 {
     #region Events
     // Unity Events for Observer Pattern: Calls MainGovernment script to restore spent Tyranny when strategy actions are complete.
-  public UnityEvent OnChangeState;
+    public UnityEvent OnChangeState;
 	public UnityEvent OnEndPacifying;
 	public UnityEvent OnEndInfiltrating;
 	public UnityEvent OnEndEndingDemonstrations;
