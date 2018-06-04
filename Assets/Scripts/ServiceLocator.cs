@@ -4,8 +4,16 @@ using System.Collections.Generic;
 
 public class ServiceLocator : Singleton<ServiceLocator>
 {
-	// our garbage implementation for adding icons to inventory when a city produces a good
-	public Good weapons;
+    public static ServiceLocator Instance
+    {
+        get
+        {
+            return FindObjectOfType<ServiceLocator>();
+        }
+    }
+
+    // our garbage implementation for adding icons to inventory when a city produces a good
+    public Good weapons;
 	public Good drugs;
 	public Good exotics;
 	public Good food;

@@ -32,9 +32,12 @@ public class ItemUI : MonoBehaviour
 
     public static void SetGood(Good g)
     {
-        instance.goodType.text = g.type.ToString().ToUpper();
-        instance.price.text = "PRICE: $" + Math.Round(ServiceLocator.Instance.GetViewInfo().SelectedMarket.GetPrice(g), 2);
-        instance.heat.text = "HEAT: " + Mathf.FloorToInt(g.Heat);
-        instance.weight.text = "WEIGHT: " + g.Weight;
+        if (g != null)
+        {
+            instance.goodType.text = g.type.ToString().ToUpper();
+            instance.price.text = "PRICE: $" + Math.Round(ServiceLocator.Instance.GetViewInfo().SelectedMarket.GetPrice(g), 2);
+            instance.heat.text = "HEAT: " + Mathf.FloorToInt(g.Heat);
+            instance.weight.text = "WEIGHT: " + g.Weight;
+        }
     }
 }
