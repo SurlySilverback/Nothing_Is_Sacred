@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 public class ShowDetails : MonoBehaviour
 {
     public IMarket SelectedMarket { get; private set; }
+    public City capitalCity;
 
     [Header("City View")]
     [SerializeField]
@@ -13,7 +14,12 @@ public class ShowDetails : MonoBehaviour
     [Header("Unit View")]
     [SerializeField]
     private UnitUI unitUI;
-    
+
+    private void Awake()
+    {
+        SelectedMarket = capitalCity;
+    }
+
     private void Update () 
 	{
 		//If the left mouse button is clicked.

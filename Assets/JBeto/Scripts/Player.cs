@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     {
         get
         {
-            return this.money;
+            return this.complicity;
         }
         set
         {
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
         if (Money >= unitPrice)
         {
             Money -= unitPrice;
-            GameObject u = Instantiate(unit, new Vector3(capitalCity.position.x, capitalCity.position.y, -5), Quaternion.identity);
+            Instantiate(unit, new Vector3(capitalCity.position.x, capitalCity.position.y, -5), Quaternion.identity);
         }
     }
 }

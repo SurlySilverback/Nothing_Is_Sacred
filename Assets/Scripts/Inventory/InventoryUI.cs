@@ -33,6 +33,8 @@ public class InventoryUI : MonoBehaviour
     // Sets the inventory UI to the specified inventory
     public void SetInventory(Inventory inventory)
     {
+        if (this.inventory == inventory) return;
+
         // Setup inventory(logic component) and add listener to detect changes
         Assert.IsNotNull(inventory);
         if (this.inventory != null)
