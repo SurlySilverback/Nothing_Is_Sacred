@@ -44,7 +44,8 @@ public class Unit : MonoBehaviour
 		drawCurve.OnEndDrawing.AddListener(delegate{CallStartMove();});
 	}
 
-	private void Update()
+    private void OnDisable()
     {
-	}
+        Items.ClearInventory();
+    }
 }

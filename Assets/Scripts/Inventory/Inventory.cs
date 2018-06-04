@@ -16,7 +16,7 @@ public class Inventory
 
     public Inventory(int size, float weightCap, bool isPlayerOwned)
     {
-        IsTradeEnabled = false;
+        IsTradeEnabled = true;
         IsPlayerOwned = isPlayerOwned;
         Size = size;
         WeightCapacity = weightCap;

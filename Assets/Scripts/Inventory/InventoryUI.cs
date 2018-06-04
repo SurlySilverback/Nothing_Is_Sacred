@@ -44,6 +44,15 @@ public class InventoryUI : MonoBehaviour
         this.inventory = inventory;
         this.inventory.OnInventoryChange.AddListener(UpdateView);
 
+        if (currentWeight != null)
+        {
+            currentWeight.text = "WEIGHT: " + inventory.CurrentWeight.ToString();
+        }
+        if (maxWeight != null)
+        {
+            maxWeight.text = "CAPACITY: " + inventory.WeightCapacity.ToString();
+        }
+
         // Setup UI elements and add listener to detect changes
         IList<Good> goods = inventory.GetEntireInventory();
         UnityUtility.DestroyChildren(gridTransform);

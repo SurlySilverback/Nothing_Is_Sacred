@@ -12,19 +12,11 @@ public class EnableTrading : MonoBehaviour
         city = transform.parent.parent.GetComponent<City>();
         details = ServiceLocator.Instance.GetViewInfo();
     }
-
-    private void OnTriggerStay2D()
+    /*
+    private void OnTriggerEnter2D()
     {
-        if ((details.SelectedMarket as City) == city)
-        {
-            city.PeoplesInventory.IsTradeEnabled = true;
-            city.GovtInventory.IsTradeEnabled = true;
-        }
-        else
-        {
-            city.PeoplesInventory.IsTradeEnabled = false;
-            city.GovtInventory.IsTradeEnabled = false;
-        }
+        city.PeoplesInventory.IsTradeEnabled = true;
+        city.GovtInventory.IsTradeEnabled = true;
     }
 
     private void OnTriggerExit2D()
@@ -32,4 +24,5 @@ public class EnableTrading : MonoBehaviour
         city.PeoplesInventory.IsTradeEnabled = false;
         city.GovtInventory.IsTradeEnabled = false;
     }
+    */
 }
